@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyWorld extends World {
+
+    private Hero Gandalf;
+
     public MyWorld() {
         super();
 
@@ -26,5 +29,31 @@ public class MyWorld extends World {
 
         // wall.addImage(wallAttached.getBodyImage());
 
+        // Add our Hero
+        Gandalf = new Hero(this);
+
+        // Add other Bodies
+        // Sauron
+        Shape sauronShape = new PolygonShape(-2.16f,4.66f,
+                2.22f,4.68f,
+                2.18f,-4.66f,
+                -2.42f,-4.62f);
+        DynamicBody sauron = new DynamicBody(this, sauronShape);
+        sauron.addImage((new BodyImage("data/sauron.png", 10f)));
+        sauron.setPosition(new Vec2(-20.5f, 5f));
+
+        // Kirby
+        Shape kirbyShape = new PolygonShape(-2.44f,2.37f,
+                2.38f,2.35f,
+                2.21f,-2.27f,
+                -2.35f,-2.27f);
+        DynamicBody kirby = new DynamicBody(this, kirbyShape);
+        kirby.addImage(new BodyImage("data/kirby.gif", 5f));
+        kirby.setPosition(new Vec2(0, -10));
+    }
+
+    // Getter for our Hero
+    public Hero getHero() {
+        return Gandalf;
     }
 }

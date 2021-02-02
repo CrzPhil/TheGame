@@ -2,33 +2,32 @@ package com.company;
 
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
-
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
-import javax.swing.plaf.basic.BasicTreeUI;
+
 
 public class Game {
     // Create World
-    private World world;
+    private MyWorld world;
 
     // Create View
     private MyView view;
-
-    // Create Characters
-    private MyShapes characters;
 
     public Game() {
         // build the world
         world = new MyWorld();
 
-        // Characters
-        characters = new MyShapes(world);
-
         // View
         view = new MyView(world, 1200, 800);
+        // view.setZoom(20);
 
         // Mouse Listener
         view.addMouseListener(new MouseHandler(view));
+
+        // Keyboard Listener
+        Controller HeroController = new Controller(world.getHero());
+        view.addKeyListener(HeroController);
+
+        view.addMouseListener(new GiveFocus(view));
 
         // Frame
         final JFrame frame = new JFrame("Basic World");
@@ -50,7 +49,6 @@ public class Game {
 
     public static void main(String[] args) {
         new Game();
-
     }
 
 }
