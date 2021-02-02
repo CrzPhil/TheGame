@@ -1,4 +1,4 @@
-package game;
+package com.company;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
@@ -241,8 +241,8 @@ public class PolygonEditor extends JPanel
      * @param args command line arguments.
      */
     public static void main(String[] args) {
-        String fileName = "data/kirby.gif";
-        float boxHeight = 5f;
+        String fileName = "data/sphinx.png";
+        float boxHeight = 10f;
         int firstCoordIndex = 0;
         if (args.length > 0) {
             try {

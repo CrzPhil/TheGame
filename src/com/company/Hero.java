@@ -4,21 +4,24 @@ import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
 public class Hero extends Walker  {
-    private static final Shape gandalfShape = new PolygonShape(-0.93f,1.56f,
-            2.33f,1.63f,
-            2.32f,-2.47f,
-            -1.74f,-2.46f,
-            -1.64f,1.32f);
+    private static final Shape heroShape = new PolygonShape(1.76f,-3.3f,
+            -1.43f,-3.32f,
+            -1.5f,3.19f,
+            -0.41f,3.22f,
+            2.0f,1.26f);
 
-    private static final BodyImage gandalfImage = new BodyImage("data/gandalf.png", 5f);
+    private static BodyImage heroImage = new BodyImage("data/spartan_idle.png", 7f);
 
     private int health;
 
     public Hero(World world) {
-        super(world, gandalfShape);
-        addImage(gandalfImage);
+        super(world, heroShape);
+        addImage(heroImage);
         this.health = 100;
         this.setPosition(new Vec2(8, -10));
     }
 
+    public static void setHeroImage(BodyImage heroImage) {
+        Hero.heroImage = heroImage;
+    }
 }

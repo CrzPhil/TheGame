@@ -1,14 +1,17 @@
 package com.company;
 
+import city.cs.engine.BodyImage;
+import org.jbox2d.common.Vec2;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Controller implements KeyListener {
     private static final float MOVEMENT_SPEED = 6;
-    private Hero Gandalf;
+    private Hero Spartan;
 
-    public Controller(Hero Gandalf) {
-        this.Gandalf = Gandalf;
+    public Controller(Hero Spartan) {
+        this.Spartan = Spartan;
     }
 
     @Override
@@ -19,11 +22,13 @@ public class Controller implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_A) {
-            Gandalf.startWalking(-MOVEMENT_SPEED);
+            Spartan.startWalking(-MOVEMENT_SPEED);
+            Spartan.setHeroImage(new BodyImage("data/spartan_left.png"));
         } else if (key == KeyEvent.VK_D) {
-            Gandalf.startWalking(MOVEMENT_SPEED);
+            Spartan.startWalking(MOVEMENT_SPEED);
+            Spartan.setHeroImage(new BodyImage("data/spartan_right.png"));
         } else if (key == KeyEvent.VK_SPACE) {
-            Gandalf.jump(5f);
+            Spartan.jump(5f);
         }
     }
 
@@ -31,9 +36,12 @@ public class Controller implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_A) {
-            Gandalf.stopWalking();
+            Spartan.stopWalking();
+            // To make slow-down process not to abrupt, yet not too slippery
+            Spartan.setLinearVelocity(new Vec2(-3, 0));
         } else if (key == KeyEvent.VK_D) {
-            Gandalf.stopWalking();
+            Spartan.stopWalking();
+            Spartan.setLinearVelocity(new Vec2(3, 0));
         }
     }
 }
