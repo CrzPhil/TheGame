@@ -27,12 +27,20 @@ public class MyWorld extends World {
         BodyImage wallImage = new BodyImage("data/wall.png");
         AttachedImage wallAttached = new AttachedImage(wall, wallImage, 16, 0, new Vec2(0, 0));
 
-        // wall.addImage(wallAttached.getBodyImage());
+        // Text
+        Shape scrollShape = new BoxShape(8, 3);
+        Body scroll = new StaticBody(this, scrollShape);
+        scroll.setPosition(new Vec2(-3, 8.5f));
+        BodyImage scrollTexture = new BodyImage("data/scroll2.png");
+        AttachedImage scrollAttached = new AttachedImage(scroll, scrollTexture, 8, 0, new Vec2(0, 0));
 
         // Add our Hero
         Spartan = new Hero(this);
 
         // Add other Bodies
+        Arrow test = new Arrow(this);
+        test.setPosition(new Vec2(-20.5f, 13f));
+
         // Sphinx
         Shape villainShape = new PolygonShape(-4.31f,-4.58f,
                 4.8f,-4.46f,
@@ -42,14 +50,6 @@ public class MyWorld extends World {
         sphinx.addImage((new BodyImage("data/sphinx.png", 10f)));
         sphinx.setPosition(new Vec2(-20.5f, 5f));
 
-        // Kirby
-        Shape kirbyShape = new PolygonShape(-2.44f,2.37f,
-                2.38f,2.35f,
-                2.21f,-2.27f,
-                -2.35f,-2.27f);
-        DynamicBody kirby = new DynamicBody(this, kirbyShape);
-        kirby.addImage(new BodyImage("data/kirby.gif", 5f));
-        kirby.setPosition(new Vec2(0, -10));
     }
 
     // Getter for our Hero

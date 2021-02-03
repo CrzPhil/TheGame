@@ -21,7 +21,9 @@ public class Hero extends Walker  {
         this.setPosition(new Vec2(8, -10));
     }
 
-    public static void setHeroImage(BodyImage heroImage) {
-        Hero.heroImage = heroImage;
+    public void setHeroImage(BodyImage direction) {
+        removeAllImages();
+        Hero.heroImage = direction;
+        addImage(heroImage);
     }
 }

@@ -23,10 +23,10 @@ public class Controller implements KeyListener {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_A) {
             Spartan.startWalking(-MOVEMENT_SPEED);
-            Spartan.setHeroImage(new BodyImage("data/spartan_left.png"));
+            Spartan.setHeroImage(new BodyImage("data/spartan_left.png", 7f));
         } else if (key == KeyEvent.VK_D) {
             Spartan.startWalking(MOVEMENT_SPEED);
-            Spartan.setHeroImage(new BodyImage("data/spartan_right.png"));
+            Spartan.setHeroImage(new BodyImage("data/spartan_right.png", 7f));
         } else if (key == KeyEvent.VK_SPACE) {
             Spartan.jump(5f);
         }
@@ -37,10 +37,12 @@ public class Controller implements KeyListener {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_A) {
             Spartan.stopWalking();
+            Spartan.setHeroImage(new BodyImage("data/spartan_idle_left.png", 7f));
             // To make slow-down process not to abrupt, yet not too slippery
             Spartan.setLinearVelocity(new Vec2(-3, 0));
         } else if (key == KeyEvent.VK_D) {
             Spartan.stopWalking();
+            Spartan.setHeroImage(new BodyImage("data/spartan_idle.png", 7f));
             Spartan.setLinearVelocity(new Vec2(3, 0));
         }
     }
