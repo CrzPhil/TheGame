@@ -7,6 +7,7 @@ import org.jbox2d.common.Vec2;
 public class Tracker implements StepListener {
     private MyView view;
     private Hero spartan;
+
     public Tracker(MyView view, Hero spartan) {
         this.view = view;
         this.spartan = spartan;
@@ -19,6 +20,6 @@ public class Tracker implements StepListener {
 
     @Override
     public void postStep(StepEvent stepEvent) {
-        view.setCentre(new Vec2(spartan.getPosition()));
+
     }
 }

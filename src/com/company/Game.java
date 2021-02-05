@@ -21,13 +21,17 @@ public class Game {
         // view.setZoom(20);
 
         // Mouse Listener
-        view.addMouseListener(new MouseHandler(view));
+        view.addMouseListener(new MouseHandler(view, world));
 
         // Keyboard Listener
         Controller HeroController = new Controller(world.getHero());
         view.addKeyListener(HeroController);
 
         view.addMouseListener(new GiveFocus(view));
+
+        /*// Tracker
+        Tracker tracker = new Tracker(view, world.getHero());
+        world.addStepListener(tracker);*/
 
         // Frame
         final JFrame frame = new JFrame("Basic World");
@@ -39,7 +43,7 @@ public class Game {
         frame.setVisible(true);
 
         // Debugger
-        //JFrame debugView = new DebugViewer(world, 800, 800);
+        // JFrame debugView = new DebugViewer(world, 800, 800);
 
         world.start();
 

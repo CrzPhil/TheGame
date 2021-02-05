@@ -20,26 +20,32 @@ public class MyWorld extends World {
         ground.setPosition(new Vec2(0, -11.5f));
 
         // Tower
-        Shape wallShape = new BoxShape(5, 8);
+        Shape wallShape = new BoxShape(8, 6);
         Body wall = new StaticBody(this, wallShape);
-        wall.setPosition(new Vec2(-20.5f, -4));
+        wall.setPosition(new Vec2(-20.5f, -4.8f));
 
         BodyImage wallImage = new BodyImage("data/wall.png");
-        AttachedImage wallAttached = new AttachedImage(wall, wallImage, 16, 0, new Vec2(0, 0));
+        AttachedImage wallAttached = new AttachedImage(wall, wallImage, 13, 0, new Vec2(0, 0));
+
+        // Barrier is in front of tower in order to allow spikeball to be dispensed outwards
+        Shape barrierShape = new BoxShape(1, 4);
+        Body barrier = new StaticBody(this, barrierShape);
+        barrier.setPosition(new Vec2(-12, -3.5f));
 
         // Text
         Shape scrollShape = new BoxShape(8, 3);
         Body scroll = new StaticBody(this, scrollShape);
         scroll.setPosition(new Vec2(-3, 8.5f));
-        BodyImage scrollTexture = new BodyImage("data/scroll2.png");
+        BodyImage scrollTexture = new BodyImage("data/riddleOne.png");
         AttachedImage scrollAttached = new AttachedImage(scroll, scrollTexture, 8, 0, new Vec2(0, 0));
 
         // Add our Hero
         Spartan = new Hero(this);
+        /*ArrowHit t = new ArrowHit(Spartan);
+        Spartan.addCollisionListener(t);*/
 
         // Add other Bodies
-        Arrow test = new Arrow(this);
-        test.setPosition(new Vec2(-20.5f, 13f));
+
 
         // Sphinx
         Shape villainShape = new PolygonShape(-4.31f,-4.58f,
