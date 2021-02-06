@@ -28,4 +28,8 @@ public class Hero extends Walker  {
         Hero.heroImage = direction;
         addImage(heroImage);
     }
+
+    public void takeDamage() {
+        health--;
+    }
 }

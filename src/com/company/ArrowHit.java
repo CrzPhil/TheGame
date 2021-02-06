@@ -5,9 +5,9 @@ import city.cs.engine.CollisionListener;
 import city.cs.engine.StaticBody;
 
 public class ArrowHit implements CollisionListener {
-    private Hero spartan;
-    public ArrowHit(Hero spartan) {
-        this.spartan = spartan;
+    final private Hero Spartan;
+    public ArrowHit(Hero Spartan) {
+        this.Spartan = Spartan;
     }
 
     @Override
@@ -16,6 +16,7 @@ public class ArrowHit implements CollisionListener {
         if (collisionEvent.getOtherBody() instanceof Hero) {
             collisionEvent.getReportingBody().destroy();
             System.out.println("You've been hit by an arrow!");
+            Spartan.takeDamage();
         } else if (collisionEvent.getOtherBody() instanceof StaticBody) {
             collisionEvent.getReportingBody().destroy();
         }
