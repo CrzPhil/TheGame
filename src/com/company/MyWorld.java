@@ -32,10 +32,10 @@ public class MyWorld extends World {
         Body barrier = new StaticBody(this, barrierShape);
         barrier.setPosition(new Vec2(-12, -3.5f));
 
-        // Text
+        // Text & Riddles
         Shape scrollShape = new BoxShape(8, 3);
         Body scroll = new StaticBody(this, scrollShape);
-        scroll.setPosition(new Vec2(-3, 8.5f));
+        scroll.setPosition(new Vec2(-3, 10.5f));
         BodyImage scrollTexture = new BodyImage("data/riddleOne.png");
         AttachedImage scrollAttached = new AttachedImage(scroll, scrollTexture, 8, 0, new Vec2(0, 0));
 

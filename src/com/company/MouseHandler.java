@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 
 
 public class MouseHandler extends MouseAdapter {
-    private static final float spearSpeed = 20.8f;
+    private static final float spearSpeed = 22.5f;
 
     private WorldView view;
     private MyWorld world;
@@ -51,8 +51,22 @@ public class MouseHandler extends MouseAdapter {
         // Multiplying the normalised vector by the speed of the projectile
         Vec2 shot = new Vec2(normalised.x * spearSpeed, normalised.y * spearSpeed);
 
-        spear.setPosition(new Vec2(world.getHero().getPosition().x + 2, world.getHero().getPosition().y + 3.5f));
+        // Set the position of the spear a little above the Spartan, so as to avoid collision on spawning
+        spear.setPosition(new Vec2(world.getHero().getPosition().x, world.getHero().getPosition().y + 3.5f));
+
+        // Rotating Spear in the correct direction (Facing: Top, Left, Right)
+        if (mx > (cx - 3.5f) && mx < (cx + 3.5f) ) {
+            spear.setAngleDegrees(180);
+        } else if (mx < cx) {
+            spear.setAngleDegrees(-90);
+        } else if (mx > cx) {
+            spear.setAngleDegrees(90);
+        }
+        // Give our spear the calculated Velocity
         spear.setLinearVelocity(shot);
 
+        // Collision Listener for the generated Spears
+        SpearHit spearHit = new SpearHit();
+        spear.addCollisionListener(spearHit);
     }
 }

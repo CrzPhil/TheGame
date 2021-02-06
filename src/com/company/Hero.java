@@ -4,13 +4,14 @@ import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
 public class Hero extends Walker  {
-    private static final Shape heroShape = new PolygonShape(1.62f,-3.46f,
-            1.66f,-0.67f,
-            1.07f,1.97f,
-            0.44f,2.76f,
-            -1.38f,3.47f,
-            -2.18f,3.39f,
-            -2.37f,-3.46f);
+    private static final Shape heroShape = new PolygonShape(-0.76f,2.77f,
+            0.43f,2.76f,
+            1.09f,1.95f,
+            1.67f,-0.69f,
+            1.69f,-2.25f,
+            1.09f,-3.46f,
+            -1.57f,-3.46f,
+            -1.99f,1.19f);
 
     private static BodyImage heroImage = new BodyImage("data/spartan_idle.png", 7f);
 

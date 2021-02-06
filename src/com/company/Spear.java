@@ -13,11 +13,11 @@ public class Spear extends DynamicBody {
             0.08f,-2.12f);
 
     private static final BodyImage spearImage = new BodyImage("data/spear.png", 5f);
-    private final AttachedImage arrowAttached = new AttachedImage(this, spearImage, 1f, 0, new Vec2(0,0));
+    // private final AttachedImage arrowAttached = new AttachedImage(this, spearImage, 1f, 90, new Vec2(0,0));
 
 
     public Spear(MyWorld world) {
         super(world, spearShape);
-
+        addImage(spearImage);
     }
 }

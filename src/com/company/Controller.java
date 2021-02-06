@@ -28,7 +28,7 @@ public class Controller implements KeyListener {
             Spartan.startWalking(MOVEMENT_SPEED);
             Spartan.setHeroImage(new BodyImage("data/spartan_right.png", 7f));
         } else if (key == KeyEvent.VK_SPACE) {
-            Spartan.jump(5f);
+            Spartan.jump(8f);
         }
     }
 
