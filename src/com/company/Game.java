@@ -30,9 +30,9 @@ public class Game {
 
         view.addMouseListener(new GiveFocus(view));
 
-        /*// Tracker
-        Tracker tracker = new Tracker(view, world.getHero());
-        world.addStepListener(tracker);*/
+        // Tracker
+        Tracker tracker = new Tracker(view);
+        world.addStepListener(tracker);
 
         // Frame
         final JFrame frame = new JFrame("Basic World");

@@ -1,8 +1,9 @@
-package com.company;
+package com.company.collisions;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
 import city.cs.engine.StaticBody;
+import com.company.bodies.Arrow;
 
 public class SpearHit implements CollisionListener {
 

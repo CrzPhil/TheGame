@@ -1,6 +1,7 @@
-package com.company;
+package com.company.bodies;
 
 import city.cs.engine.*;
+import com.company.MyWorld;
 import org.jbox2d.common.Vec2;
 
 public class Arrow extends DynamicBody {
@@ -14,12 +15,22 @@ public class Arrow extends DynamicBody {
     private static final BodyImage arrowImage = new BodyImage("data/enemy_arrow.png", 5f);
     private final AttachedImage arrowAttached = new AttachedImage(this, arrowImage, 1f, 0, new Vec2(0,0));
 
+    // Will track arrows fired per Sequence, so that Sequence can end after 'x' arrows fired
+    private static int arrowCount=0;
+
     public Arrow(MyWorld world) {
         super(world, arrowShape);
-
+        arrowCount++;
         /*DynamicBody arrow = new DynamicBody(world, arrowShape);
         AttachedImage arrowAttached = new AttachedImage(arrow, arrowImage, 1f, 0, new Vec2(0,0));*/
 
         // this.addCollisionListener(new ArrowHit(world.getHero()));
+    }
+
+    public static int getArrowCount() {
+        return arrowCount;
+    }
+    public static void resetArrows() {
+        arrowCount = 0;
     }
 }

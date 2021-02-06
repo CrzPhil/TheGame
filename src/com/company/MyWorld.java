@@ -2,20 +2,25 @@ package com.company;
 
 import city.cs.engine.*;
 import city.cs.engine.Shape;
+import com.company.bodies.Arrow;
+import com.company.bodies.Hero;
+import com.company.bodies.Villain;
+import com.company.collisions.ArrowHit;
+import com.company.collisions.ScrollHit;
 import org.jbox2d.common.Vec2;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.Random;
 
 public class MyWorld extends World {
 
-    private Hero Spartan;
+    private final Hero Spartan;
+    private final Villain Sphinx;
 
     public MyWorld() {
         super();
 
         // Ground
-        Shape floorShape = new BoxShape(28, 0.5f);
+        Shape floorShape = new BoxShape(32, 0.5f);
         Body ground = new StaticBody(this, floorShape);
         ground.setPosition(new Vec2(0, -11.5f));
 
@@ -39,27 +44,39 @@ public class MyWorld extends World {
         BodyImage scrollTexture = new BodyImage("data/riddleOne.png");
         AttachedImage scrollAttached = new AttachedImage(scroll, scrollTexture, 8, 0, new Vec2(0, 0));
 
+        ScrollHit scrollHit = new ScrollHit(this);
+        scroll.addCollisionListener(scrollHit);
+
         // Add our Hero
         Spartan = new Hero(this);
-        /*ArrowHit t = new ArrowHit(Spartan);
-        Spartan.addCollisionListener(t);*/
 
-        // Add other Bodies
+        // Add our Villain
+        Sphinx = new Villain(this);
 
+        // Add event Listener to Floor so that falling arrows disappear
+        ArrowHit arrowListener = new ArrowHit(Spartan);
+        ground.addCollisionListener(arrowListener);
 
-        // Sphinx
-        Shape villainShape = new PolygonShape(-4.31f,-4.58f,
-                4.8f,-4.46f,
-                4.8f,4.4f,
-                -4.06f,4.44f);
-        DynamicBody sphinx = new DynamicBody(this, villainShape);
-        sphinx.addImage((new BodyImage("data/sphinx.png", 10f)));
-        sphinx.setPosition(new Vec2(-20.5f, 5f));
+        // Add event Listener to Spartan for incoming arrows
+        Spartan.addCollisionListener(arrowListener);
 
+        // Arrow Rain
+        /*int temp = 0;
+        Random rand = new Random();
+        int randomInt = rand.nextInt(10);
+        int otherInt = rand.nextInt(10);
+        while (temp<20) {
+            new Arrow(this).setPosition(new Vec2(randomInt, 10));
+            temp++;
+        }*/
     }
 
     // Getter for our Hero
     public Hero getHero() {
         return Spartan;
+    }
+
+    public Villain getSphinx() {
+        return Sphinx;
     }
 }

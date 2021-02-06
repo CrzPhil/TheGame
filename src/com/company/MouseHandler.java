@@ -1,11 +1,12 @@
 package com.company;
 import city.cs.engine.*;
+import com.company.bodies.Spear;
+import com.company.collisions.SpearHit;
 import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
 
 
 public class MouseHandler extends MouseAdapter {

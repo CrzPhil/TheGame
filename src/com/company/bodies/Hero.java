@@ -1,4 +1,4 @@
-package com.company;
+package com.company.bodies;
 
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
@@ -15,12 +15,12 @@ public class Hero extends Walker  {
 
     private static BodyImage heroImage = new BodyImage("data/spartan_idle.png", 7f);
 
-    private int health = 3;
+    private int health;
 
     public Hero(World world) {
         super(world, heroShape);
         addImage(heroImage);
-        this.health = 100;
+        this.health = 3;
         this.setPosition(new Vec2(8, -10));
     }
 
@@ -32,5 +32,9 @@ public class Hero extends Walker  {
 
     public void takeDamage() {
         health--;
+    }
+
+    public int getHealth() {
+        return health;
     }
 }
