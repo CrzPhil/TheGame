@@ -24,6 +24,7 @@ public class Controller implements KeyListener {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_A) {
             Spartan.startWalking(-MOVEMENT_SPEED);
+            // Change images according to direction where Spartan is facing
             Spartan.setHeroImage(new BodyImage("data/spartan_left.png", 7f));
         } else if (key == KeyEvent.VK_D) {
             Spartan.startWalking(MOVEMENT_SPEED);

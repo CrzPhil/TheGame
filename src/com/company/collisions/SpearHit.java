@@ -6,9 +6,22 @@ import city.cs.engine.CollisionListener;
 import city.cs.engine.StaticBody;
 import com.company.bodies.Arrow;
 import com.company.bodies.Choice;
+import com.company.bodies.Text;
 import com.company.bodies.Villain;
 import com.company.world.MyWorld;
 import org.jbox2d.common.Vec2;
+
+/*
+    This class is responsible for the collisions of the spears.
+    It is also the bulk of the Sequence-simulation, as we haven't learnt about timers yet.
+    It checks which choice the player goes for in the first riddle, by checking for collisions which each
+    of the three objects.
+    If the Hero chooses correctly, he gets a free hit on the Villain.
+    Should he choose incorrectly, he loses a life and has to try again until he finds the answer.
+    After the Hero fires at the Villain, the barrier is restored while it hails arrows.
+    Should the Hero survive the arrow-rain, he can then shoot at the villain again.
+    After three hits the villain dies and the Spartan wins and gets to drink Ale and party.
+ */
 
 public class SpearHit implements CollisionListener {
 
@@ -27,7 +40,7 @@ public class SpearHit implements CollisionListener {
     public void collide(CollisionEvent collisionEvent) {
         // What happens if any of the choices are Picked for the riddle
         if (collisionEvent.getOtherBody() instanceof Choice) {
-            // If choice is correct, all choices are removed, and next sequence begins
+            // If choice is correct, all choices are removed, and next sequence begins (read above (l.15) for more info)
             if (((Choice) collisionEvent.getOtherBody()).isRightChoice()) {
                 world.destroyChoices();
                 // Moves Text out of the view
@@ -57,9 +70,58 @@ public class SpearHit implements CollisionListener {
         } else if (collisionEvent.getOtherBody() instanceof Arrow) {
             collisionEvent.getOtherBody().destroy();
             collisionEvent.getReportingBody().destroy();
-        } else if (collisionEvent.getOtherBody() instanceof Villain) {
+        }
+        // If villain is hit by spear, Barrier comes back, and another round of Arrow-Rain is initiated.
+        else if (collisionEvent.getOtherBody() instanceof Villain) {
             ((Villain) collisionEvent.getOtherBody()).takeDamage();
             collisionEvent.getReportingBody().destroy();
+            if (world.getSphinx().getHealth() > 0) {
+                System.out.println("The Sphinx has only " + world.getSphinx().getHealth() + " lives left!");
+                // Barrier is put in front of Sphinx during arrow-sequence
+                world.getBarrier().relocateBarrier();
+                arrowRain();
+                // Barrier is removed after arrow-sequence
+                world.getBarrier().allocateBarrier();
+            } else {
+                // Sphinx gets Sent off and destroyed. Winning message appears.
+                world.getSphinx().setLinearVelocity(new Vec2(-16, 1));
+                world.getSphinx().destroy();
+                new Text(world, new BodyImage("data/won.png"));
+            }
         }
     }
+    // Method to induce arrow-rain through random x and y coordinates.
+    public void arrowRain() {
+        java.security.SecureRandom randomizer = new java.security.SecureRandom();
+        // Low and High bound of the x-Axis
+        int minX = -3;
+        int maxX = 25;
+        // Low and High bound of the y-Axis
+        int minY = 12;
+        int maxY = 130;
+
+        boolean loop = true;
+        int temp = 0;
+
+        while (loop) {
+            // Random number generation
+            int randX = randomizer.nextInt(maxX) + minX;
+            int randY = randomizer.nextInt(maxY) + minY;
+            /*
+             In an attempt to not spawn everything at once, only every 1000th execution spawns an arrow.
+             This was not very effective, as it appears like they spawn at once anyways.
+             */
+            if (temp % 1000 == 0) {
+                new Arrow(world).setPosition(new Vec2(randX, randY));
+
+                // Spawn 40 arrows total, then reset Count for next sequence
+                if (Arrow.getArrowCount() >= 40) {
+                    loop = false;
+                    Arrow.resetArrows();
+                }
+            }
+            temp++;
+        }
+    }
+
 }

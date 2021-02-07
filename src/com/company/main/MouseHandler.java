@@ -9,6 +9,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
+/*
+    This class is responsible for shooting Spears when clicking the mouse.
+    To be added: Ammo (so that spam-clicking is avoided) when timers are introduced.
+ */
+
 
 public class MouseHandler extends MouseAdapter {
     private static final float spearSpeed = 22.5f;
@@ -22,13 +27,6 @@ public class MouseHandler extends MouseAdapter {
     }
 
     public void mousePressed(MouseEvent e) {
-        /*Arrow arrow = new Arrow(world);
-        Point mouse = e.getPoint();
-        Vec2 worldPoint = view.viewToWorld(mouse);
-        arrow.setPosition(worldPoint);
-        ArrowHit arrowHit = new ArrowHit(world.getHero());
-        arrow.addCollisionListener(arrowHit);*/
-
         Spear spear = new Spear(world);
         Point mouse = e.getPoint();
         Vec2 worldPoint = view.viewToWorld(mouse);

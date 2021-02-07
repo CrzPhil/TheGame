@@ -7,6 +7,7 @@ import javax.swing.*;
 
 
 public class Game {
+
     // Create World
     private MyWorld world;
 
@@ -29,6 +30,7 @@ public class Game {
         Controller HeroController = new Controller(world.getHero());
         view.addKeyListener(HeroController);
 
+        // Mouse Listener
         view.addMouseListener(new GiveFocus(view));
 
         // Tracker
@@ -45,7 +47,7 @@ public class Game {
         frame.setVisible(true);
 
         // Debugger
-        JFrame debugView = new DebugViewer(world, 800, 800);
+        // JFrame debugView = new DebugViewer(world, 800, 800);
 
         world.start();
 

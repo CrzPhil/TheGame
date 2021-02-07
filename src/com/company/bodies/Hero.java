@@ -24,6 +24,7 @@ public class Hero extends Walker  {
         this.setPosition(new Vec2(8, -10));
     }
 
+    // Setter, in order to update image according to the direction Hero is facing.
     public void setHeroImage(BodyImage direction) {
         removeAllImages();
         Hero.heroImage = direction;

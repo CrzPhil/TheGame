@@ -4,10 +4,7 @@ import city.cs.engine.*;
 import city.cs.engine.Shape;
 import com.company.bodies.*;
 import com.company.collisions.ArrowHit;
-import com.company.collisions.ScrollHit;
 import org.jbox2d.common.Vec2;
-
-import java.util.Random;
 
 public class MyWorld extends World {
 
@@ -17,9 +14,9 @@ public class MyWorld extends World {
     private final Barrier barrierSphinx;
     private final Text scroll;
 
-    private Choice answerOne;
-    private Choice answerTwo;
-    private Choice answerThree;
+    private final Choice answerOne;
+    private final Choice answerTwo;
+    private final Choice answerThree;
 
     public MyWorld() {
         super();
@@ -37,16 +34,13 @@ public class MyWorld extends World {
         BodyImage wallImage = new BodyImage("data/wall.png");
         AttachedImage wallAttached = new AttachedImage(wall, wallImage, 13, 0, new Vec2(0, 0));
 
-        // Barrier is in front of tower in order to allow spikeball to be dispensed outwards
+        // Temporary shape to make the outline of tower more pixel-perfect. Not to be confused with Barrier Class
         Shape barrierShape = new BoxShape(1, 4);
         Body barrier = new StaticBody(this, barrierShape);
         barrier.setPosition(new Vec2(-12, -3.5f));
 
         // Text & Riddles
-        scroll = new Text(this);
-
-        ScrollHit scrollHit = new ScrollHit(this);
-        scroll.addCollisionListener(scrollHit);
+        scroll = new Text(this, new BodyImage("data/riddleOne.png"));
 
         // Add our Hero
         Spartan = new Hero(this);
@@ -74,7 +68,7 @@ public class MyWorld extends World {
 
     }
 
-    // Getter for our Hero
+    // Getters for Objects
     public Hero getHero() {
         return Spartan;
     }
