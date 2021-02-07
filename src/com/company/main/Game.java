@@ -1,5 +1,6 @@
 package com.company.main;
 
+import city.cs.engine.DebugViewer;
 import com.company.world.*;
 
 import javax.swing.*;
@@ -44,7 +45,7 @@ public class Game {
         frame.setVisible(true);
 
         // Debugger
-        // JFrame debugView = new DebugViewer(world, 800, 800);
+        JFrame debugView = new DebugViewer(world, 800, 800);
 
         world.start();
 

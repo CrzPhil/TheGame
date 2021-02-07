@@ -2,10 +2,7 @@ package com.company.world;
 
 import city.cs.engine.*;
 import city.cs.engine.Shape;
-import com.company.bodies.Arrow;
-import com.company.bodies.Heart;
-import com.company.bodies.Hero;
-import com.company.bodies.Villain;
+import com.company.bodies.*;
 import com.company.collisions.ArrowHit;
 import com.company.collisions.ScrollHit;
 import org.jbox2d.common.Vec2;
@@ -16,7 +13,13 @@ public class MyWorld extends World {
 
     private final Hero Spartan;
     private final Villain Sphinx;
-    private Heart life;
+    private final Heart life;
+    private final Barrier barrierSphinx;
+    private final Text scroll;
+
+    private Choice answerOne;
+    private Choice answerTwo;
+    private Choice answerThree;
 
     public MyWorld() {
         super();
@@ -40,11 +43,7 @@ public class MyWorld extends World {
         barrier.setPosition(new Vec2(-12, -3.5f));
 
         // Text & Riddles
-        Shape scrollShape = new BoxShape(8, 3);
-        Body scroll = new StaticBody(this, scrollShape);
-        scroll.setPosition(new Vec2(-3, 10.5f));
-        BodyImage scrollTexture = new BodyImage("data/riddleOne.png");
-        AttachedImage scrollAttached = new AttachedImage(scroll, scrollTexture, 8, 0, new Vec2(0, 0));
+        scroll = new Text(this);
 
         ScrollHit scrollHit = new ScrollHit(this);
         scroll.addCollisionListener(scrollHit);
@@ -58,6 +57,14 @@ public class MyWorld extends World {
         // Add our Villain
         Sphinx = new Villain(this);
 
+        // Add barrier in front of Villain
+        barrierSphinx = new Barrier(this);
+
+        // Add three choices for the riddle
+        answerOne = new Choice(this, new BodyImage("data/fire.png", 4), 10, 12, false);
+        answerTwo = new Choice(this, new BodyImage("data/time.png", 4), 14, 12, true);
+        answerThree = new Choice(this, new BodyImage("data/water.png", 4), 18, 12, false);
+
         // Add event Listener to Floor so that falling arrows disappear
         ArrowHit arrowListener = new ArrowHit(this, Spartan);
         ground.addCollisionListener(arrowListener);
@@ -65,15 +72,6 @@ public class MyWorld extends World {
         // Add event Listener to Spartan for incoming arrows
         Spartan.addCollisionListener(arrowListener);
 
-        // Arrow Rain
-        /*int temp = 0;
-        Random rand = new Random();
-        int randomInt = rand.nextInt(10);
-        int otherInt = rand.nextInt(10);
-        while (temp<20) {
-            new Arrow(this).setPosition(new Vec2(randomInt, 10));
-            temp++;
-        }*/
     }
 
     // Getter for our Hero
@@ -87,5 +85,25 @@ public class MyWorld extends World {
 
     public Heart getHeart() {
         return life;
+    }
+
+    public Text getScroll() {
+        return scroll;
+    }
+
+    public Barrier getBarrier() {
+        return barrierSphinx;
+    }
+
+    public void destroyChoices() {
+        if (answerOne != null) {
+            answerOne.destroy();
+        }
+        if (answerTwo != null) {
+            answerTwo.destroy();
+        }
+        if (answerThree != null) {
+            answerThree.destroy();
+        }
     }
 }
