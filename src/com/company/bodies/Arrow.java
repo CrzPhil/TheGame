@@ -1,7 +1,7 @@
 package com.company.bodies;
 
 import city.cs.engine.*;
-import com.company.MyWorld;
+import com.company.world.MyWorld;
 import org.jbox2d.common.Vec2;
 
 public class Arrow extends DynamicBody {

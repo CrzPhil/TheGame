@@ -1,4 +1,4 @@
-package com.company;
+package com.company.world;
 
 import city.cs.engine.UserView;
 import city.cs.engine.World;

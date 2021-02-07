@@ -1,13 +1,12 @@
 package com.company.collisions;
 
+import city.cs.engine.BodyImage;
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import com.company.MyWorld;
+import com.company.world.MyWorld;
 import com.company.bodies.Arrow;
 import com.company.bodies.Spear;
 import org.jbox2d.common.Vec2;
-
-import java.util.Random;
 
 public class ScrollHit implements CollisionListener {
 
@@ -27,21 +26,16 @@ public class ScrollHit implements CollisionListener {
             collisionEvent.getReportingBody().setPosition(new Vec2(collisionEvent.getReportingBody().getPosition().x - 40,
                     collisionEvent.getReportingBody().getPosition().y));
 
-            // Arrow-Hail Sequence Begins
-            /*int temp = 0;
-            Random rand = new Random();
-            int randomInt = rand.nextInt(20);
-            int otherInt = rand.nextInt(10);
-            while (temp<100) {
-                if (temp % 2 == 0) {
-                    new Arrow(world).setPosition(new Vec2(randomInt, 10));
-                }
-                temp++;*/
+            /*// Change Sphinx to attack-image
+            BodyImage attackSphinx = new BodyImage("data/sphinx_attack.png", 10f);
+            world.getSphinx().setSphinxImage(attackSphinx);*/
+
             java.security.SecureRandom randomizer = new java.security.SecureRandom();
-            int minX = 5;
-            int maxX = 20;
+
+            int minX = -3;
+            int maxX = 25;
             int minY = 12;
-            int maxY = 20;
+            int maxY = 130;
 
             boolean loop = true;
             int temp = 0;
@@ -52,9 +46,11 @@ public class ScrollHit implements CollisionListener {
                 if (temp % 1000 == 0) {
                     new Arrow(world).setPosition(new Vec2(randX, randY));
 
-                    if (Arrow.getArrowCount() >= 10) {
+                    if (Arrow.getArrowCount() >= 50) {
                         loop = false;
                         Arrow.resetArrows();
+                        /*BodyImage normalSphinx = new BodyImage("data/sphinx.png", 10f);
+                        world.getSphinx().setSphinxImage(normalSphinx);*/
                     }
                 }
                 temp++;

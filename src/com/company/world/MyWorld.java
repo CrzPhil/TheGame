@@ -1,8 +1,9 @@
-package com.company;
+package com.company.world;
 
 import city.cs.engine.*;
 import city.cs.engine.Shape;
 import com.company.bodies.Arrow;
+import com.company.bodies.Heart;
 import com.company.bodies.Hero;
 import com.company.bodies.Villain;
 import com.company.collisions.ArrowHit;
@@ -15,6 +16,7 @@ public class MyWorld extends World {
 
     private final Hero Spartan;
     private final Villain Sphinx;
+    private Heart life;
 
     public MyWorld() {
         super();
@@ -50,11 +52,14 @@ public class MyWorld extends World {
         // Add our Hero
         Spartan = new Hero(this);
 
+        // Add Hero Heart
+        life = new Heart(this);
+
         // Add our Villain
         Sphinx = new Villain(this);
 
         // Add event Listener to Floor so that falling arrows disappear
-        ArrowHit arrowListener = new ArrowHit(Spartan);
+        ArrowHit arrowListener = new ArrowHit(this, Spartan);
         ground.addCollisionListener(arrowListener);
 
         // Add event Listener to Spartan for incoming arrows
@@ -78,5 +83,9 @@ public class MyWorld extends World {
 
     public Villain getSphinx() {
         return Sphinx;
+    }
+
+    public Heart getHeart() {
+        return life;
     }
 }

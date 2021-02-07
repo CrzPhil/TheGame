@@ -1,7 +1,8 @@
-package com.company;
+package com.company.main;
 import city.cs.engine.*;
 import com.company.bodies.Spear;
 import com.company.collisions.SpearHit;
+import com.company.world.MyWorld;
 import org.jbox2d.common.Vec2;
 
 import java.awt.*;

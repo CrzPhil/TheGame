@@ -1,7 +1,7 @@
 package com.company.bodies;
 
 import city.cs.engine.*;
-import com.company.MyWorld;
+import com.company.world.MyWorld;
 import org.jbox2d.common.Vec2;
 
 public class Villain extends DynamicBody {
@@ -10,7 +10,7 @@ public class Villain extends DynamicBody {
             4.8f,4.4f,
             -4.06f,4.44f);
 
-    private static final BodyImage sphinxImage = new BodyImage("data/sphinx.png", 10f);
+    private static BodyImage sphinxImage = new BodyImage("data/sphinx.png", 10f);
 
     private int health;
 
@@ -27,5 +27,11 @@ public class Villain extends DynamicBody {
 
     public int getHealth() {
         return health;
+    }
+
+    public void setSphinxImage(BodyImage sphinxImage) {
+        removeAllImages();
+        Villain.sphinxImage = sphinxImage;
+        addImage(sphinxImage);
     }
 }

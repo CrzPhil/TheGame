@@ -1,4 +1,4 @@
-package com.company;
+package com.company.world;
 
 import city.cs.engine.BodyImage;
 import com.company.bodies.Hero;

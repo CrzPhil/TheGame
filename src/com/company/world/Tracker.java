@@ -1,9 +1,9 @@
-package com.company;
+package com.company.world;
 
-import city.cs.engine.DynamicBody;
 import city.cs.engine.StepEvent;
 import city.cs.engine.StepListener;
 import com.company.bodies.Hero;
+import com.company.world.MyView;
 
 public class Tracker implements StepListener {
     private MyView view;

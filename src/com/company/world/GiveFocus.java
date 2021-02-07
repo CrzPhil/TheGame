@@ -1,4 +1,6 @@
-package com.company;
+package com.company.world;
+
+import com.company.world.MyView;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

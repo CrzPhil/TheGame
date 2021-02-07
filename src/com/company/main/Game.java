@@ -1,7 +1,7 @@
-package com.company;
+package com.company.main;
 
-import city.cs.engine.*;
-import org.jbox2d.common.Vec2;
+import com.company.world.*;
+
 import javax.swing.*;
 
 

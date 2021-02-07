@@ -1,8 +1,7 @@
 package com.company.bodies;
 
 import city.cs.engine.*;
-import com.company.MyWorld;
-import org.jbox2d.common.Vec2;
+import com.company.world.MyWorld;
 
 public class Spear extends DynamicBody {
 
