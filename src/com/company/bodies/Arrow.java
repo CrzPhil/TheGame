@@ -32,3 +32,5 @@ public class Arrow extends DynamicBody {
         arrowCount = 0;
     }
 }
+
+// System.out.println(System.currentTimeMillis()/1000);
