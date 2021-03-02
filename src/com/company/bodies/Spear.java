@@ -1,7 +1,7 @@
 package com.company.bodies;
 
 import city.cs.engine.*;
-import com.company.world.MyWorld;
+import com.company.levels.GameLevel;
 
 public class Spear extends DynamicBody {
 
@@ -14,7 +14,7 @@ public class Spear extends DynamicBody {
 
     private static final BodyImage spearImage = new BodyImage("data/spear.png", 5f);
 
-    public Spear(MyWorld world) {
+    public Spear(GameLevel world) {
         super(world, spearShape);
         addImage(spearImage);
     }

@@ -3,7 +3,7 @@ package com.company.bodies;
 import city.cs.engine.BodyImage;
 import city.cs.engine.BoxShape;
 import city.cs.engine.StaticBody;
-import com.company.world.MyWorld;
+import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
 
 public class Choice extends StaticBody {
@@ -13,7 +13,7 @@ public class Choice extends StaticBody {
     // Differentiate between right and wrong choices, so as to penalise wrong choice.
     private final boolean rightChoice;
 
-    public Choice(MyWorld world, BodyImage choiceImage, float x, float y, boolean rightChoice) {
+    public Choice(World world, BodyImage choiceImage, float x, float y, boolean rightChoice) {
         super(world, box);
         // Different choices are displayed as images
         setPosition(new Vec2(x, y));

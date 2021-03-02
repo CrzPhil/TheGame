@@ -1,7 +1,6 @@
 package com.company.bodies;
 
 import city.cs.engine.*;
-import com.company.world.MyWorld;
 import org.jbox2d.common.Vec2;
 
 public class Villain extends DynamicBody {
@@ -14,7 +13,7 @@ public class Villain extends DynamicBody {
 
     private int health;
 
-    public Villain(MyWorld world) {
+    public Villain(World world) {
         super(world, villainShape);
         addImage(sphinxImage);
         this.setPosition(new Vec2(-20.5f, 5f));

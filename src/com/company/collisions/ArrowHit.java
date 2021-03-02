@@ -4,7 +4,7 @@ import city.cs.engine.*;
 import com.company.bodies.Arrow;
 import com.company.bodies.Hero;
 import com.company.bodies.Text;
-import com.company.world.MyWorld;
+import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
 /*
@@ -16,9 +16,9 @@ import org.jbox2d.common.Vec2;
 
 public class ArrowHit implements CollisionListener {
     final private Hero Spartan;
-    final private MyWorld world;
+    final private GameLevel world;
 
-    public ArrowHit(MyWorld world, Hero Spartan) {
+    public ArrowHit(GameLevel world, Hero Spartan) {
         this.Spartan = Spartan;
         this.world = world;
     }

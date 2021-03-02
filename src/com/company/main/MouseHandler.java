@@ -2,7 +2,7 @@ package com.company.main;
 import city.cs.engine.*;
 import com.company.bodies.Spear;
 import com.company.collisions.SpearHit;
-import com.company.world.MyWorld;
+import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
 import java.awt.*;
@@ -19,9 +19,9 @@ public class MouseHandler extends MouseAdapter {
     private static final float spearSpeed = 22.5f;
 
     private WorldView view;
-    private MyWorld world;
+    private GameLevel world;
 
-    public MouseHandler(WorldView view, MyWorld world){
+    public MouseHandler(WorldView view, GameLevel world){
         this.view = view;
         this.world = world;
     }

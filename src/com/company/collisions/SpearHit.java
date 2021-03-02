@@ -8,7 +8,7 @@ import com.company.bodies.Arrow;
 import com.company.bodies.Choice;
 import com.company.bodies.Text;
 import com.company.bodies.Villain;
-import com.company.world.MyWorld;
+import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
 /*
@@ -25,8 +25,8 @@ import org.jbox2d.common.Vec2;
 
 public class SpearHit implements CollisionListener {
 
-    private final MyWorld world;
-    public SpearHit(MyWorld world) {
+    private final GameLevel world;
+    public SpearHit(GameLevel world) {
         this.world = world;
     }
 

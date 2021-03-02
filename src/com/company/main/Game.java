@@ -1,6 +1,8 @@
 package com.company.main;
 
 import city.cs.engine.DebugViewer;
+import com.company.levels.GameLevel;
+import com.company.levels.Level1;
 import com.company.world.*;
 
 import javax.swing.*;
@@ -9,14 +11,15 @@ import javax.swing.*;
 public class Game {
 
     // Create World
-    private MyWorld world;
+    private GameLevel world;
 
     // Create View
     private MyView view;
 
     public Game() {
-        // build the world
-        world = new MyWorld();
+
+        // initialise level to level1
+        world = new Level1(this);
 
         // View
         view = new MyView(world, 1200, 800);

@@ -3,7 +3,7 @@ package com.company.bodies;
 import city.cs.engine.BodyImage;
 import city.cs.engine.BoxShape;
 import city.cs.engine.StaticBody;
-import com.company.world.MyWorld;
+import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
 
 public class Barrier extends StaticBody {
@@ -17,7 +17,7 @@ public class Barrier extends StaticBody {
     private static final BoxShape barrierShape = new BoxShape(1, 7);
     private static final BodyImage blankImage = new BodyImage("data/blank.png");
 
-    public Barrier(MyWorld world) {
+    public Barrier(World world) {
         super(world, barrierShape);
         addImage(blankImage);
         setPosition(new Vec2(-15.5f, 5f));

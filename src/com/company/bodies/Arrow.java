@@ -1,7 +1,7 @@
 package com.company.bodies;
 
 import city.cs.engine.*;
-import com.company.world.MyWorld;
+import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
 public class Arrow extends DynamicBody {
@@ -18,7 +18,7 @@ public class Arrow extends DynamicBody {
     // Will track arrows fired per Sequence, so that the Sequence can end after 'x' arrows fired
     private static int arrowCount = 0;
 
-    public Arrow(MyWorld world) {
+    public Arrow(GameLevel world) {
         super(world, arrowShape);
         arrowCount++;
     }
