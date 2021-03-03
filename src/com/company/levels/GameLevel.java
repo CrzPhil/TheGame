@@ -7,9 +7,12 @@ import com.company.main.Game;
 public abstract class GameLevel extends World {
     private Hero Spartan;
     private Heart life;
+    private final Game game;
 
     public GameLevel(Game game) {
         Spartan = new Hero(this);
+        life = new Heart(this);
+        this.game = game;
     }
 
     public Hero getHero() {
@@ -17,6 +20,10 @@ public abstract class GameLevel extends World {
     }
     public Heart getHeart() {
         return life;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public abstract boolean isComplete();
@@ -28,4 +35,6 @@ public abstract class GameLevel extends World {
     public abstract Barrier getBarrier();
 
     public abstract void destroyChoices();
+
+    public abstract void nullSphinx();
 }

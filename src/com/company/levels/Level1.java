@@ -8,7 +8,7 @@ import org.jbox2d.common.Vec2;
 
 public class Level1 extends GameLevel {
 
-    private final Villain Sphinx;
+    private Villain Sphinx;
     private final Heart life;
     private final Barrier barrierSphinx;
     private final Text scroll;
@@ -45,7 +45,7 @@ public class Level1 extends GameLevel {
         super.getHero().setPosition(new Vec2(0, 1));
 
         // Add Hero Heart
-        life = new Heart(this);
+        life = super.getHeart();
 
         // Add our Villain
         Sphinx = new Villain(this);
@@ -65,6 +65,8 @@ public class Level1 extends GameLevel {
         // Add event Listener to Spartan for incoming arrows
         super.getHero().addCollisionListener(arrowListener);
 
+
+
     }
 
     // Getters for Objects
@@ -74,11 +76,16 @@ public class Level1 extends GameLevel {
 
     @Override
     public boolean isComplete() {
-        return false;
+        // If Villain dies (destroy();) Level is over
+        return this.getSphinx() == null;
     }
 
     public Villain getSphinx() {
         return Sphinx;
+    }
+
+    public void nullSphinx() {
+        this.Sphinx = null;
     }
 
     public Heart getHeart() {

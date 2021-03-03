@@ -2,6 +2,7 @@ package com.company.collisions;
 
 import city.cs.engine.*;
 import com.company.bodies.Arrow;
+import com.company.bodies.Barrier;
 import com.company.bodies.Hero;
 import com.company.bodies.Text;
 import com.company.levels.GameLevel;
@@ -54,6 +55,13 @@ public class ArrowHit implements CollisionListener {
             // If some other StaticBody is hit by something other than the hero, that object is deleted
         } else if (collisionEvent.getReportingBody() instanceof StaticBody && !(collisionEvent.getOtherBody() instanceof Hero)) {
             collisionEvent.getOtherBody().destroy();
+        }
+        if (collisionEvent.getOtherBody() instanceof Arrow && collisionEvent.getReportingBody() instanceof Text) {
+            collisionEvent.getOtherBody().destroy();
+        }
+        if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier && world.isComplete()) {
+            world.getGame().goToNextLevel();
+            System.out.println("testing testing");
         }
     }
 }

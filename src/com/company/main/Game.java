@@ -1,11 +1,19 @@
 package com.company.main;
 
 import city.cs.engine.DebugViewer;
+import city.cs.engine.SoundClip;
 import com.company.levels.GameLevel;
 import com.company.levels.Level1;
+import com.company.levels.Level2;
+import com.company.menu.menuPanel;
 import com.company.world.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.io.IOException;
 
 
 public class Game {
@@ -15,6 +23,9 @@ public class Game {
 
     // Create View
     private MyView view;
+
+    // Music
+    private SoundClip gameMusic;
 
     public Game() {
 
@@ -42,8 +53,13 @@ public class Game {
 
         // Frame
         final JFrame frame = new JFrame("Basic World");
-        frame.add(view);
+        frame.add(view, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Add Bottom Overlay Menu
+        menuPanel menu = new menuPanel(this);
+        frame.add(menu.getmainPanel(), BorderLayout.SOUTH);
+
         frame.setLocationByPlatform(true);
         frame.setResizable(false);
         frame.pack();
@@ -52,12 +68,43 @@ public class Game {
         // Debugger
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
+        // Music Section
+        try {
+            gameMusic = new SoundClip("data/music/lvl1track.wav");
+            gameMusic.loop();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e);
+        }
+
+
         world.start();
 
     }
 
     public static void main(String[] args) {
         new Game();
+    }
+
+    public void goToNextLevel() {
+        if (world instanceof Level1) {
+            world.stop();
+            // Save old stats for the new Level
+            int oldHealth = world.getHero().getHealth();
+
+            world = new Level2(this);
+            //world now refers to the new level
+            view.setWorld(world);
+
+            view.addMouseListener(new MouseHandler(view, world));
+            Controller HeroController = new Controller(world.getHero());
+            view.addKeyListener(HeroController);
+            view.addMouseListener(new GiveFocus(view));
+
+            // Transfer old stats to new Hero
+            world.getHero().setHealth(oldHealth);
+
+            world.start();
+        }
     }
 
 }

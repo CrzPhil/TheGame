@@ -3,6 +3,10 @@ package com.company.bodies;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Hero extends Walker  {
     private static final Shape heroShape = new PolygonShape(-0.76f,2.77f,
             0.43f,2.76f,
@@ -16,6 +20,16 @@ public class Hero extends Walker  {
     private static BodyImage heroImage = new BodyImage("data/spartan_idle.png", 7f);
 
     private int health;
+
+    private static SoundClip damage;
+
+    static {
+        try {
+            damage = new SoundClip("data/music/playerdamage.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e);
+        }
+    }
 
     public Hero(World world) {
         super(world, heroShape);
@@ -31,11 +45,17 @@ public class Hero extends Walker  {
         addImage(heroImage);
     }
 
+    // Damage sound plays when Hero takes damage, and health is decremented
     public void takeDamage() {
         health--;
+        damage.play();
     }
 
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

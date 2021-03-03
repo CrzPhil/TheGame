@@ -1,15 +1,13 @@
 package com.company.collisions;
 
-import city.cs.engine.BodyImage;
-import city.cs.engine.CollisionEvent;
-import city.cs.engine.CollisionListener;
-import city.cs.engine.StaticBody;
-import com.company.bodies.Arrow;
-import com.company.bodies.Choice;
-import com.company.bodies.Text;
-import com.company.bodies.Villain;
+import city.cs.engine.*;
+import com.company.bodies.*;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 /*
     This class is responsible for the collisions of the spears.
@@ -29,12 +27,21 @@ public class SpearHit implements CollisionListener {
     public SpearHit(GameLevel world) {
         this.world = world;
     }
+    private static SoundClip badSequence;
 
     /*
         Spears get destroyed when they hit the floor/walls.
         They also destroy incoming arrows (but also get destroyed themselves).
         When the spear hits the Sphinx (Villain), Sphinx takes damage and spear is destroyed.
      */
+
+    static {
+        try {
+            badSequence = new SoundClip("data/music/dundundun.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException exc) {
+            System.out.println(exc);
+        }
+    }
 
     @Override
     public void collide(CollisionEvent collisionEvent) {
@@ -86,12 +93,23 @@ public class SpearHit implements CollisionListener {
                 // Sphinx gets Sent off and destroyed. Winning message appears.
                 world.getSphinx().setLinearVelocity(new Vec2(-16, 1));
                 world.getSphinx().destroy();
+                world.nullSphinx();
                 new Text(world, new BodyImage("data/won.png"));
+
+                // Directional Arrow pointing towards new level
+                Text arrow = new Text(world, new BodyImage("data/direction.png"));
+                arrow.setPosition(new Vec2(10, 10));
+                // Barrier detecting collision and starting new level
+                Barrier levelUp = new Barrier(world);
+                levelUp.setPosition(new Vec2(30, -10));
             }
         }
     }
+
     // Method to induce arrow-rain through random x and y coordinates.
     public void arrowRain() {
+        // Play ominous sound to indicate start of sequence
+        badSequence.play();
         java.security.SecureRandom randomizer = new java.security.SecureRandom();
         // Low and High bound of the x-Axis
         int minX = -3;
