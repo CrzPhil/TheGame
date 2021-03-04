@@ -1,5 +1,6 @@
 package com.company.main;
 
+import city.cs.engine.BodyImage;
 import city.cs.engine.DebugViewer;
 import city.cs.engine.SoundClip;
 import com.company.levels.GameLevel;
@@ -11,7 +12,6 @@ import com.company.world.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.IOException;
 
@@ -52,7 +52,7 @@ public class Game {
         world.addStepListener(tracker);
 
         // Frame
-        final JFrame frame = new JFrame("Basic World");
+        final JFrame frame = new JFrame("Spartan Hero");
         frame.add(view, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -68,7 +68,7 @@ public class Game {
         // Debugger
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
-        // Music Section
+        // Music Section, we only create 'Game' once, so it's fine to be in constructor
         try {
             gameMusic = new SoundClip("data/music/lvl1track.wav");
             gameMusic.loop();
@@ -76,9 +76,7 @@ public class Game {
             System.out.println(e);
         }
 
-
         world.start();
-
     }
 
     public static void main(String[] args) {
@@ -87,7 +85,9 @@ public class Game {
 
     public void goToNextLevel() {
         if (world instanceof Level1) {
+
             world.stop();
+
             // Save old stats for the new Level
             int oldHealth = world.getHero().getHealth();
 
@@ -95,16 +95,25 @@ public class Game {
             //world now refers to the new level
             view.setWorld(world);
 
+            // Reconfigure Listeners/Controllers for new Hero Object
             view.addMouseListener(new MouseHandler(view, world));
             Controller HeroController = new Controller(world.getHero());
             view.addKeyListener(HeroController);
             view.addMouseListener(new GiveFocus(view));
 
-            // Transfer old stats to new Hero
+            // Transfer old stats to new Hero and add according images
             world.getHero().setHealth(oldHealth);
+            if (oldHealth == 2) {
+                world.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
+            } else if (oldHealth == 1) {
+                world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
+            }
 
             world.start();
         }
     }
 
+    public GameLevel getWorld() {
+        return world;
+    }
 }

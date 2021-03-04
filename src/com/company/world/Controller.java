@@ -25,10 +25,10 @@ public class Controller implements KeyListener {
         if (key == KeyEvent.VK_A) {
             Spartan.startWalking(-MOVEMENT_SPEED);
             // Change images according to direction where Spartan is facing
-            Spartan.setHeroImage(new BodyImage("data/spartan_left.png", 7f));
+            Spartan.setHeroImage(new BodyImage("data/graphics/spartan_left.png", 7f));
         } else if (key == KeyEvent.VK_D) {
             Spartan.startWalking(MOVEMENT_SPEED);
-            Spartan.setHeroImage(new BodyImage("data/spartan_right.png", 7f));
+            Spartan.setHeroImage(new BodyImage("data/graphics/spartan_right.png", 7f));
         } else if (key == KeyEvent.VK_SPACE) {
             Spartan.jump(8f);
         }
@@ -39,13 +39,13 @@ public class Controller implements KeyListener {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_A) {
             Spartan.stopWalking();
-            Spartan.setHeroImage(new BodyImage("data/spartan_idle_left.png", 7f));
+            Spartan.setHeroImage(new BodyImage("data/graphics/spartan_idle_left.png", 7f));
             // To make slow-down process not to abrupt, yet not too slippery
-            Spartan.setLinearVelocity(new Vec2(-3, 0));
+            Spartan.setLinearVelocity(new Vec2(-3, Spartan.getLinearVelocity().y));
         } else if (key == KeyEvent.VK_D) {
             Spartan.stopWalking();
-            Spartan.setHeroImage(new BodyImage("data/spartan_idle.png", 7f));
-            Spartan.setLinearVelocity(new Vec2(3, 0));
+            Spartan.setHeroImage(new BodyImage("data/graphics/spartan_idle.png", 7f));
+            Spartan.setLinearVelocity(new Vec2(3, Spartan.getLinearVelocity().y));
         }
     }
 }

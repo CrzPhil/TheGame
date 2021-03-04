@@ -11,7 +11,7 @@ public class MyView extends UserView {
 
      public MyView(World w, int width, int height) {
          super(w, width, height);
-         background = new ImageIcon("data/background.png").getImage();
+         background = new ImageIcon("data/graphics/background.png").getImage();
      }
 
     @Override

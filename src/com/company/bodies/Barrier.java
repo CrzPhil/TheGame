@@ -15,7 +15,7 @@ public class Barrier extends StaticBody {
      */
 
     private static final BoxShape barrierShape = new BoxShape(1, 7);
-    private static final BodyImage blankImage = new BodyImage("data/blank.png");
+    private static final BodyImage blankImage = new BodyImage("data/graphics/blank.png");
 
     public Barrier(World world) {
         super(world, barrierShape);

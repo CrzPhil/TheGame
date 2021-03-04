@@ -11,7 +11,7 @@ import org.jbox2d.common.Vec2;
 
 public class Heart extends StaticBody {
     private static final BoxShape heartShape = new BoxShape(2, 2);
-    BodyImage heartImage = new BodyImage("data/fullHeart.png", 4);
+    BodyImage heartImage = new BodyImage("data/graphics/fullHeart.png", 4);
 
     public Heart(GameLevel world) {
         super(world, heartShape);

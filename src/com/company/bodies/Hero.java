@@ -17,7 +17,7 @@ public class Hero extends Walker  {
             -1.57f,-3.46f,
             -1.99f,1.19f);
 
-    private static BodyImage heroImage = new BodyImage("data/spartan_idle.png", 7f);
+    private static BodyImage heroImage = new BodyImage("data/graphics/spartan_idle.png", 7f);
 
     private int health;
 

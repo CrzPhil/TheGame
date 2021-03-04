@@ -54,7 +54,7 @@ public class SpearHit implements CollisionListener {
                 world.getScroll().moveText(-3, -70);
                 // Removes Barrier in front of Villain
                 world.getBarrier().allocateBarrier();
-                world.getSphinx().setSphinxImage(new BodyImage("data/sphinx_attack.png", 10f));
+                world.getSphinx().setSphinxImage(new BodyImage("data/graphics/sphinx_attack.png", 10f));
             }
             // Wrong Choice -> Damage Taken, choice disappears
             else {
@@ -64,9 +64,9 @@ public class SpearHit implements CollisionListener {
 
                 // Changing Heart Image according to health
                 if (world.getHero().getHealth() == 2) {
-                    world.getHeart().setHeartImage(new BodyImage("data/halfHeart.png", 4));
+                    world.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
                 } else if (world.getHero().getHealth() == 1) {
-                    world.getHeart().setHeartImage(new BodyImage("data/lastHeart.png", 4));
+                    world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
                 }
             }
         }
@@ -94,10 +94,10 @@ public class SpearHit implements CollisionListener {
                 world.getSphinx().setLinearVelocity(new Vec2(-16, 1));
                 world.getSphinx().destroy();
                 world.nullSphinx();
-                new Text(world, new BodyImage("data/won.png"));
+                new Text(world, new BodyImage("data/graphics/won.png"));
 
                 // Directional Arrow pointing towards new level
-                Text arrow = new Text(world, new BodyImage("data/direction.png"));
+                Text arrow = new Text(world, new BodyImage("data/graphics/direction.png"));
                 arrow.setPosition(new Vec2(10, 10));
                 // Barrier detecting collision and starting new level
                 Barrier levelUp = new Barrier(world);

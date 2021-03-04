@@ -16,7 +16,7 @@ public class Spear extends DynamicBody {
             0.35f,-1.44f,
             0.08f,-2.12f);
 
-    private static final BodyImage spearImage = new BodyImage("data/spear.png", 5f);
+    private static final BodyImage spearImage = new BodyImage("data/graphics/spear.png", 5f);
     private static SoundClip whip;
 
     static {

@@ -12,7 +12,7 @@ public class Arrow extends DynamicBody {
             -0.02f, 2.03f,
             0.08f, -1.18f);
 
-    private static final BodyImage arrowImage = new BodyImage("data/enemy_arrow.png", 5f);
+    private static final BodyImage arrowImage = new BodyImage("data/graphics/enemy_arrow.png", 5f);
     private final AttachedImage arrowAttached = new AttachedImage(this, arrowImage, 1f, 0, new Vec2(0,0));
 
     // Will track arrows fired per Sequence, so that the Sequence can end after 'x' arrows fired

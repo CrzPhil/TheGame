@@ -30,16 +30,16 @@ public class Level1 extends GameLevel {
         Body wall = new StaticBody(this, wallShape);
         wall.setPosition(new Vec2(-20.5f, -4.8f));
 
-        BodyImage wallImage = new BodyImage("data/wall.png");
+        BodyImage wallImage = new BodyImage("data/graphics/wall.png");
         AttachedImage wallAttached = new AttachedImage(wall, wallImage, 13, 0, new Vec2(0, 0));
 
-        // Temporary shape to make the outline of tower more pixel-perfect. Not to be confused with Barrier Class
+        // Shape to make the outline of tower more pixel-perfect. Not to be confused with Barrier Class
         Shape barrierShape = new BoxShape(1, 4);
         Body barrier = new StaticBody(this, barrierShape);
         barrier.setPosition(new Vec2(-12, -3.5f));
 
         // Text & Riddles
-        scroll = new Text(this, new BodyImage("data/riddleOne.png"));
+        scroll = new Text(this, new BodyImage("data/graphics/riddleOne.png"));
 
         // Add our Hero
         super.getHero().setPosition(new Vec2(0, 1));
@@ -54,9 +54,9 @@ public class Level1 extends GameLevel {
         barrierSphinx = new Barrier(this);
 
         // Add three choices for the riddle
-        answerOne = new Choice(this, new BodyImage("data/fire.png", 4), 10, 12, false);
-        answerTwo = new Choice(this, new BodyImage("data/time.png", 4), 14, 12, true);
-        answerThree = new Choice(this, new BodyImage("data/water.png", 4), 18, 12, false);
+        answerOne = new Choice(this, new BodyImage("data/graphics/fire.png", 4), 10, 12, false);
+        answerTwo = new Choice(this, new BodyImage("data/graphics/time.png", 4), 14, 12, true);
+        answerThree = new Choice(this, new BodyImage("data/graphics/water.png", 4), 18, 12, false);
 
         // Add event Listener to Floor so that falling arrows disappear
         ArrowHit arrowListener = new ArrowHit(this, super.getHero());

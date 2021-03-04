@@ -33,20 +33,20 @@ public class ArrowHit implements CollisionListener {
             Spartan.takeDamage();
             // Images updated according to health-level
             if (Spartan.getHealth() == 2) {
-                world.getHeart().setHeartImage(new BodyImage("data/halfHeart.png", 4));
+                world.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
             } else if (Spartan.getHealth() == 1) {
-                world.getHeart().setHeartImage(new BodyImage("data/lastHeart.png", 4));
+                world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
             }
             // If Spartan dies, loss message is displayed, and spartan immobilised.
             else if (Spartan.getHealth() <= 0) {
-                world.getHeart().setHeartImage(new BodyImage("data/emptyHeart.png", 4));
+                world.getHeart().setHeartImage(new BodyImage("data/graphics/emptyHeart.png", 4));
 
-                Text winMessage = new Text(world, new BodyImage("data/loss.png"));
+                Text winMessage = new Text(world, new BodyImage("data/graphics/loss.png"));
 
                 // New object of a dead spartan (static) is created.
                 BoxShape deadSpartanShape = new BoxShape(2,0.5f);
                 StaticBody deadSpartan = new StaticBody(world, deadSpartanShape);
-                deadSpartan.addImage(new BodyImage("data/spartan_dead.png", 5));
+                deadSpartan.addImage(new BodyImage("data/graphics/spartan_dead.png", 5));
 
                 // Puts the new Body where the old Walker was, then transposes walker off-screen.
                 deadSpartan.setPosition(new Vec2(world.getHero().getPosition()));
@@ -61,7 +61,6 @@ public class ArrowHit implements CollisionListener {
         }
         if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier && world.isComplete()) {
             world.getGame().goToNextLevel();
-            System.out.println("testing testing");
         }
     }
 }

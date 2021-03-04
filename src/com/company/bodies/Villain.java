@@ -13,7 +13,7 @@ public class Villain extends DynamicBody {
             4.8f,4.4f,
             -4.06f,4.44f);
 
-    private static BodyImage sphinxImage = new BodyImage("data/sphinx.png", 10f);
+    private static BodyImage sphinxImage = new BodyImage("data/graphics/sphinx.png", 10f);
 
     private int health;
 
@@ -22,7 +22,6 @@ public class Villain extends DynamicBody {
     static {
         try {
             villainDamage = new SoundClip("data/music/enemydamage.wav");
-            System.out.println("Enemy damage sound");
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException exc) {
             System.out.println(exc);
         }
