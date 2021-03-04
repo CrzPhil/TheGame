@@ -68,6 +68,5 @@ public class MouseHandler extends MouseAdapter {
         // Collision Listener for the generated Spears
         SpearHit spearHit = new SpearHit(world);
         spear.addCollisionListener(spearHit);
-
     }
 }

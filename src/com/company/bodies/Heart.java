@@ -10,7 +10,8 @@ import org.jbox2d.common.Vec2;
  */
 
 public class Heart extends StaticBody {
-    private static final BoxShape heartShape = new BoxShape(2, 2);
+    // Make hitbox of heart tiny so that it doesnt impact the game
+    private static final BoxShape heartShape = new BoxShape(0.1f, 0.1f);
     BodyImage heartImage = new BodyImage("data/graphics/fullHeart.png", 4);
 
     public Heart(GameLevel world) {

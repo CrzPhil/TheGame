@@ -30,12 +30,12 @@ public class Game {
     public Game() {
 
         // initialise level to level1
-        world = new Level1(this);
+        world = new Level2(this);
 
         // View
         view = new MyView(world, 1200, 800);
         // view.setZoom(20);
-        // view.setGridResolution(1);
+        view.setGridResolution(1);
 
         // Mouse Listener
         view.addMouseListener(new MouseHandler(view, world));
