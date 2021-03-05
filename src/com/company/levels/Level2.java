@@ -1,13 +1,13 @@
 package com.company.levels;
 
 import city.cs.engine.*;
-import com.company.bodies.*;
+import com.company.bodies.dynamics.Enemy;
+import com.company.bodies.dynamics.Villain;
+import com.company.bodies.statics.*;
 import com.company.collisions.ArrowHit;
 import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
-
-import java.beans.beancontext.BeanContext;
 
 public class Level2 extends GameLevel {
     private final Heart life;
@@ -28,25 +28,26 @@ public class Level2 extends GameLevel {
         // ====== Level Design ======
 
         // Ground
-        Shape floorShape = new BoxShape(10, 0.5f);
+        Shape floorShape = new BoxShape(5, 5);
         Body ground = new StaticBody(this, floorShape);
-        ground.setPosition(new Vec2(-20, -11.5f));
+        ground.setPosition(new Vec2(-25, -15f));
+        Body ground2 = new StaticBody(this, floorShape);
+        ground2.setPosition(new Vec2(-15, -15f));
+        // Image for the ground
+        new AttachedImage(ground, new BodyImage("data/graphics/box-tile.png"), 10, 0, new Vec2(0, 0));
+        new AttachedImage(ground2, new BodyImage("data/graphics/box-tile.png"), 10, 0, new Vec2(0, 0));
 
         // Platforms
-        Shape platformShape = new BoxShape(5, 0.5f);
-        Body platform = new StaticBody(this, platformShape);
-        platform.setPosition(new Vec2(0, -5));
-        /*BodyImage platformImage = new BodyImage("data/graphics/platform.png");
-        AttachedImage platformAttached = new AttachedImage(platform, platformImage, 6, 0, new Vec2(0, 0));*/
-        new StaticBody(this, platformShape).setPosition(new Vec2(-25, 0));
-        new StaticBody(this, platformShape).setPosition(new Vec2(-10, 10));
-        new StaticBody(this, platformShape).setPosition(new Vec2( 15, 10));
+        new Platform(this).setPosition(new Vec2(0, -5));
+        new Platform(this).setPosition(new Vec2(-25, 0));
+        new Platform(this).setPosition(new Vec2(-10, 10));
+        new Platform(this).setPosition(new Vec2(15, 10));
 
         // Special Hermes Boots
         SpecialObject Boots = new SpecialObject(this, new BoxShape(1, 1), new BodyImage("data/graphics/hermesboots.png"));
         Boots.setPosition(new Vec2(-15, -9));
 
-        // Enemy Sprites
+        // Enemy Sprite
         Enemy bat = new Enemy(this, new CircleShape(1));
         bat.setPosition(new Vec2(0, 10));
         // Listener for Bat, makes it fly up and down

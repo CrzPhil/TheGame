@@ -1,7 +1,7 @@
 package com.company.world;
 
 import city.cs.engine.BodyImage;
-import com.company.bodies.Hero;
+import com.company.bodies.dynamics.Hero;
 import org.jbox2d.common.Vec2;
 
 import java.awt.event.KeyEvent;

@@ -1,7 +1,11 @@
 package com.company.collisions;
 
 import city.cs.engine.*;
-import com.company.bodies.*;
+import com.company.bodies.dynamics.Arrow;
+import com.company.bodies.dynamics.Villain;
+import com.company.bodies.statics.Barrier;
+import com.company.bodies.statics.Choice;
+import com.company.bodies.statics.Text;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 

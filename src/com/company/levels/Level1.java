@@ -1,7 +1,12 @@
 package com.company.levels;
 
 import city.cs.engine.*;
-import com.company.bodies.*;
+import com.company.bodies.dynamics.Hero;
+import com.company.bodies.dynamics.Villain;
+import com.company.bodies.statics.Barrier;
+import com.company.bodies.statics.Choice;
+import com.company.bodies.statics.Heart;
+import com.company.bodies.statics.Text;
 import com.company.collisions.ArrowHit;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;

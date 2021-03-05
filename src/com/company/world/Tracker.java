@@ -2,8 +2,7 @@ package com.company.world;
 
 import city.cs.engine.StepEvent;
 import city.cs.engine.StepListener;
-import com.company.bodies.Hero;
-import com.company.world.MyView;
+import com.company.bodies.dynamics.Hero;
 
 public class Tracker implements StepListener {
     private MyView view;

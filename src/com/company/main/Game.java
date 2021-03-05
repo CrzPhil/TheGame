@@ -35,7 +35,7 @@ public class Game {
         // View
         view = new MyView(world, 1200, 800);
         // view.setZoom(20);
-        view.setGridResolution(1);
+        // view.setGridResolution(1);
 
         // Mouse Listener
         view.addMouseListener(new MouseHandler(view, world));
@@ -69,12 +69,12 @@ public class Game {
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
-        try {
+        /*try {
             gameMusic = new SoundClip("data/music/lvl1track.wav");
             gameMusic.loop();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
-        }
+        }*/
 
         world.start();
     }
@@ -92,6 +92,7 @@ public class Game {
             int oldHealth = world.getHero().getHealth();
 
             world = new Level2(this);
+
             //world now refers to the new level
             view.setWorld(world);
 
@@ -108,6 +109,9 @@ public class Game {
             } else if (oldHealth == 1) {
                 world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
             }
+
+            // Change background image
+            view.setBackground(new ImageIcon("data/graphics/forestbckg.png").getImage());
 
             world.start();
         }

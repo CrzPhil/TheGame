@@ -2,8 +2,8 @@ package com.company.collisions;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import com.company.bodies.Hero;
-import com.company.bodies.SpecialObject;
+import com.company.bodies.dynamics.Hero;
+import com.company.bodies.statics.SpecialObject;
 import com.company.levels.GameLevel;
 
 public class HeroCollisions implements CollisionListener {

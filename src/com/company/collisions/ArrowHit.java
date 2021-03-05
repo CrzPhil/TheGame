@@ -1,7 +1,11 @@
 package com.company.collisions;
 
 import city.cs.engine.*;
-import com.company.bodies.*;
+import com.company.bodies.dynamics.Arrow;
+import com.company.bodies.dynamics.Enemy;
+import com.company.bodies.dynamics.Hero;
+import com.company.bodies.statics.Barrier;
+import com.company.bodies.statics.Text;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
@@ -23,9 +27,10 @@ public class ArrowHit implements CollisionListener {
 
     @Override
     public void collide(CollisionEvent collisionEvent) {
+        // If the (flying) enemy hits the ground, it bounces back up with reduced gravity to imitate flying
         if (collisionEvent.getReportingBody() instanceof Enemy && collisionEvent.getOtherBody() instanceof StaticBody) {
             ((Enemy) collisionEvent.getReportingBody()).setGravityScale(0.5f);
-            ((Enemy) collisionEvent.getReportingBody()).setLinearVelocity(new Vec2(0, 15));
+            ((Enemy) collisionEvent.getReportingBody()).setLinearVelocity(new Vec2(0, 14));
         }
         // If Arrows hit either Spartan or the Floor they disappear
         if (collisionEvent.getOtherBody() instanceof Arrow && collisionEvent.getReportingBody() instanceof Hero) {

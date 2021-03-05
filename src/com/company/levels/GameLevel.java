@@ -1,7 +1,11 @@
 package com.company.levels;
 
 import city.cs.engine.World;
-import com.company.bodies.*;
+import com.company.bodies.dynamics.Hero;
+import com.company.bodies.dynamics.Villain;
+import com.company.bodies.statics.Barrier;
+import com.company.bodies.statics.Heart;
+import com.company.bodies.statics.Text;
 import com.company.main.Game;
 
 public abstract class GameLevel extends World {

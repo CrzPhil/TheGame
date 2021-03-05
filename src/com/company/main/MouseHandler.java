@@ -1,6 +1,6 @@
 package com.company.main;
 import city.cs.engine.*;
-import com.company.bodies.Spear;
+import com.company.bodies.dynamics.Spear;
 import com.company.collisions.SpearHit;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;

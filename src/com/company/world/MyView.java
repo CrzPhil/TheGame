@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyView extends UserView {
-     private final Image background;
+     private Image background;
 
      public MyView(World w, int width, int height) {
          super(w, width, height);
@@ -18,5 +18,9 @@ public class MyView extends UserView {
     protected void paintBackground(Graphics2D g) {
         /*super.paintBackground(g);*/
         g.drawImage(background, 0, 0, this);
+    }
+
+    public void setBackground(Image background) {
+        this.background = background;
     }
 }
