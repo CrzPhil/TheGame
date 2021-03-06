@@ -15,6 +15,7 @@ public class menuPanel extends JPanel{
     private JButton pauseButton;
     private JButton reloadButton;
     private JPanel mainPanel;
+    private JButton checkpointButton;
     private final Game game;
 
     // Control-variable for Pause/Unpause
@@ -59,6 +60,14 @@ public class menuPanel extends JPanel{
                 game.getView().setBackground(new ImageIcon("data/graphics/background.png").getImage());
 
                 game.getWorld().start();
+            }
+        });
+
+        // When hitting the Checkpoint button, the player is teleported to the location of the last flag he touched
+        checkpointButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

@@ -1,9 +1,6 @@
 package com.company.bodies.statics;
 
-import city.cs.engine.BodyImage;
-import city.cs.engine.BoxShape;
-import city.cs.engine.StaticBody;
-import city.cs.engine.World;
+import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
 public class Barrier extends StaticBody {
@@ -24,13 +21,11 @@ public class Barrier extends StaticBody {
     }
 
     // Methods to move barrier elsewhere off-screen without having to destroy and redeploy it again.
-
-    // Allocate moves it away, relocate moves it back.
+    // Allocate moves it away, relocate moves it back. Mainly for first level
     public void allocateBarrier() {
         setPosition(new Vec2(-15.5f, -20f));
     }
     public void relocateBarrier() {
         setPosition(new Vec2(-15.5f, 5f));
     }
-
 }

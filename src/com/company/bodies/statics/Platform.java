@@ -4,11 +4,12 @@ import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
 public class Platform extends StaticBody {
-    // Adding Platform image with custom scale
+    // Adding Platform image with custom scale to fit image to body
     private final BodyImage platformImage = new BodyImage("data/graphics/plat.png");
     private final AttachedImage platAttached = new AttachedImage(this, platformImage, 3, 0, new Vec2(0, 0));
     private static Shape platformShape = new BoxShape(4.5f, 1.5f);
 
+    // Two constructors in case Shape needs to be adjusted
     public Platform(World w, Shape s) {
         super(w, s);
     }

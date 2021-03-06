@@ -9,6 +9,8 @@ import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
 
+import javax.swing.*;
+
 public class Level2 extends GameLevel {
     private final Heart life;
 
@@ -33,6 +35,7 @@ public class Level2 extends GameLevel {
         ground.setPosition(new Vec2(-25, -15f));
         Body ground2 = new StaticBody(this, floorShape);
         ground2.setPosition(new Vec2(-15, -15f));
+
         // Image for the ground
         new AttachedImage(ground, new BodyImage("data/graphics/box-tile.png"), 10, 0, new Vec2(0, 0));
         new AttachedImage(ground2, new BodyImage("data/graphics/box-tile.png"), 10, 0, new Vec2(0, 0));
@@ -42,17 +45,26 @@ public class Level2 extends GameLevel {
         new Platform(this).setPosition(new Vec2(-25, 0));
         new Platform(this).setPosition(new Vec2(-10, 10));
         new Platform(this).setPosition(new Vec2(15, 10));
+        new Platform(this).setPosition(new Vec2(25, 10));
 
         // Special Hermes Boots which give Jump-Boost effect on pickup
         SpecialObject Boots = new SpecialObject(this, new BoxShape(1, 1), new BodyImage("data/graphics/hermesboots.png"));
         Boots.setPosition(new Vec2(-15, -8));
 
-        // Enemy Sprite
-        Enemy bat = new Enemy(this, new CircleShape(1));
+        // Enemy Sprites
+        Enemy bat = new Enemy(this, new CircleShape(1), true);
         bat.setPosition(new Vec2(0, 10));
-        // Listener for Bat, makes it fly up and down
+        Enemy bat2 = new Enemy(this, new CircleShape(1), false);
+        bat2.setPosition(new Vec2(-25, 5));
+
+        // Listener for Bats, makes them fly up and down
         ArrowHit enemyListener = new ArrowHit(this, super.getHero());
         bat.addCollisionListener(enemyListener);
+        bat2.addCollisionListener(enemyListener);
+
+        // Checkpoint Flag
+        Checkpoint flag = new Checkpoint(this);
+        flag.setPosition(new Vec2(25, 13.5f));
     }
 
     @Override
