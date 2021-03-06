@@ -10,20 +10,20 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="62bbf" class="javax.swing.JButton" binding="menuButton" default-binding="true">
+      <component id="62bbf" class="javax.swing.JButton" binding="restartButton" default-binding="true">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Menu"/>
+          <text value="Restart"/>
         </properties>
       </component>
-      <component id="92ebd" class="javax.swing.JButton" binding="restartButton" default-binding="true">
+      <component id="92ebd" class="javax.swing.JButton" binding="reloadButton" default-binding="true">
         <constraints>
           <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Restart"/>
+          <text value="Reload"/>
         </properties>
       </component>
       <component id="7ebb9" class="javax.swing.JButton" binding="pauseButton" default-binding="true">

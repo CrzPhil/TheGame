@@ -22,15 +22,18 @@ public class Game {
     private GameLevel world;
 
     // Create View
-    private MyView view;
+    private final MyView view;
 
     // Music
     private SoundClip gameMusic;
 
+    // Controller
+    Controller HeroController;
+
     public Game() {
 
         // initialise level to level1
-        world = new Level2(this);
+        world = new Level1(this);
 
         // View
         view = new MyView(world, 1200, 800);
@@ -41,7 +44,7 @@ public class Game {
         view.addMouseListener(new MouseHandler(view, world));
 
         // Keyboard Listener
-        Controller HeroController = new Controller(world.getHero());
+        HeroController = new Controller(world.getHero());
         view.addKeyListener(HeroController);
 
         // Mouse Listener
@@ -98,26 +101,45 @@ public class Game {
 
             // Reconfigure Listeners/Controllers for new Hero Object
             view.addMouseListener(new MouseHandler(view, world));
-            Controller HeroController = new Controller(world.getHero());
-            view.addKeyListener(HeroController);
             view.addMouseListener(new GiveFocus(view));
 
-            // Transfer old stats to new Hero and add according images
-            world.getHero().setHealth(oldHealth);
-            if (oldHealth == 2) {
-                world.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
-            } else if (oldHealth == 1) {
-                world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
-            }
+            // Update HeroController to new Hero
+            HeroController.updateHero(world.getHero());
+
+            // After capturing old health before creating new Level, we update the stats with this method
+            transferStats(oldHealth);
 
             // Change background image
-            view.setBackground(new ImageIcon("data/graphics/forestbckg.png").getImage());
+            view.setBackground(new ImageIcon("data/graphics/fantasy.png").getImage());
 
             world.start();
         }
     }
 
+    public void transferStats(int oldHealth) {
+        // Transfer old stats to new Hero and add according images
+        world.getHero().setHealth(oldHealth);
+        if (oldHealth == 2) {
+            world.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
+        } else if (oldHealth == 1) {
+            world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
+        }
+    }
+
+    // Getters & Setters
     public GameLevel getWorld() {
         return world;
+    }
+
+    public void setWorld(GameLevel world) {
+        this.world = world;
+    }
+
+    public MyView getView() {
+        return view;
+    }
+
+    public Controller getHeroController() {
+        return HeroController;
     }
 }

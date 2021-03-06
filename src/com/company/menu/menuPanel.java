@@ -1,6 +1,9 @@
 package com.company.menu;
 
+import com.company.levels.Level1;
 import com.company.main.Game;
+import com.company.main.MouseHandler;
+import com.company.world.GiveFocus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class menuPanel extends JPanel{
-    private JButton menuButton;
-    private JButton pauseButton;
     private JButton restartButton;
+    private JButton pauseButton;
+    private JButton reloadButton;
     private JPanel mainPanel;
     private final Game game;
 
@@ -34,6 +37,28 @@ public class menuPanel extends JPanel{
                     stop = false;
                     pauseButton.setText("Pause");
                 }
+            }
+        });
+
+        // Restart button resets lives, levels and enemies
+        restartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Everything we added in Game:goToNextLevel(); we do here but in reverse
+                game.getWorld().stop();
+
+                game.setWorld(new Level1(game));
+
+                game.getView().setWorld(game.getWorld());
+
+                game.getView().addMouseListener(new MouseHandler(game.getView(), game.getWorld()));
+                game.getView().addMouseListener(new GiveFocus(game.getView()));
+
+                game.getHeroController().updateHero(game.getWorld().getHero());
+
+                game.getView().setBackground(new ImageIcon("data/graphics/background.png").getImage());
+
+                game.getWorld().start();
             }
         });
     }

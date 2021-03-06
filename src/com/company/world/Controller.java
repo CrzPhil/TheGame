@@ -48,4 +48,8 @@ public class Controller implements KeyListener {
             Spartan.setLinearVelocity(new Vec2(3, Spartan.getLinearVelocity().y));
         }
     }
+
+    public void updateHero(Hero hero) {
+        this.Spartan = hero;
+    }
 }

@@ -47,7 +47,7 @@ public class Level1 extends GameLevel {
         scroll = new Text(this, new BodyImage("data/graphics/riddleOne.png"));
 
         // Add our Hero
-        super.getHero().setPosition(new Vec2(0, 1));
+        super.getHero().setPosition(new Vec2(0, -3));
 
         // Add Hero Heart
         life = super.getHeart();
@@ -66,6 +66,7 @@ public class Level1 extends GameLevel {
         // Add event Listener to Floor so that falling arrows disappear
         ArrowHit arrowListener = new ArrowHit(this, super.getHero());
         ground.addCollisionListener(arrowListener);
+        scroll.addCollisionListener(arrowListener);
 
         // Add event Listener to Spartan for incoming arrows
         super.getHero().addCollisionListener(arrowListener);

@@ -23,6 +23,8 @@ public class Hero extends Walker  {
 
     private static SoundClip damage;
 
+    public int tt = 0;
+
     static {
         try {
             damage = new SoundClip("data/music/playerdamage.wav");

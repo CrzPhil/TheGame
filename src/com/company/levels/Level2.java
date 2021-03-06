@@ -43,9 +43,9 @@ public class Level2 extends GameLevel {
         new Platform(this).setPosition(new Vec2(-10, 10));
         new Platform(this).setPosition(new Vec2(15, 10));
 
-        // Special Hermes Boots
+        // Special Hermes Boots which give Jump-Boost effect on pickup
         SpecialObject Boots = new SpecialObject(this, new BoxShape(1, 1), new BodyImage("data/graphics/hermesboots.png"));
-        Boots.setPosition(new Vec2(-15, -9));
+        Boots.setPosition(new Vec2(-15, -8));
 
         // Enemy Sprite
         Enemy bat = new Enemy(this, new CircleShape(1));
