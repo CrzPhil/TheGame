@@ -19,7 +19,7 @@ public class Heart extends StaticBody {
         super(world);
         this.world = world;
         addImage(heartImage);
-        setPosition(new Vec2(25, -16));
+        setPosition(new Vec2(-20, 18));
     }
 
     // Setter for Image-overlay

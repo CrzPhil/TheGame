@@ -1,13 +1,12 @@
 package com.company.main;
 
 import city.cs.engine.BodyImage;
-import city.cs.engine.DebugViewer;
 import city.cs.engine.SoundClip;
 import com.company.levels.GameLevel;
 import com.company.levels.Level1;
 import com.company.levels.Level2;
 import com.company.levels.Level3;
-import com.company.menu.menuPanel;
+import com.company.gui.menuPanel;
 import com.company.world.*;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -27,6 +26,7 @@ public class Game {
 
     // Music
     private SoundClip gameMusic;
+    private SoundClip level3Music;
 
     // Controller
     Controller HeroController;
@@ -34,10 +34,10 @@ public class Game {
     public Game() {
 
         // initialise level to level1
-        world = new Level3(this);
+        world = new Level1(this);
 
         // View
-        view = new MyView(world, 1200, 800);
+        view = new MyView(world, 1200, 800, this);
         // view.setZoom(20);
         // view.setGridResolution(1);
 
@@ -66,19 +66,20 @@ public class Game {
         frame.setVisible(true);
 
         // (ONLY FOR TESTING LEVEL 3) Tracker to simulate timer for Ball-Spawns (REMOVE WHEN PLAYING WHOLE GAME)
-        Tracker tracker = new Tracker(view, this);
-        world.addStepListener(tracker);
+        /*Tracker tracker = new Tracker(view, this);
+        world.addStepListener(tracker);*/
 
         // Debugger
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
-        /*try {
+        try {
             gameMusic = new SoundClip("data/music/lvl1track.wav");
+            level3Music = new SoundClip("data/music/level3.wav");
             gameMusic.loop();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
-        }*/
+        }
 
         world.start();
     }
@@ -118,7 +119,9 @@ public class Game {
             world.start();
         } else if (world instanceof Level2) {
             world.stop();
-
+            gameMusic.stop();
+            level3Music.play();
+            level3Music.loop();
             // Save old stats for the new Level
             int oldHealth = world.getHero().getHealth();
             int oldScore = world.getHero().getScore();
