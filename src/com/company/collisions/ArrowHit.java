@@ -39,7 +39,7 @@ public class ArrowHit implements CollisionListener {
         if (collisionEvent.getReportingBody() instanceof Enemy && collisionEvent.getOtherBody() instanceof Hero) {
             Spartan.takeDamage();
             Spartan.incrementScore();
-            updateLife();
+            world.getHeart().updateLife();
             collisionEvent.getReportingBody().destroy();
         }
         // If Arrows hit either Spartan or the Floor they disappear
@@ -47,7 +47,7 @@ public class ArrowHit implements CollisionListener {
             collisionEvent.getOtherBody().destroy();
             System.out.println("You've been hit by an arrow!");
             Spartan.takeDamage();
-            updateLife();
+            world.getHeart().updateLife();
         }
         // If some other StaticBody is hit by something other than the hero, that object is deleted
         else if (collisionEvent.getReportingBody() instanceof StaticBody && !(collisionEvent.getOtherBody() instanceof Hero)) {
@@ -60,35 +60,6 @@ public class ArrowHit implements CollisionListener {
         // If Hero hits the barrier at the end of level, next level is initiated
         if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier && world.isComplete()) {
             world.getGame().goToNextLevel();
-        }
-    }
-
-    // Method to update Health overlay according to Hero's health
-    public void updateLife() {
-        if (Spartan.getHealth() == 2) {
-            world.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
-        } else if (Spartan.getHealth() == 1) {
-            world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
-        }
-        // If Spartan dies, loss message is displayed, and spartan immobilised.
-        else if (Spartan.getHealth() <= 0) {
-            world.getHeart().setHeartImage(new BodyImage("data/graphics/emptyHeart.png", 4));
-
-            // New object of a dead spartan (static) is created.
-            BoxShape deadSpartanShape = new BoxShape(2,0.5f);
-            StaticBody deadSpartan = new StaticBody(world, deadSpartanShape);
-            deadSpartan.addImage(new BodyImage("data/graphics/spartan_dead.png", 5));
-
-            // Puts the new Body where the old Walker was, then transposes walker off-screen.
-            deadSpartan.setPosition(new Vec2(world.getHero().getPosition()));
-            world.getHero().setPosition(new Vec2(0, -50));
-
-            // Display Loss-message (position updated according to level)
-            if (world instanceof Level1) {
-                new Text(world, new BodyImage("data/graphics/loss.png"));
-            } else if (world instanceof Level2) {
-                new Text(world, new BodyImage("data/graphics/loss.png")).setPosition(new Vec2(1,-15));
-            }
         }
     }
 }

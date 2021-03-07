@@ -3,6 +3,7 @@ package com.company.collisions;
 import city.cs.engine.*;
 import com.company.bodies.dynamics.Arrow;
 import com.company.bodies.dynamics.Enemy;
+import com.company.bodies.dynamics.Spikeball;
 import com.company.bodies.dynamics.Villain;
 import com.company.bodies.statics.Barrier;
 import com.company.bodies.statics.Choice;
@@ -35,6 +36,7 @@ public class SpearHit implements CollisionListener {
     }
     private static SoundClip badSequence;
     private static SoundClip batSqueak;
+    private static SoundClip clunk;
 
     /*
         Spears get destroyed when they hit the floor/walls.
@@ -46,15 +48,10 @@ public class SpearHit implements CollisionListener {
     static {
         try {
             badSequence = new SoundClip("data/music/dundundun.wav");
+            batSqueak = new SoundClip("data/music/bat.wav");
+            clunk = new SoundClip("data/music/clunk.wav");
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException exc) {
             System.out.println(exc);
-        }
-    }
-    static {
-        try {
-            batSqueak = new SoundClip("data/music/bat.wav");
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            System.out.println(e);
         }
     }
 
@@ -133,6 +130,13 @@ public class SpearHit implements CollisionListener {
             world.getHero().incrementScore();
         }
 
+        // Collisions with Spike-Balls
+        if (collisionEvent.getOtherBody() instanceof Spikeball) {
+            collisionEvent.getOtherBody().destroy();
+            collisionEvent.getReportingBody().destroy();
+            clunk.play();
+            world.getHero().incrementScore();
+        }
     }
 
     // Method to induce arrow-rain through random x and y coordinates.

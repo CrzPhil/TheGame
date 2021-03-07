@@ -39,7 +39,7 @@ public class Game {
         // View
         view = new MyView(world, 1200, 800);
         // view.setZoom(20);
-        view.setGridResolution(1);
+        // view.setGridResolution(1);
 
         // Mouse Listener
         view.addMouseListener(new MouseHandler(view, world));
