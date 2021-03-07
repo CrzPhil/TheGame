@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 public class menuPanel extends JPanel{
     private JButton restartButton;
     private JButton pauseButton;
-    private JButton reloadButton;
     private JPanel mainPanel;
     private JButton checkpointButton;
     private final Game game;

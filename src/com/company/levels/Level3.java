@@ -49,7 +49,7 @@ public class Level3 extends GameLevel{
         // Garbage Collector (aka Ball-despawner)
         Shape floorShape = new BoxShape(32, 0.5f);
         Body ground = new StaticBody(this, floorShape);
-        ground.setPosition(new Vec2(0, 20));
+        ground.setPosition(new Vec2(0, -20));
         // In previous levels we already defined a sort-of garbage collector that destroys everything it collides with
         // Here we use it to destroy the balls or spears that may fall off-screen to preserve memory
         ArrowHit deSpawner = new ArrowHit(this, super.getHero());
