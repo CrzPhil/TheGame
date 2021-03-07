@@ -88,6 +88,7 @@ public class Game {
         new Game();
     }
 
+    // Method for level-Changing according to the current level.
     public void goToNextLevel() {
         if (world instanceof Level1) {
 
@@ -153,6 +154,7 @@ public class Game {
         }
     }
 
+    // Method to transfer stats from previous stage to new stage.
     public void transferStats(int oldHealth, int oldScore, int oldCheck) {
         // Transfer old stats to new Hero and add according images
         world.getHero().setHealth(oldHealth);

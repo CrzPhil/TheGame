@@ -7,6 +7,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
+/*
+    Spear class.
+    Spears spawn on-click and will shoot from the Hero to wherever the mouse is pointing.
+    (To see that implementation, see MouseHandler class)
+    On-spawn, a *whoosh* sound will play.
+ */
+
 public class Spear extends DynamicBody {
 
     private static final PolygonShape spearShape = new PolygonShape(-0.13f,-2.33f,
@@ -19,6 +26,7 @@ public class Spear extends DynamicBody {
     private static final BodyImage spearImage = new BodyImage("data/graphics/spear.png", 5f);
     private static SoundClip whip;
 
+    // Static function to load sound
     static {
         try {
             whip = new SoundClip("data/music/whip.wav");
@@ -27,6 +35,7 @@ public class Spear extends DynamicBody {
         }
     }
 
+    // Constructor
     public Spear(GameLevel world) {
         super(world, spearShape);
         addImage(spearImage);

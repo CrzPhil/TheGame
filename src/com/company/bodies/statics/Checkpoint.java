@@ -13,12 +13,12 @@ public class Checkpoint extends StaticBody {
 
     private static final BoxShape flagShape = new BoxShape(1, 4);
     private static BodyImage redCheck = new BodyImage("data/graphics/checkpoint.png", 4);
-    private static BodyImage greenCheck = new BodyImage("data/graphics/checkpointcompleted.png", 4);
+    private static final BodyImage greenCheck = new BodyImage("data/graphics/checkpointcompleted.png", 4);
 
+    // Two constructors, as one takes a bodyImage as a variable, in order to change from red to green afterwards
     public Checkpoint(World world) {
         super(world, flagShape);
         this.addImage(redCheck);
-        /*new AttachedImage(this, redCheck, 4, 0, new Vec2(0, 0));*/
         setPosition(new Vec2(-15.5f, 5f));
     }
 

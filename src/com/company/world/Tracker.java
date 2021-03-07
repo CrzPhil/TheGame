@@ -4,7 +4,6 @@ import city.cs.engine.BodyImage;
 import city.cs.engine.SoundClip;
 import city.cs.engine.StepEvent;
 import city.cs.engine.StepListener;
-import com.company.bodies.dynamics.Hero;
 import com.company.bodies.dynamics.Spikeball;
 import com.company.bodies.statics.Text;
 import com.company.main.Game;
@@ -14,6 +13,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.Random;
+
+/*
+    Tracker mainly used in level 3 to spawn balls randomly until
+    the Spartan has a score of >25.
+    I use a Random variable here which is either 0,1,2,3, or 4.
+    Accordingly, a ball will spawn in one of those five positions, specified in the Spikeball class.
+ */
 
 public class Tracker implements StepListener {
     private static SoundClip yeah;
@@ -45,6 +51,7 @@ public class Tracker implements StepListener {
         this.view = view;
     }
 
+    // Full documentation above.
     @Override
     public void preStep(StepEvent stepEvent) {
         if (run) {

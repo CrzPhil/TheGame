@@ -21,6 +21,7 @@ import java.io.IOException;
     It is also the bulk of the Sequence-simulation, as we haven't learnt about timers yet.
     It checks which choice the player goes for in the first riddle, by checking for collisions which each
     of the three objects.
+    LEVEL 1:
     If the Hero chooses correctly, he gets a free hit on the Villain.
     Should he choose incorrectly, he loses a life and has to try again until he finds the answer.
     After the Hero fires at the Villain, the barrier is restored while it hails arrows.
@@ -39,6 +40,7 @@ public class SpearHit implements CollisionListener {
     private static SoundClip clunk;
 
     /*
+        (DISCLAIMER: Full documentation above)
         Spears get destroyed when they hit the floor/walls.
         They also destroy incoming arrows (but also get destroyed themselves).
         When the spear hits the Sphinx (Villain), Sphinx takes damage and spear is destroyed.

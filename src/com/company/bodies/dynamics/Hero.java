@@ -7,6 +7,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
+/*
+    Hero! Mighty Spartan class.
+    Has three dynamic fields which will track progress and stats throughout the game.
+    Has Methods to takeDamage(), during which a sound will play.
+ */
+
 public class Hero extends Walker  {
     private static final Shape heroShape = new PolygonShape(-0.76f,2.77f,
             0.43f,2.76f,
@@ -22,11 +28,13 @@ public class Hero extends Walker  {
     // Dynamic fields which will track Health and other conditions
     private int health;
     private int score;
+    // Checkpoint is used to track which checkpoint he is currently at. 1 is the first, 2 will be implemented with more levels.
     private int checkPoint = 0;
 
     // Sound which will play when Hero takes damage loaded in static method
     private static SoundClip damage;
 
+    // Load sound in static function
     static {
         try {
             damage = new SoundClip("data/music/playerdamage.wav");

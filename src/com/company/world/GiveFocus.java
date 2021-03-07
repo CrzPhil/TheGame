@@ -5,6 +5,10 @@ import com.company.world.MyView;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/*
+    Standard method to give View focus when mouse is inside.
+ */
+
 public class GiveFocus implements MouseListener {
     private MyView view;
 

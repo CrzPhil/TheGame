@@ -4,6 +4,12 @@ import city.cs.engine.*;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
+/*
+    Arrow class is used in the first level, for three sequences of arrow-rain.
+    They get destroyed on-collision with spears, or the floor.
+    They cause damage to the Hero.
+ */
+
 public class Arrow extends DynamicBody {
 
     private static final Shape arrowShape = new PolygonShape(-0.18f, -2.04f,
@@ -23,6 +29,7 @@ public class Arrow extends DynamicBody {
         arrowCount++;
     }
 
+    // Getter
     public static int getArrowCount() {
         return arrowCount;
     }
@@ -32,5 +39,3 @@ public class Arrow extends DynamicBody {
         arrowCount = 0;
     }
 }
-
-// System.out.println(System.currentTimeMillis()/1000);

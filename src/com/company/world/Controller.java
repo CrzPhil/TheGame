@@ -7,6 +7,13 @@ import org.jbox2d.common.Vec2;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/*
+    Controller for our Walker.
+    Normal A (left) D (right) movement.
+    Jump with Space.
+    Images get updated on direction-change.
+ */
+
 public class Controller implements KeyListener {
     private static final float MOVEMENT_SPEED = 6;
     private Hero Spartan;
@@ -15,10 +22,7 @@ public class Controller implements KeyListener {
         this.Spartan = Spartan;
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
+    // KeyPress listener
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -34,6 +38,7 @@ public class Controller implements KeyListener {
         }
     }
 
+    // Method to stop walking on key-release.
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
@@ -49,6 +54,11 @@ public class Controller implements KeyListener {
         }
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    // Method to update the Hero object that is being pointed to. Used in Level-Change
     public void updateHero(Hero hero) {
         this.Spartan = hero;
     }

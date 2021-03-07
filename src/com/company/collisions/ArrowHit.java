@@ -12,7 +12,8 @@ import com.company.levels.Level2;
 import org.jbox2d.common.Vec2;
 
 /*
-    This class is our Arrow-Listener. It is responsible for removing arrows on-collision with different objects.
+    This class is our Arrow-Listener. It controls the bulk of the sequencing in the first level.
+    It is responsible for spawning and removing arrows on-collision with different objects.
     The Hero also takes damage if hit by an object of this class.
     According to the current health-level of the Hero, the Heart is also updated.
     Should he be hit three or more times, he will die and the game ends.
@@ -28,6 +29,7 @@ public class ArrowHit implements CollisionListener {
         this.world = world;
     }
 
+    // See class-documentation above.
     @Override
     public void collide(CollisionEvent collisionEvent) {
         // If the (flying) enemy hits the ground, it bounces back up with reduced gravity to imitate flying

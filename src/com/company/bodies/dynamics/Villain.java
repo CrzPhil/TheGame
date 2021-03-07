@@ -7,6 +7,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
+/*
+    Villain class for the Sphinx in the first level.
+    Asks riddles and causes Arrow-Rain after every hit taken.
+    (To see that implementation see ArrowHit class)
+ */
+
+
 public class Villain extends DynamicBody {
     private static final PolygonShape villainShape = new PolygonShape(-4.31f,-4.58f,
             4.8f,-4.46f,
@@ -15,8 +22,10 @@ public class Villain extends DynamicBody {
 
     private static BodyImage sphinxImage = new BodyImage("data/graphics/sphinx.png", 10f);
 
+    // Decrements after every hit by spear
     private int health;
 
+    // Load sound in static function
     private static SoundClip villainDamage;
 
     static {
@@ -27,6 +36,7 @@ public class Villain extends DynamicBody {
         }
     }
 
+    // Constructor
     public Villain(World world) {
         super(world, villainShape);
         addImage(sphinxImage);
@@ -40,6 +50,7 @@ public class Villain extends DynamicBody {
         villainDamage.play();
     }
 
+    // Getters and Setters
     public int getHealth() {
         return health;
     }

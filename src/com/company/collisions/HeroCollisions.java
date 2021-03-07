@@ -61,7 +61,6 @@ public class HeroCollisions implements CollisionListener {
         }
         // If Hero hits the barrier at the end of level, next level is initiated
         if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier && world.isComplete()) {
-            // Go to next level
             world.getGame().goToNextLevel();
         }
         // If Hero collides with Spike-ball, he takes damage, spike-ball is destroyed

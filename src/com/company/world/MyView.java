@@ -7,9 +7,13 @@ import com.company.main.Game;
 import javax.swing.*;
 import java.awt.*;
 
+/*
+    View, which includes overlay and Background.
+ */
+
 public class MyView extends UserView {
      private Image background;
-     private Game game;
+     private final Game game;
 
      public MyView(World w, int width, int height, Game game) {
          super(w, width, height);
@@ -24,6 +28,7 @@ public class MyView extends UserView {
         g.drawImage(background, 0, 0, this);
     }
 
+    // Add Score-Overlay with real-time updates.
     @Override
     protected void paintForeground(Graphics2D g) {
          g.setFont(new Font("Courier New", Font.BOLD, 24));

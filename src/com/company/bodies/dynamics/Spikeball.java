@@ -6,14 +6,14 @@ import city.cs.engine.DynamicBody;
 import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
 
-// Spikeball class for level 3
+// Spikeball class for level 3 which will damage Hero on-collision
 public class Spikeball extends DynamicBody {
-    private static CircleShape spikeBall = new CircleShape(1.23f);
-    private BodyImage spikeImage = new BodyImage("data/graphics/spikeball.gif", 6);
+    private static final CircleShape spikeBall = new CircleShape(1.23f);
 
     public Spikeball(World w, int position) {
         super(w, spikeBall);
         // Position will be an int between 0 and 5 and tell us where/with which velocity to spawn the ball accordingly
+        BodyImage spikeImage = new BodyImage("data/graphics/spikeball.gif", 6);
         addImage(spikeImage);
 
         if (position == 0) { // 0 is left
