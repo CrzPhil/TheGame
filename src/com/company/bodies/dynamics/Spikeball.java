@@ -10,17 +10,11 @@ import org.jbox2d.common.Vec2;
 public class Spikeball extends DynamicBody {
     private static CircleShape spikeBall = new CircleShape(1.23f);
     private BodyImage spikeImage = new BodyImage("data/graphics/spikeball.gif", 6);
-    // Position will be an int between 0 and 5 and tell us where/with which velocity to spawn the ball accordingly
-    private int position;
-
-    // Our checker for how many balls will spawn (increments within constructor)
-    private int ballCount;
 
     public Spikeball(World w, int position) {
         super(w, spikeBall);
-        this.position = position;
+        // Position will be an int between 0 and 5 and tell us where/with which velocity to spawn the ball accordingly
         addImage(spikeImage);
-        ballCount++;
 
         if (position == 0) { // 0 is left
             this.setPosition(new Vec2(-35, -4.3f));
@@ -42,14 +36,5 @@ public class Spikeball extends DynamicBody {
     // We need a method to check whether the balls have moved off-screen to destroy(); them and avoid cluttering
     public boolean offScreen() {
         return this.getPosition().y < -20;
-    }
-
-    // Getters and Setters
-    public int getBallCount() {
-        return ballCount;
-    }
-
-    public void setBallCount(int ballCount) {
-        this.ballCount = ballCount;
     }
 }

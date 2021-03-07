@@ -10,6 +10,7 @@ import com.company.bodies.statics.Barrier;
 import com.company.bodies.statics.Heart;
 import com.company.bodies.statics.Platform;
 import com.company.bodies.statics.Text;
+import com.company.collisions.ArrowHit;
 import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
@@ -44,6 +45,15 @@ public class Level3 extends GameLevel{
         funnel.rotateDegrees(-45);
         funnel2.setPosition(new Vec2(15, 5));
         funnel2.rotateDegrees(45);
+
+        // Garbage Collector (aka Ball-despawner)
+        Shape floorShape = new BoxShape(32, 0.5f);
+        Body ground = new StaticBody(this, floorShape);
+        ground.setPosition(new Vec2(0, 20));
+        // In previous levels we already defined a sort-of garbage collector that destroys everything it collides with
+        // Here we use it to destroy the balls or spears that may fall off-screen to preserve memory
+        ArrowHit deSpawner = new ArrowHit(this, super.getHero());
+        ground.addCollisionListener(deSpawner);
     }
 
 
