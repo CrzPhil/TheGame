@@ -104,7 +104,10 @@ public class SpearHit implements CollisionListener {
                     world.getSphinx().destroy();
                     world.nullSphinx();
                     new Text(world, new BodyImage("data/graphics/won.png"));
-
+                    // Hero gets three points for killing the Sphinx
+                    for (int i=0; i<3; i++) {
+                        world.getHero().incrementScore();
+                    }
                     // Directional Arrow pointing towards new level
                     Text arrow = new Text(world, new BodyImage("data/graphics/direction.png"));
                     arrow.setPosition(new Vec2(10, 10));
@@ -126,6 +129,8 @@ public class SpearHit implements CollisionListener {
         if (collisionEvent.getOtherBody() instanceof Enemy) {
             collisionEvent.getOtherBody().destroy();
             batSqueak.play();
+            // Score is incremented
+            world.getHero().incrementScore();
         }
 
     }

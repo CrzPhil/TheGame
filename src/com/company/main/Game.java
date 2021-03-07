@@ -6,6 +6,7 @@ import city.cs.engine.SoundClip;
 import com.company.levels.GameLevel;
 import com.company.levels.Level1;
 import com.company.levels.Level2;
+import com.company.levels.Level3;
 import com.company.menu.menuPanel;
 import com.company.world.*;
 
@@ -33,12 +34,12 @@ public class Game {
     public Game() {
 
         // initialise level to level1
-        world = new Level2(this);
+        world = new Level1(this);
 
         // View
         view = new MyView(world, 1200, 800);
         // view.setZoom(20);
-        view.setGridResolution(1);
+        // view.setGridResolution(1);
 
         // Mouse Listener
         view.addMouseListener(new MouseHandler(view, world));
@@ -93,6 +94,8 @@ public class Game {
 
             // Save old stats for the new Level
             int oldHealth = world.getHero().getHealth();
+            int oldScore = world.getHero().getScore();
+            int oldCheck = world.getHero().getCheckPoint();
 
             world = new Level2(this);
 
@@ -106,24 +109,53 @@ public class Game {
             // Update HeroController to new Hero
             HeroController.updateHero(world.getHero());
 
-            // After capturing old health before creating new Level, we update the stats with this method
-            transferStats(oldHealth);
+            // After capturing old stats before creating new Level, we update the stats with this method
+            transferStats(oldHealth, oldScore, oldCheck);
 
             // Change background image
             view.setBackground(new ImageIcon("data/graphics/fantasy.png").getImage());
 
             world.start();
+        } else if (world instanceof Level2) {
+            world.stop();
+
+            // Save old stats for the new Level
+            int oldHealth = world.getHero().getHealth();
+            int oldScore = world.getHero().getScore();
+            int oldCheck = world.getHero().getCheckPoint();
+
+            world = new Level3(this);
+
+            //world now refers to the new level
+            view.setWorld(world);
+
+            // Reconfigure Listeners/Controllers for new Hero Object
+            view.addMouseListener(new MouseHandler(view, world));
+            view.addMouseListener(new GiveFocus(view));
+
+            // Update HeroController to new Hero
+            HeroController.updateHero(world.getHero());
+
+            // After capturing old stats before creating new Level, we update the stats with this method
+            transferStats(oldHealth, oldScore, oldCheck);
+
+            // Change background image
+            view.setBackground(new ImageIcon("data/graphics/shroomsbckg.png").getImage());
+
+            world.start();
         }
     }
 
-    public void transferStats(int oldHealth) {
+    public void transferStats(int oldHealth, int oldScore, int oldCheck) {
         // Transfer old stats to new Hero and add according images
         world.getHero().setHealth(oldHealth);
+        world.getHero().setCheckPoint(oldCheck);
         if (oldHealth == 2) {
             world.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
         } else if (oldHealth == 1) {
             world.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
         }
+        world.getHero().setScore(oldScore);
     }
 
     // Getters & Setters

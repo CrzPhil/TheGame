@@ -23,6 +23,6 @@ public class Platform extends StaticBody {
     }
 
     public void setPlatformShape(Shape platformShape) {
-        this.platformShape = platformShape;
+        Platform.platformShape = platformShape;
     }
 }

@@ -11,7 +11,7 @@ public class Barrier extends StaticBody {
         go out-of-bounds.
      */
 
-    private static final BoxShape barrierShape = new BoxShape(1, 7);
+    private static final BoxShape barrierShape = new BoxShape(0.5f, 7);
     private static final BodyImage blankImage = new BodyImage("data/graphics/blank.png");
 
     public Barrier(World world) {

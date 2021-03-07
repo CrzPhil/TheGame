@@ -1,5 +1,6 @@
 package com.company.levels;
 
+import city.cs.engine.BodyImage;
 import city.cs.engine.World;
 import com.company.bodies.dynamics.Hero;
 import com.company.bodies.dynamics.Villain;
@@ -30,6 +31,17 @@ public abstract class GameLevel extends World {
     }
     public Game getGame() {
         return game;
+    }
+
+    // Method to update Heart image according to health (bottom right)
+    public void updateHealth() {
+        if (Spartan.getHealth() == 3) {
+            this.getHeart().setHeartImage(new BodyImage("data/graphics/fullHeart.png", 4));
+        } else if (Spartan.getHealth() == 2) {
+            this.getHeart().setHeartImage(new BodyImage("data/graphics/halfHeart.png", 4));
+        } else if (Spartan.getHealth() == 1) {
+            this.getHeart().setHeartImage(new BodyImage("data/graphics/lastHeart.png", 4));
+        }
     }
 
     // Abstract methods from different levels

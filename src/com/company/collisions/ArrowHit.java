@@ -7,6 +7,8 @@ import com.company.bodies.dynamics.Hero;
 import com.company.bodies.statics.Barrier;
 import com.company.bodies.statics.Text;
 import com.company.levels.GameLevel;
+import com.company.levels.Level1;
+import com.company.levels.Level2;
 import org.jbox2d.common.Vec2;
 
 /*
@@ -36,6 +38,7 @@ public class ArrowHit implements CollisionListener {
         // If Enemy hits Spartan, he takes damage
         if (collisionEvent.getReportingBody() instanceof Enemy && collisionEvent.getOtherBody() instanceof Hero) {
             Spartan.takeDamage();
+            Spartan.incrementScore();
             updateLife();
             collisionEvent.getReportingBody().destroy();
         }
@@ -45,7 +48,6 @@ public class ArrowHit implements CollisionListener {
             System.out.println("You've been hit by an arrow!");
             Spartan.takeDamage();
             updateLife();
-            Text winMessage = new Text(world, new BodyImage("data/graphics/loss.png"));
         }
         // If some other StaticBody is hit by something other than the hero, that object is deleted
         else if (collisionEvent.getReportingBody() instanceof StaticBody && !(collisionEvent.getOtherBody() instanceof Hero)) {
@@ -55,7 +57,7 @@ public class ArrowHit implements CollisionListener {
         if (collisionEvent.getOtherBody() instanceof Arrow && collisionEvent.getReportingBody() instanceof Text) {
             collisionEvent.getOtherBody().destroy();
         }
-        // If Hero hits the barrier at the end of level one, level two is initiated
+        // If Hero hits the barrier at the end of level, next level is initiated
         if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier && world.isComplete()) {
             world.getGame().goToNextLevel();
         }
@@ -80,6 +82,13 @@ public class ArrowHit implements CollisionListener {
             // Puts the new Body where the old Walker was, then transposes walker off-screen.
             deadSpartan.setPosition(new Vec2(world.getHero().getPosition()));
             world.getHero().setPosition(new Vec2(0, -50));
+
+            // Display Loss-message (position updated according to level)
+            if (world instanceof Level1) {
+                new Text(world, new BodyImage("data/graphics/loss.png"));
+            } else if (world instanceof Level2) {
+                new Text(world, new BodyImage("data/graphics/loss.png")).setPosition(new Vec2(1,-15));
+            }
         }
     }
 }

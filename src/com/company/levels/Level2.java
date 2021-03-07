@@ -9,22 +9,17 @@ import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
 
-import javax.swing.*;
 
 public class Level2 extends GameLevel {
-    private final Heart life;
-
     public Level2(Game game) {
         super(game);
 
         // Add hero and life-overlay
         super.getHero().setPosition(new Vec2(-28, -7));
-        life = super.getHeart();
+        Heart life = super.getHeart();
 
         // Add event Listeners
         HeroCollisions heroListener = new HeroCollisions(this, super.getHero());
-
-        // Add event Listener to Spartan for incoming arrows
         super.getHero().addCollisionListener(heroListener);
 
         // ====== Level Design ======
@@ -48,7 +43,7 @@ public class Level2 extends GameLevel {
         new Platform(this).setPosition(new Vec2(25, 10));
 
         // Special Hermes Boots which give Jump-Boost effect on pickup
-        SpecialObject Boots = new SpecialObject(this, new BoxShape(1, 1), new BodyImage("data/graphics/hermesboots.png"));
+        SpecialObject Boots = new SpecialObject(this, new BoxShape(1, 1), new BodyImage("data/graphics/hermesboots.png"), super.getHero());
         Boots.setPosition(new Vec2(-15, -8));
 
         // Enemy Sprites
@@ -65,11 +60,16 @@ public class Level2 extends GameLevel {
         // Checkpoint Flag
         Checkpoint flag = new Checkpoint(this);
         flag.setPosition(new Vec2(25, 13.5f));
+
+        // Add Barrier at end of level to check for completion
+        Barrier checker = new Barrier(this);
+        checker.setPosition(new Vec2(29, 10));
     }
 
     @Override
     public boolean isComplete() {
-        return false;
+        // If hero killed all the enemies in both levels, the score adds up to 5 and he may proceed to level 3
+        return (super.getHero().getScore() >= 5);
     }
 
     @Override

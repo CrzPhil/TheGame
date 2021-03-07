@@ -19,11 +19,13 @@ public class Hero extends Walker  {
 
     private static BodyImage heroImage = new BodyImage("data/graphics/spartan_idle.png", 7f);
 
+    // Dynamic fields which will track Health and other conditions
     private int health;
+    private int score;
+    private int checkPoint = 0;
 
+    // Sound which will play when Hero takes damage loaded in static method
     private static SoundClip damage;
-
-    public int tt = 0;
 
     static {
         try {
@@ -53,11 +55,38 @@ public class Hero extends Walker  {
         damage.play();
     }
 
+    // Increment score
+    public void incrementScore() {
+        this.score++;
+    }
+
+    // Track Checkpoint
+    public void hitCheckPoint() {
+        checkPoint++;
+    }
+
+    // Getters & Setters
     public int getHealth() {
         return health;
     }
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getCheckPoint() {
+        return checkPoint;
+    }
+
+    public void setCheckPoint(int checkPoint) {
+        this.checkPoint = checkPoint;
     }
 }
