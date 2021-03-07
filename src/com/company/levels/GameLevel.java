@@ -15,12 +15,12 @@ public abstract class GameLevel extends World {
     private final Heart life;
     private final Game game;
 
+    // Constructor initialising all the fields
     public GameLevel(Game game) {
         Spartan = new Hero(this);
         life = new Heart(this);
         this.game = game;
     }
-
 
     // Accessors
     public Hero getHero() {

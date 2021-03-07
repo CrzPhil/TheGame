@@ -4,9 +4,11 @@ import city.cs.engine.Body;
 import city.cs.engine.BoxShape;
 import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
+import com.company.bodies.dynamics.Spikeball;
 import com.company.bodies.dynamics.Villain;
 import com.company.bodies.statics.Barrier;
 import com.company.bodies.statics.Heart;
+import com.company.bodies.statics.Platform;
 import com.company.bodies.statics.Text;
 import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
@@ -17,7 +19,7 @@ public class Level3 extends GameLevel{
         super(game);
 
         // Add hero and life-overlay
-        super.getHero().setPosition(new Vec2(-28, -7));
+        super.getHero().setPosition(new Vec2(0, -12));
         Heart life = super.getHeart();
 
         // Add event Listeners
@@ -26,13 +28,22 @@ public class Level3 extends GameLevel{
 
         // ====== Level Design ======
 
-        // Ground
-        Shape floorShape = new BoxShape(5, 5);
-        Body ground = new StaticBody(this, floorShape);
-        ground.setPosition(new Vec2(-25, -15f));
-        Body ground2 = new StaticBody(this, floorShape);
-        ground2.setPosition(new Vec2(-15, -15f));
+        // Platforms
+        new Platform(this).setPosition(new Vec2(0, -15));
+        new Platform(this).setPosition(new Vec2(-25, -5));
+        new Platform(this).setPosition(new Vec2(25, -5));
+        // These two are off-screen, but we will spawn our spikeballs there so they can smoothly roll in
+        new Platform(this).setPosition(new Vec2(-35, -5));
+        new Platform(this).setPosition(new Vec2(35, -5));
 
+
+        // Funnel are the two rotated platforms
+        Platform funnel = new Platform(this);
+        Platform funnel2 = new Platform(this);
+        funnel.setPosition(new Vec2(-15, 5));
+        funnel.rotateDegrees(-45);
+        funnel2.setPosition(new Vec2(15, 5));
+        funnel2.rotateDegrees(45);
     }
 
 

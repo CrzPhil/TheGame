@@ -34,12 +34,12 @@ public class Game {
     public Game() {
 
         // initialise level to level1
-        world = new Level1(this);
+        world = new Level3(this);
 
         // View
         view = new MyView(world, 1200, 800);
         // view.setZoom(20);
-        // view.setGridResolution(1);
+        view.setGridResolution(1);
 
         // Mouse Listener
         view.addMouseListener(new MouseHandler(view, world));
@@ -50,10 +50,6 @@ public class Game {
 
         // Mouse Listener
         view.addMouseListener(new GiveFocus(view));
-
-        // Tracker
-        Tracker tracker = new Tracker(view);
-        world.addStepListener(tracker);
 
         // Frame
         final JFrame frame = new JFrame("Spartan Hero");
@@ -68,6 +64,10 @@ public class Game {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+
+        // (ONLY FOR TESTING LEVEL 3) Tracker to simulate timer for Ball-Spawns (REMOVE WHEN PLAYING WHOLE GAME)
+        Tracker tracker = new Tracker(view, this);
+        world.addStepListener(tracker);
 
         // Debugger
         // JFrame debugView = new DebugViewer(world, 800, 800);
@@ -141,6 +141,10 @@ public class Game {
 
             // Change background image
             view.setBackground(new ImageIcon("data/graphics/shroomsbckg.png").getImage());
+
+            // Tracker to simulate timer for Ball-Spawns
+            Tracker tracker = new Tracker(view, this);
+            world.addStepListener(tracker);
 
             world.start();
         }
