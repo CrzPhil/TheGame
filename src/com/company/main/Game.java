@@ -25,7 +25,8 @@ public class Game {
     private final MyView view;
 
     // Music
-    private SoundClip gameMusic;
+    private SoundClip currentMusic;
+    private SoundClip level1Music;
     private SoundClip level3Music;
 
     // Controller
@@ -74,9 +75,10 @@ public class Game {
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
         try {
-            gameMusic = new SoundClip("data/music/lvl1track.wav");
+            level1Music = new SoundClip("data/music/lvl1track.wav");
             level3Music = new SoundClip("data/music/level3.wav");
-            gameMusic.loop();
+            currentMusic = level1Music;
+            currentMusic.loop();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
         }
@@ -120,9 +122,9 @@ public class Game {
             world.start();
         } else if (world instanceof Level2) {
             world.stop();
-            gameMusic.stop();
-            level3Music.play();
-            level3Music.loop();
+            currentMusic.stop();
+            currentMusic = level3Music;
+            currentMusic.loop();
             // Save old stats for the new Level
             int oldHealth = world.getHero().getHealth();
             int oldScore = world.getHero().getScore();
@@ -182,5 +184,21 @@ public class Game {
 
     public Controller getHeroController() {
         return HeroController;
+    }
+
+    public SoundClip getCurrentMusic() {
+        return currentMusic;
+    }
+
+    public void setCurrentMusic (SoundClip newMusic) {
+        this.currentMusic = newMusic;
+    }
+
+    public SoundClip getLevel1Music() {
+        return level1Music;
+    }
+
+    public SoundClip getLevel3Music() {
+        return level3Music;
     }
 }
