@@ -1,11 +1,9 @@
 package com.company.main;
 
 import city.cs.engine.BodyImage;
+import city.cs.engine.DebugViewer;
 import city.cs.engine.SoundClip;
-import com.company.levels.GameLevel;
-import com.company.levels.Level1;
-import com.company.levels.Level2;
-import com.company.levels.Level3;
+import com.company.levels.*;
 import com.company.gui.menuPanel;
 import com.company.world.*;
 
@@ -36,7 +34,7 @@ public class Game {
     public Game() {
 
         // initialise level to level1
-        world = new Level1(this);
+        world = new Level4(this);
 
         // View
         view = new MyView(world, 1200, 800, this);
@@ -72,17 +70,17 @@ public class Game {
         world.addStepListener(tracker);*/
 
         // Debugger
-        // JFrame debugView = new DebugViewer(world, 800, 800);
+        JFrame debugView = new DebugViewer(world, 800, 800);
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
-        try {
+        /*try {
             level1Music = new SoundClip("data/music/lvl1track.wav");
             level3Music = new SoundClip("data/music/level3.wav");
             currentMusic = level1Music;
             currentMusic.loop();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
-        }
+        }*/
 
         world.start();
     }

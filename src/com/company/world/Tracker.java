@@ -47,10 +47,6 @@ public class Tracker implements StepListener {
         this.game = game;
     }
 
-    public Tracker(MyView view) {
-        this.view = view;
-    }
-
     // Full documentation above.
     @Override
     public void preStep(StepEvent stepEvent) {
@@ -59,7 +55,7 @@ public class Tracker implements StepListener {
             if (game.getWorld().getHero().getScore() >= 25) {
                 sequence = false;
                 new Text(game.getWorld(), new BodyImage("data/graphics/level3done.png")).setPosition(new Vec2(0, 0));
-                // We stop this whole block from executing (i.e more Texts to spawn on top of eachother etc)
+                // We stop this whole block from executing (i.e stop more Texts from spawning on top of each other etc)
                 run = false;
                 yeah.play();
             }
