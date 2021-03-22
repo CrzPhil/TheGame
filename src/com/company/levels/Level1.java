@@ -17,7 +17,10 @@ public class Level1 extends GameLevel {
     private final Heart life;
     private final Barrier barrierSphinx;
     private final Text scroll;
-
+    /*
+    In the first Level the Sphinx poses a riddle to the Hero; there are three choices he can choose from by shooting
+    them with his Spear.
+     */
     private final Choice answerOne;
     private final Choice answerTwo;
     private final Choice answerThree;

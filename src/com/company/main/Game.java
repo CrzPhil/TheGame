@@ -31,6 +31,7 @@ public class Game {
 
     // Controller
     Controller HeroController;
+    private menuPanel menu;
 
     public Game() {
 
@@ -58,7 +59,7 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add Bottom Overlay Menu
-        menuPanel menu = new menuPanel(this);
+        menu = new menuPanel(this);
         frame.add(menu.getmainPanel(), BorderLayout.SOUTH);
 
         frame.setLocationByPlatform(true);
@@ -122,9 +123,21 @@ public class Game {
             world.start();
         } else if (world instanceof Level2) {
             world.stop();
+            // Get Volume of previous track
+            double currentVolume = menu.getSlider1().getValue();
+            // Stop previous track
             currentMusic.stop();
+            // Update Music field
             currentMusic = level3Music;
             currentMusic.loop();
+            // Set Volume
+            if (currentVolume > 0) {
+                currentMusic.setVolume(currentVolume/100);
+            } else {
+                // Setting volume to 0 generates an error, so we use the next-best value
+                currentMusic.setVolume(0.01f);
+            }
+
             // Save old stats for the new Level
             int oldHealth = world.getHero().getHealth();
             int oldScore = world.getHero().getScore();

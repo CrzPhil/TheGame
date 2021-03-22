@@ -30,6 +30,7 @@ public class menuPanel extends JPanel{
         // Adjust slider settings for Volume control
         slider1.setValue(100);
         slider1.setMaximum(150);
+        slider1.setMinimum(0);
 
         // Pause button stops and resumes the game on-click
         pauseButton.addActionListener(new ActionListener() {
@@ -111,12 +112,12 @@ public class menuPanel extends JPanel{
             @Override
             public void stateChanged(ChangeEvent e) {
                 double volume = slider1.getValue();
-
                 // Using if/else since for some reason an error appears when sound reaches 0
                 if (volume > 0) {
                     game.getCurrentMusic().setVolume(volume / 100);
                 } else {
-                    game.getCurrentMusic().setVolume(0);
+                    // Setting volume to 0 generates an error, so we use the next-best value
+                    game.getCurrentMusic().setVolume(0.01f);
                 }
             }
         });
@@ -130,7 +131,13 @@ public class menuPanel extends JPanel{
         game.getWorld().getHero().setHealth(3);
         game.getHeroController().updateHero(game.getWorld().getHero());
     }
+
     public JPanel getmainPanel() {
         return mainPanel;
+    }
+
+    // Getter for Slider; used for Volume consistency across levels
+    public JSlider getSlider1() {
+        return slider1;
     }
 }
