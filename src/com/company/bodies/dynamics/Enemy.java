@@ -13,6 +13,7 @@ public class Enemy extends DynamicBody {
     // Distinguish between the types of Enemies
     private boolean isBat;
     private boolean isGuard;
+    private BodyImage guardImage;
 
     // Constructor with Images, which change according to if the enemy is facing left or right (Used for Bats)
     public Enemy(World w, Shape shape, boolean left) {
@@ -32,10 +33,8 @@ public class Enemy extends DynamicBody {
     public Enemy(World w, Shape shape) {
         super(w, shape);
         this.isGuard = true;
-        BodyImage guardWalkingLeft = new BodyImage("data/graphics/enemywalk.gif", 5);
-        this.addImage(guardWalkingLeft);
-        // AttachedImage attached = new AttachedImage(this, guardWalkingLeft, 5, 0)
-
+        this.guardImage = new BodyImage("data/graphics/enemywalk.gif", 5);
+        this.addImage(guardImage);
     }
 
     // Getters and Setters
@@ -44,5 +43,13 @@ public class Enemy extends DynamicBody {
     }
     public boolean isGuard() {
         return isGuard;
+    }
+
+    public BodyImage getGuardImage() {
+        return guardImage;
+    }
+
+    public void setGuardImage(BodyImage guardImage) {
+        this.guardImage = guardImage;
     }
 }

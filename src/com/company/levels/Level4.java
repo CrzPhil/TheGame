@@ -2,6 +2,7 @@ package com.company.levels;
 
 import city.cs.engine.*;
 import com.company.bodies.dynamics.Enemy;
+import com.company.bodies.dynamics.FSM.FlyingEnemy;
 import com.company.bodies.dynamics.FSM.WalkingEnemy;
 import com.company.bodies.dynamics.Villain;
 import com.company.bodies.statics.Barrier;
@@ -11,6 +12,8 @@ import com.company.bodies.statics.Text;
 import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
+
+import javax.swing.*;
 
 public class Level4 extends GameLevel{
     public Level4(Game game) {
@@ -26,6 +29,7 @@ public class Level4 extends GameLevel{
 
         // ====== Level Design ======
 
+
         // Ground
         float offset = 0;
         for (int i=0; i<6; i++) {
@@ -39,6 +43,14 @@ public class Level4 extends GameLevel{
 
         // Tracker for Enemy
         WalkingEnemy walker = new WalkingEnemy(this, guard);
+
+        // Flying Bat
+        Enemy bat = new Enemy(this, new CircleShape(1), true);
+        bat.setPosition(new Vec2(30, 0));
+
+        // Tracker for Bat
+        FlyingEnemy flyBat = new FlyingEnemy(this, bat);
+        bat.setLinearVelocity(new Vec2(-5, 15));
 
     }
     // Extra Methods

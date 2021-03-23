@@ -1,11 +1,10 @@
 package com.company.bodies.dynamics.FSM;
 
-import city.cs.engine.DynamicBody;
+import city.cs.engine.BodyImage;
 import city.cs.engine.StepEvent;
 import city.cs.engine.StepListener;
 import com.company.bodies.dynamics.Enemy;
 import com.company.levels.GameLevel;
-import com.company.world.MyView;
 import org.jbox2d.common.Vec2;
 
 public class WalkingEnemy implements StepListener {
@@ -50,9 +49,15 @@ public class WalkingEnemy implements StepListener {
         switch (state) {
             case WALK_LEFT:
                 guard.setLinearVelocity(new Vec2(-6f, guard.getLinearVelocity().y));
+                guard.removeAllImages();
+                guard.setGuardImage(new BodyImage("data/graphics/enemywalkLeft.gif", 5));
+                guard.addImage(guard.getGuardImage());
                 break;
             case WALK_RIGHT:
                 guard.setLinearVelocity(new Vec2(6f, guard.getLinearVelocity().y));
+                guard.removeAllImages();
+                guard.setGuardImage(new BodyImage("data/graphics/enemywalk.gif", 5));
+                guard.addImage(guard.getGuardImage());
                 break;
             default: // nothing to do
         }

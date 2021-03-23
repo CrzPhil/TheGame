@@ -70,7 +70,7 @@ public class Game {
         world.addStepListener(tracker);*/
 
         // Debugger
-        JFrame debugView = new DebugViewer(world, 800, 800);
+        // JFrame debugView = new DebugViewer(world, 800, 800);
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
         /*try {
