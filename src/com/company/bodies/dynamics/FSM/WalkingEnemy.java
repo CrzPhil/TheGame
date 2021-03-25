@@ -31,6 +31,7 @@ public class WalkingEnemy implements StepListener {
         return guard.getPosition().x <= -10f;
     }
 
+
     @Override
     public void preStep(StepEvent stepEvent) {
         if (rightBound()) {
@@ -42,6 +43,7 @@ public class WalkingEnemy implements StepListener {
                 state = State.WALK_RIGHT;
             }
         }
+
         checkWalk();
     }
 

@@ -55,8 +55,8 @@ public class FlyingEnemy implements StepListener {
             // Aggressive State makes Bat dive-bomb from the sky onto the player
             case AGGRESSIVE:
                 // Specify Locations of Hero and Bat as Vectors
-                Vec2 batLoc = new Vec2(bat.getPosition());
-                Vec2 heroLoc = new Vec2(level.getHero().getPosition());
+                Vec2 batLoc = bat.getPosition();
+                Vec2 heroLoc = level.getHero().getPosition();
                 // Get the Vector between those two positions
                 Vec2 distVector = new Vec2((heroLoc.x - batLoc.x), (heroLoc.y - batLoc.y));
                 bat.setLinearVelocity(distVector);
@@ -75,8 +75,8 @@ public class FlyingEnemy implements StepListener {
     // Methods that will check whether Hero is in Range of bat
     private boolean inRange() {
         // Specify Locations of Hero and Bat as Vectors
-        Vec2 batLoc = new Vec2(bat.getPosition());
-        Vec2 heroLoc = new Vec2(level.getHero().getPosition());
+        Vec2 batLoc = bat.getPosition();
+        Vec2 heroLoc = level.getHero().getPosition();
         // Get the Vector between those two positions
         Vec2 distVector = new Vec2(batLoc.x - heroLoc.x, batLoc.y - heroLoc.y);
         // Get the absolute length of that Vector and then compare it to our RANGE variable

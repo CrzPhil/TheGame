@@ -1,6 +1,7 @@
 package com.company.collisions;
 
 import city.cs.engine.*;
+import com.company.bodies.dynamics.Enemy;
 import com.company.bodies.dynamics.Hero;
 import com.company.bodies.dynamics.Spikeball;
 import com.company.bodies.statics.Barrier;
@@ -69,6 +70,13 @@ public class HeroCollisions implements CollisionListener {
             world.getHero().takeDamage();
             // Updates Image
             world.getHeart().updateLife();
+        }
+        // If Enemy hits Spartan, he takes damage
+        if (collisionEvent.getOtherBody() instanceof Enemy && collisionEvent.getReportingBody() instanceof Hero) {
+            world.getHero().takeDamage();
+            world.getHero().incrementScore();
+            world.getHeart().updateLife();
+            collisionEvent.getOtherBody().destroy();
         }
     }
 }

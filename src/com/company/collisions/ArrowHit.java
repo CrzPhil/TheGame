@@ -37,13 +37,6 @@ public class ArrowHit implements CollisionListener {
             ((Enemy) collisionEvent.getReportingBody()).setGravityScale(0.5f);
             ((Enemy) collisionEvent.getReportingBody()).setLinearVelocity(new Vec2(0, 14));
         }
-        // If Enemy hits Spartan, he takes damage
-        if (collisionEvent.getReportingBody() instanceof Enemy && collisionEvent.getOtherBody() instanceof Hero) {
-            Spartan.takeDamage();
-            Spartan.incrementScore();
-            world.getHeart().updateLife();
-            collisionEvent.getReportingBody().destroy();
-        }
         // If Arrows hit either Spartan or the Floor they disappear
         if (collisionEvent.getOtherBody() instanceof Arrow && collisionEvent.getReportingBody() instanceof Hero) {
             collisionEvent.getOtherBody().destroy();
@@ -59,7 +52,7 @@ public class ArrowHit implements CollisionListener {
         if (collisionEvent.getOtherBody() instanceof Arrow && collisionEvent.getReportingBody() instanceof Text) {
             collisionEvent.getOtherBody().destroy();
         }
-        // If Hero hits the barrier at the end of level, next level is initiated
+        // If Hero hits the barrier at the end of a level, next level is initiated
         if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier && world.isComplete()) {
             world.getGame().goToNextLevel();
         }

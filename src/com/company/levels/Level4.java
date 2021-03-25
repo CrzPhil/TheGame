@@ -39,7 +39,7 @@ public class Level4 extends GameLevel{
 
         // Walking Enemy
         Enemy guard = new Enemy(this, new BoxShape(2.5f, 2.5f));
-        guard.setPosition(new Vec2(-18, -12.5f));
+        guard.setPosition(new Vec2(20, -12.5f));
 
         // Tracker for Enemy
         WalkingEnemy walker = new WalkingEnemy(this, guard);
