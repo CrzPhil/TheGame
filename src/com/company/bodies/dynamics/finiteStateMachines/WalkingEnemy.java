@@ -1,4 +1,4 @@
-package com.company.bodies.dynamics.FSM;
+package com.company.bodies.dynamics.finiteStateMachines;
 
 import city.cs.engine.BodyImage;
 import city.cs.engine.StepEvent;

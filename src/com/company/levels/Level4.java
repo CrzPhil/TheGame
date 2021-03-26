@@ -2,8 +2,8 @@ package com.company.levels;
 
 import city.cs.engine.*;
 import com.company.bodies.dynamics.Enemy;
-import com.company.bodies.dynamics.FSM.FlyingEnemy;
-import com.company.bodies.dynamics.FSM.WalkingEnemy;
+import com.company.bodies.dynamics.finiteStateMachines.FlyingEnemy;
+import com.company.bodies.dynamics.finiteStateMachines.WalkingEnemy;
 import com.company.bodies.dynamics.Villain;
 import com.company.bodies.statics.Barrier;
 import com.company.bodies.statics.Ground;
@@ -12,8 +12,6 @@ import com.company.bodies.statics.Text;
 import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
-
-import javax.swing.*;
 
 public class Level4 extends GameLevel{
     public Level4(Game game) {

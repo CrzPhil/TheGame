@@ -1,20 +1,18 @@
 package com.company.main;
 
 import city.cs.engine.BodyImage;
-import city.cs.engine.DebugViewer;
 import city.cs.engine.SoundClip;
 import com.company.levels.*;
-import com.company.gui.menuPanel;
+import com.company.panels.Overlay;
 import com.company.world.*;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class Game {
+public class Game extends JFrame implements ActionListener {
 
     // Create World
     private GameLevel world;
@@ -22,14 +20,32 @@ public class Game {
     // Create View
     private final MyView view;
 
+    // Create Frame
+    private final JFrame frame = new JFrame("Spartan Hero");
+
     // Music
     private SoundClip currentMusic;
     private SoundClip level1Music;
     private SoundClip level3Music;
 
     // Controller
-    Controller HeroController;
-    private menuPanel menu;
+    Controller heroController;
+    // menu is the overlay during the Game with the Volume, Pause/Unpause, etc. Settings.
+    private Overlay gui;
+
+    // Panels
+    private final JPanel parentPanel = new JPanel();
+    // Menu Screen
+    private JPanel menuPanel = new JPanel();
+
+    // Buttons
+    JButton play = new JButton("play");
+    JButton settings = new JButton("settings");
+    JButton exit = new JButton("exit");
+    JButton mainMenu = new JButton("main menu");
+
+    private final CardLayout layout = new CardLayout();
+
 
     public Game() {
 
@@ -45,20 +61,24 @@ public class Game {
         view.addMouseListener(new MouseHandler(view, world));
 
         // Keyboard Listener
-        HeroController = new Controller(world.getHero());
-        view.addKeyListener(HeroController);
+        heroController = new Controller(world.getHero());
+        view.addKeyListener(heroController);
 
         // Mouse Listener
         view.addMouseListener(new GiveFocus(view));
 
-        // Frame
-        final JFrame frame = new JFrame("Spartan Hero");
-        frame.add(view, BorderLayout.CENTER);
+        // Exit frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Panel layout is CardLayout so we can switch from Game to Menu
+        parentPanel.setLayout(layout);
+        createMenu();
+        frame.add(parentPanel);
+        layout.show(parentPanel, "Main Menu");
+
         // Add Bottom Overlay Menu
-        menu = new menuPanel(this);
-        frame.add(menu.getmainPanel(), BorderLayout.SOUTH);
+        gui = new Overlay(this);
+        view.add(gui.getmainPanel(), BorderLayout.SOUTH);
 
         frame.setLocationByPlatform(true);
         frame.setResizable(false);
@@ -89,6 +109,39 @@ public class Game {
         new Game();
     }
 
+    private void createMenu() {
+        // Listeners
+        play.addActionListener(this);
+        settings.addActionListener(this);
+        exit.addActionListener(this);
+        mainMenu.addActionListener(this);
+
+        // Menu Buttons
+        menuPanel.add(play);
+        menuPanel.add(settings);
+        menuPanel.add(exit);
+
+        // Game GUI
+        view.add(mainMenu);
+
+        // Add to parent Panel
+        parentPanel.add(menuPanel, "Main Menu");
+        parentPanel.add(view, "Spartan Game");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+
+        if (source == play) {
+            layout.show(parentPanel, "Spartan Game");
+        } else if (source == mainMenu) {
+            layout.show(parentPanel, "Main Menu");
+        } else if (source == exit) {
+            System.out.println("Exit");
+        }
+    }
+
     // Method for level-Changing according to the current level.
     public void goToNextLevel() {
         if (world instanceof Level1) {
@@ -110,7 +163,7 @@ public class Game {
             view.addMouseListener(new GiveFocus(view));
 
             // Update HeroController to new Hero
-            HeroController.updateHero(world.getHero());
+            heroController.updateHero(world.getHero());
 
             // After capturing old stats before creating new Level, we update the stats with this method
             transferStats(oldHealth, oldScore, oldCheck);
@@ -122,7 +175,7 @@ public class Game {
         } else if (world instanceof Level2) {
             world.stop();
             // Get Volume of previous track
-            double currentVolume = menu.getSlider1().getValue();
+            double currentVolume = gui.getSlider1().getValue();
             // Stop previous track
             currentMusic.stop();
             // Update Music field
@@ -151,7 +204,7 @@ public class Game {
             view.addMouseListener(new GiveFocus(view));
 
             // Update HeroController to new Hero
-            HeroController.updateHero(world.getHero());
+            heroController.updateHero(world.getHero());
 
             // After capturing old stats before creating new Level, we update the stats with this method
             transferStats(oldHealth, oldScore, oldCheck);
@@ -194,7 +247,7 @@ public class Game {
     }
 
     public Controller getHeroController() {
-        return HeroController;
+        return heroController;
     }
 
     public SoundClip getCurrentMusic() {

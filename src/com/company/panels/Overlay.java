@@ -1,4 +1,4 @@
-package com.company.gui;
+package com.company.panels;
 
 import com.company.levels.Level1;
 import com.company.levels.Level2;
@@ -10,10 +10,11 @@ import org.jbox2d.common.Vec2;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class menuPanel extends JPanel{
+public class Overlay extends JPanel{
     private JButton restartButton;
     private JButton pauseButton;
     private JPanel mainPanel;
@@ -24,8 +25,12 @@ public class menuPanel extends JPanel{
     // Control-variable for Pause/Unpause
     private boolean stop = false;
 
-    public menuPanel(Game game) {
+    public Overlay(Game game) {
         this.game = game;
+
+        // Make the JPanel transparent so it looks smoother in-game
+        mainPanel.setOpaque(false);
+        mainPanel.setBackground(new Color(0, 0, 0, 0));
 
         // Adjust slider settings for Volume control
         slider1.setValue(100);
