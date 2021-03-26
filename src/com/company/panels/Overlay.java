@@ -15,18 +15,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Overlay extends JPanel{
+    // Elements of the Panel
     private JButton restartButton;
     private JButton pauseButton;
     private JPanel mainPanel;
     private JButton checkpointButton;
     private JSlider slider1;
+    private JButton mainMenuButton;
+
     private final Game game;
+
+    // Parent fields
+    private JPanel parent;
+    private CardLayout layout;
 
     // Control-variable for Pause/Unpause
     private boolean stop = false;
 
-    public Overlay(Game game) {
+    public Overlay(Game game, JPanel parent, CardLayout layout) {
         this.game = game;
+        this.parent = parent;
+        this.layout = layout;
 
         // Make the JPanel transparent so it looks smoother in-game
         mainPanel.setOpaque(false);
@@ -73,6 +82,7 @@ public class Overlay extends JPanel{
 
                 // Stops current Track and resets to first Track.
                 game.getCurrentMusic().stop();
+                game.setCurrentMusic(game.getLevel1Music());
                 game.getCurrentMusic().loop();
 
                 // Start
@@ -124,6 +134,13 @@ public class Overlay extends JPanel{
                     // Setting volume to 0 generates an error, so we use the next-best value
                     game.getCurrentMusic().setVolume(0.01f);
                 }
+            }
+        });
+
+        mainMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                layout.show(parent, "Main Menu");
             }
         });
     }

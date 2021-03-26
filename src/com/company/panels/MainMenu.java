@@ -7,13 +7,14 @@ import java.awt.event.ActionListener;
 
 public class MainMenu extends JPanel implements ActionListener {
     // Two parent-fields which we need to inherit in the constructor
-    private JPanel parent;
-    private CardLayout layout;
+    private final JPanel parent;
+    private final CardLayout layout;
 
     // Buttons
-    private JButton play = new JButton("play");
-    private JButton settings = new JButton("settings");
-    private JButton exit = new JButton("exit");
+    private final JButton play = new JButton("Play");
+    private final JButton save = new JButton("Save");
+    private final JButton load = new JButton("Load");
+    private final JButton tutorial = new JButton("Tutorial");
 
     public MainMenu(JPanel parent, CardLayout layout) {
         // Inheritance
@@ -22,13 +23,15 @@ public class MainMenu extends JPanel implements ActionListener {
 
         // Listeners
         play.addActionListener(this);
-        settings.addActionListener(this);
-        exit.addActionListener(this);
+        save.addActionListener(this);
+        load.addActionListener(this);
+        tutorial.addActionListener(this);
 
         // Add Buttons
         this.add(play);
-        this.add(settings);
-        this.add(exit);
+        this.add(save);
+        this.add(load);
+        this.add(tutorial);
 
     }
 
@@ -37,8 +40,6 @@ public class MainMenu extends JPanel implements ActionListener {
         Object source = e.getSource();
         if (source == play) {
             layout.show(parent, "Spartan Game");
-        } else if (source == exit) {
-            System.out.println("Exit");
         }
     }
 
@@ -48,11 +49,19 @@ public class MainMenu extends JPanel implements ActionListener {
         return play;
     }
 
-    public JButton getSettings() {
-        return settings;
+    public JPanel getParentPanel() {
+        return parent;
     }
 
-    public JButton getExit() {
-        return exit;
+    public JButton getSave() {
+        return save;
+    }
+
+    public JButton getLoad() {
+        return load;
+    }
+
+    public JButton getTutorial() {
+        return tutorial;
     }
 }

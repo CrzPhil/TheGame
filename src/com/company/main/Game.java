@@ -7,22 +7,22 @@ import com.company.panels.MainMenu;
 import com.company.panels.Overlay;
 import com.company.world.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
-public class Game extends JFrame implements ActionListener {
+public class Game {
 
     // Create World
     private GameLevel world;
 
     // Create View
     private final MyView view;
-
-    // Create Frame
-    private final JFrame frame = new JFrame("Spartan Hero");
 
     // Music
     private SoundClip currentMusic;
@@ -48,7 +48,7 @@ public class Game extends JFrame implements ActionListener {
     public Game() {
 
         // initialise level to level1
-        world = new Level4(this);
+        world = new Level1(this);
 
         // View
         view = new MyView(world, 1200, 800, this);
@@ -65,7 +65,8 @@ public class Game extends JFrame implements ActionListener {
         // Mouse Listener
         view.addMouseListener(new GiveFocus(view));
 
-        // Exit frame
+        // Create Frame
+        JFrame frame = new JFrame("Spartan Hero");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Panel layout is CardLayout so we can switch from Game to Menu
@@ -75,7 +76,7 @@ public class Game extends JFrame implements ActionListener {
         layout.show(parentPanel, "Main Menu");
 
         // Add Bottom Overlay Menu
-        gui = new Overlay(this);
+        gui = new Overlay(this, parentPanel, layout);
         view.add(gui.getmainPanel(), BorderLayout.SOUTH);
 
         frame.setLocationByPlatform(true);
@@ -91,14 +92,14 @@ public class Game extends JFrame implements ActionListener {
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
-        /*try {
+        try {
             level1Music = new SoundClip("data/music/lvl1track.wav");
             level3Music = new SoundClip("data/music/level3.wav");
             currentMusic = level1Music;
             currentMusic.loop();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
-        }*/
+        }
 
         world.start();
     }
@@ -108,32 +109,9 @@ public class Game extends JFrame implements ActionListener {
     }
 
     private void createMenu() {
-        // Listeners
-        /*play.addActionListener(this);
-        settings.addActionListener(this);
-        exit.addActionListener(this);*/
-        mainMenu.addActionListener(this);
-
-        // Menu Buttons
-        /*menuPanel.add(play);
-        menuPanel.add(settings);
-        menuPanel.add(exit);*/
-
-        // Game GUI
-        view.add(mainMenu);
-
         // Add to parent Panel
         parentPanel.add(menuPanel, "Main Menu");
         parentPanel.add(view, "Spartan Game");
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-
-        if (source == mainMenu) {
-            layout.show(parentPanel, "Main Menu");
-        }
     }
 
     // Method for level-Changing according to the current level.
