@@ -28,12 +28,16 @@ public class Level4 extends GameLevel{
         // ====== Level Design ======
 
 
-        // Ground
+        // Create ground in a for-loop (12 tiles)
         float offset = 0;
-        for (int i=0; i<6; i++) {
+        for (int i=0; i<12; i++) {
             new Ground(this).setPosition(new Vec2(-25+offset, -20f));
             offset += 10;
         }
+
+        // Barrier at the far right of the level
+        Barrier viewUpdater = new Barrier(this);
+        viewUpdater.setPosition(new Vec2(30, -7));
 
         // Walking Enemy
         Enemy guard = new Enemy(this, new BoxShape(2.5f, 2.5f));

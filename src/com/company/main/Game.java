@@ -1,6 +1,7 @@
 package com.company.main;
 
 import city.cs.engine.BodyImage;
+import city.cs.engine.DebugViewer;
 import city.cs.engine.SoundClip;
 import com.company.levels.*;
 import com.company.panels.MainMenu;
@@ -31,24 +32,20 @@ public class Game {
 
     // Controller
     Controller heroController;
-    // menu is the overlay during the Game with the Volume, Pause/Unpause, etc. Settings.
-    private Overlay gui;
+    // gui is the overlay during the Game with the Volume, Pause/Unpause, etc.
+    private final Overlay gui;
 
-    // Panels
+    // Panel and layout
     private final JPanel parentPanel = new JPanel();
-
-    // Button
-    JButton mainMenu = new JButton("main menu");
-
     private final CardLayout layout = new CardLayout();
 
     // Menu Screen
-    private MainMenu menuPanel = new MainMenu(parentPanel, layout);
+    private final MainMenu menuPanel = new MainMenu(parentPanel, layout);
 
     public Game() {
 
         // initialise level to level1
-        world = new Level1(this);
+        world = new Level4(this);
 
         // View
         view = new MyView(world, 1200, 800, this);
@@ -71,18 +68,23 @@ public class Game {
 
         // Panel layout is CardLayout so we can switch from Game to Menu
         parentPanel.setLayout(layout);
-        createMenu();
+
+        // Add to parent Panel
+        parentPanel.add(menuPanel, "Main Menu");
+        parentPanel.add(view, "Spartan Game");
+
+        // Add to Frame and set Default to Main Menu (on start-up)
         frame.add(parentPanel);
         layout.show(parentPanel, "Main Menu");
 
         // Add Bottom Overlay Menu
         gui = new Overlay(this, parentPanel, layout);
-        view.add(gui.getmainPanel(), BorderLayout.SOUTH);
+        view.add(gui.getmainPanel(), BorderLayout.NORTH);
 
         frame.setLocationByPlatform(true);
-        frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+        frame.setResizable(false);
 
         // (ONLY FOR TESTING LEVEL 3) Tracker to simulate timer for Ball-Spawns (REMOVE WHEN PLAYING WHOLE GAME)
         /*Tracker tracker = new Tracker(view, this);
@@ -92,26 +94,20 @@ public class Game {
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
-        try {
+        /*try {
             level1Music = new SoundClip("data/music/lvl1track.wav");
             level3Music = new SoundClip("data/music/level3.wav");
             currentMusic = level1Music;
             currentMusic.loop();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
-        }
+        }*/
 
         world.start();
     }
 
     public static void main(String[] args) {
         new Game();
-    }
-
-    private void createMenu() {
-        // Add to parent Panel
-        parentPanel.add(menuPanel, "Main Menu");
-        parentPanel.add(view, "Spartan Game");
     }
 
     // Method for level-Changing according to the current level.

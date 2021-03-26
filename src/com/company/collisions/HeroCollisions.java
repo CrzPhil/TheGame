@@ -36,7 +36,7 @@ public class HeroCollisions implements CollisionListener {
 
     @Override
     public void collide(CollisionEvent collisionEvent) {
-        // If Hero collides with a special object like the boots or coins
+        // If Hero collides with a special object like the boots in level 2
         if (collisionEvent.getOtherBody() instanceof SpecialObject) {
             // Special object is destroyed after collision
             collisionEvent.getOtherBody().destroy();
@@ -63,6 +63,13 @@ public class HeroCollisions implements CollisionListener {
         // If Hero hits the barrier at the end of level, next level is initiated
         if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier && world.isComplete()) {
             world.getGame().goToNextLevel();
+        }
+        // If he hits a barrier and the world is not completed (i.e level four, switching of View
+        else if (collisionEvent.getReportingBody() instanceof Hero && collisionEvent.getOtherBody() instanceof Barrier) {
+            world.getGame().getView().setView(new Vec2(50, 0), 20);
+            collisionEvent.getOtherBody().destroy();
+            // As the view moves, we have to also reposition the Heart-Overlay
+            world.getHeart().setPosition(new Vec2(30, 18));
         }
         // If Hero collides with Spike-ball, he takes damage, spike-ball is destroyed
         if (collisionEvent.getOtherBody() instanceof Spikeball) {

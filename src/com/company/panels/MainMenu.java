@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class MainMenu extends JPanel implements ActionListener {
     // Two parent-fields which we need to inherit in the constructor
@@ -16,10 +18,23 @@ public class MainMenu extends JPanel implements ActionListener {
     private final JButton load = new JButton("Load");
     private final JButton tutorial = new JButton("Tutorial");
 
+    // Button Positions & Sizes
+    private static final int BUTTON_LOC_X = 480;   // X-Coordinate
+    private static final int BUTTON_LOC_Y = 300;   // Y-Coordinate
+    private static final int BUTTON_SIZE_X = 240;  // Width
+    private static final int BUTTON_SIZE_Y = 100;  // Height
+
+    private Font customFont;
+
+
     public MainMenu(JPanel parent, CardLayout layout) {
         // Inheritance
         this.parent = parent;
         this.layout = layout;
+
+        // Set the Layout of this panel to BoxLayout in order to Stack buttons
+        // this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(null);
 
         // Listeners
         play.addActionListener(this);
@@ -27,12 +42,24 @@ public class MainMenu extends JPanel implements ActionListener {
         load.addActionListener(this);
         tutorial.addActionListener(this);
 
+        // Position Buttons
+        play.setBounds(BUTTON_LOC_X, BUTTON_LOC_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y);
+        save.setBounds(BUTTON_LOC_X, BUTTON_LOC_Y + 110, BUTTON_SIZE_X, BUTTON_SIZE_Y);
+        load.setBounds(BUTTON_LOC_X, BUTTON_LOC_Y + 220, BUTTON_SIZE_X, BUTTON_SIZE_Y);
+        tutorial.setBounds(BUTTON_LOC_X, BUTTON_LOC_Y + 330, BUTTON_SIZE_X, BUTTON_SIZE_Y);
+
+        // Fonts
+        play.setFont(loadFont());
+        save.setFont(loadFont());
+        load.setFont(loadFont());
+        tutorial.setFont(loadFont());
+
+
         // Add Buttons
         this.add(play);
         this.add(save);
         this.add(load);
         this.add(tutorial);
-
     }
 
     @Override
@@ -42,6 +69,27 @@ public class MainMenu extends JPanel implements ActionListener {
             layout.show(parent, "Spartan Game");
         }
     }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(new ImageIcon("data/graphics/Banner.png").getImage(), 0, 0, 1200, 800, null);
+    }
+
+    // Create/Load Custom font (https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts)
+    public Font loadFont() {
+        try {
+            //Returned font is of pt size 1
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/font/arcadeclassic/arcadefont.TTF"));
+
+            return customFont.deriveFont(40f);
+
+        } catch (IOException | FontFormatException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
 
     // Getters
 
