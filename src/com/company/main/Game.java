@@ -3,6 +3,7 @@ package com.company.main;
 import city.cs.engine.BodyImage;
 import city.cs.engine.SoundClip;
 import com.company.levels.*;
+import com.company.panels.MainMenu;
 import com.company.panels.Overlay;
 import com.company.world.*;
 
@@ -35,17 +36,14 @@ public class Game extends JFrame implements ActionListener {
 
     // Panels
     private final JPanel parentPanel = new JPanel();
-    // Menu Screen
-    private JPanel menuPanel = new JPanel();
 
-    // Buttons
-    JButton play = new JButton("play");
-    JButton settings = new JButton("settings");
-    JButton exit = new JButton("exit");
+    // Button
     JButton mainMenu = new JButton("main menu");
 
     private final CardLayout layout = new CardLayout();
 
+    // Menu Screen
+    private MainMenu menuPanel = new MainMenu(parentPanel, layout);
 
     public Game() {
 
@@ -111,15 +109,15 @@ public class Game extends JFrame implements ActionListener {
 
     private void createMenu() {
         // Listeners
-        play.addActionListener(this);
+        /*play.addActionListener(this);
         settings.addActionListener(this);
-        exit.addActionListener(this);
+        exit.addActionListener(this);*/
         mainMenu.addActionListener(this);
 
         // Menu Buttons
-        menuPanel.add(play);
+        /*menuPanel.add(play);
         menuPanel.add(settings);
-        menuPanel.add(exit);
+        menuPanel.add(exit);*/
 
         // Game GUI
         view.add(mainMenu);
@@ -133,12 +131,8 @@ public class Game extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        if (source == play) {
-            layout.show(parentPanel, "Spartan Game");
-        } else if (source == mainMenu) {
+        if (source == mainMenu) {
             layout.show(parentPanel, "Main Menu");
-        } else if (source == exit) {
-            System.out.println("Exit");
         }
     }
 
