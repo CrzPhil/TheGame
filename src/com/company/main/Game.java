@@ -44,6 +44,8 @@ public class Game {
 
     // Control Variable (used in MainMenu class) for Music (to know when to loop(), pause(), or resume())
     private boolean firstStart = true;
+    // Control Variable for Tutorial
+    private boolean tutorial = false;
 
     public Game() {
 
@@ -72,7 +74,7 @@ public class Game {
         // Panel layout is CardLayout so we can switch from Game to Menu
         parentPanel.setLayout(layout);
 
-        // Add to parent Panel
+        // Add children to parent Panel
         parentPanel.add(menuPanel, "Main Menu");
         parentPanel.add(view, "Spartan Game");
 
@@ -138,9 +140,6 @@ public class Game {
             // After capturing old stats before creating new Level, we update the stats with this method
             transferStats(oldHealth, oldScore, oldCheck);
 
-            // Change background image
-            view.setBackground(new ImageIcon("data/graphics/fantasy.png").getImage());
-
             world.start();
         } else if (world instanceof Level2) {
             world.stop();
@@ -179,12 +178,49 @@ public class Game {
             // After capturing old stats before creating new Level, we update the stats with this method
             transferStats(oldHealth, oldScore, oldCheck);
 
-            // Change background image
-            view.setBackground(new ImageIcon("data/graphics/shroomsbckg.png").getImage());
-
             // Tracker to simulate timer for Ball-Spawns
             Tracker tracker = new Tracker(view, this);
             world.addStepListener(tracker);
+
+            world.start();
+        } else if (world instanceof Level3) {
+            world.stop();
+
+            // Get Volume of previous track
+            double currentVolume = gui.getSlider1().getValue();
+            // Stop previous track
+            currentMusic.stop();
+            // Update Music field
+            currentMusic = level3Music;
+            currentMusic.loop();
+
+            // Set Volume
+            if (currentVolume > 0) {
+                currentMusic.setVolume(currentVolume/100);
+            } else {
+                // Setting volume to 0 generates an error, so we use the next-best value
+                currentMusic.setVolume(0.01f);
+            }
+
+            // Save old stats for the new Level
+            int oldHealth = world.getHero().getHealth();
+            int oldScore = world.getHero().getScore();
+            int oldCheck = world.getHero().getCheckPoint();
+
+            world = new Level4(this);
+
+            //world now refers to the new level
+            view.setWorld(world);
+
+            // Reconfigure Listeners/Controllers for new Hero Object
+            view.addMouseListener(new MouseHandler(view, world));
+            view.addMouseListener(new GiveFocus(view));
+
+            // Update HeroController to new Hero
+            heroController.updateHero(world.getHero());
+
+            // After capturing old stats before creating new Level, we update the stats with this method
+            transferStats(oldHealth, oldScore, oldCheck);
 
             world.start();
         }
@@ -242,5 +278,13 @@ public class Game {
 
     public void setFirstStart(boolean firstStart) {
         this.firstStart = firstStart;
+    }
+
+    public boolean isTutorial() {
+        return tutorial;
+    }
+
+    public void setTutorial(boolean tutorial) {
+        this.tutorial = tutorial;
     }
 }

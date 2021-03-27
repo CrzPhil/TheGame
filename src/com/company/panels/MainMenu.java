@@ -1,6 +1,11 @@
 package com.company.panels;
 
+import com.company.levels.GameLevel;
+import com.company.levels.Tutorial;
 import com.company.main.Game;
+import com.company.main.GameSaverLoader;
+import com.company.main.MouseHandler;
+import com.company.world.GiveFocus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +16,8 @@ import java.io.IOException;
 
 public class MainMenu extends JPanel implements ActionListener {
     // Inherited in Constructor, used for "Play" button
-    private Game game;
+    private final Game game;
+    private GameLevel preTutorial;
 
     // Two parent-fields which we need to inherit in the constructor
     private final JPanel parent;
@@ -36,8 +42,7 @@ public class MainMenu extends JPanel implements ActionListener {
         this.layout = layout;
         this.game = game;
 
-        // Set the Layout of this panel to BoxLayout in order to Stack buttons
-        // this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        // Set layout to null so we can manually move around Objects
         this.setLayout(null);
 
         // Listeners
@@ -69,16 +74,71 @@ public class MainMenu extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
+
+        // Start/Continue Game
         if (source == play) {
             layout.show(parent, "Spartan Game");
-            // Make sure the Music within the game continues where it left off after switching to Main Menu
-            if (game.isFirstStart()) {
-                // Hitting play starts music and switches to game screen
-                game.getCurrentMusic().loop();
-                game.setFirstStart(false);
+            if (!game.isTutorial()) {
+                // Make sure the Music within the game continues where it left off after switching to Main Menu
+                if (game.isFirstStart()) {
+                    // Hitting play starts music and switches to game screen
+                    game.getCurrentMusic().loop();
+                    game.setFirstStart(false);
+                } else {
+                    game.getCurrentMusic().resume();
+                    // Resume Gameplay when exiting Menu
+                    game.getWorld().start();
+                }
             } else {
-                game.getCurrentMusic().resume();
+                game.getWorld().stop();
+                game.setWorld(preTutorial);
+                game.setTutorial(false);
+
+                game.getView().setWorld(game.getWorld());
+                game.getView().addMouseListener(new GiveFocus(game.getView()));
+                game.getHeroController().updateHero(game.getWorld().getHero());
+
+                game.getView().setBackground(new ImageIcon("data/graphics/background.png").getImage());
+
+                game.getWorld().start();
             }
+        }
+        // Save Current state of Game
+        else if (source == save) {
+            try {
+                GameSaverLoader.save(game.getWorld(), "save");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        // Load saved state
+        else if (source == load) {
+            try {
+                GameSaverLoader.load("save", game);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        } else if (source == tutorial) {
+            layout.show(parent, "Spartan Game");
+
+            // Switch mode to tutorial to avoid complications when switching to normal gameplay
+            game.setTutorial(true);
+
+            // Save previous state
+            preTutorial = game.getWorld();
+
+            // Interrupt Current Default World
+            game.getWorld().stop();
+
+            game.setWorld(new Tutorial(game));
+
+            game.getView().setWorld(game.getWorld());
+            game.getView().addMouseListener(new MouseHandler(game.getView(), game.getWorld()));
+            game.getView().addMouseListener(new GiveFocus(game.getView()));
+            game.getWorld().getHero().setHealth(3);
+            game.getHeroController().updateHero(game.getWorld().getHero());
+
+            game.getWorld().start();
         }
     }
 

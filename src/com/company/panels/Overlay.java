@@ -78,6 +78,7 @@ public class Overlay extends JPanel{
 
                 updateWorld();
 
+                // Background Reset
                 game.getView().setBackground(new ImageIcon("data/graphics/background.png").getImage());
 
                 // Stops current Track and resets to first Track.
@@ -104,8 +105,6 @@ public class Overlay extends JPanel{
                     game.getWorld().stop();
                     game.setWorld(new Level2(game));
                     updateWorld();
-                    // Set Background Image
-                    game.getView().setBackground(new ImageIcon("data/graphics/shroomsbckg.png").getImage());
                     // Lastly, move hero to the flag location so he doesn't have to repeat the whole level
                     game.getWorld().getHero().setPosition(new Vec2(25, 13.5f));
                     // Transfer current stats to new Hero
@@ -143,6 +142,8 @@ public class Overlay extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 layout.show(parent, "Main Menu");
                 game.getCurrentMusic().pause();
+                // Pause Gameplay while in Main Menu
+                game.getWorld().stop();
             }
         });
     }

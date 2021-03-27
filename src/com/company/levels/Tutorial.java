@@ -1,31 +1,27 @@
 package com.company.levels;
 
-import city.cs.engine.*;
+import city.cs.engine.BodyImage;
+import city.cs.engine.CircleShape;
 import com.company.bodies.dynamics.Enemy;
-import com.company.bodies.dynamics.finiteStateMachines.FlyingEnemy;
-import com.company.bodies.dynamics.finiteStateMachines.WalkingEnemy;
 import com.company.bodies.dynamics.Villain;
-import com.company.bodies.statics.Barrier;
-import com.company.bodies.statics.Ground;
-import com.company.bodies.statics.Heart;
-import com.company.bodies.statics.Text;
+import com.company.bodies.statics.*;
+import com.company.collisions.ArrowHit;
 import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
 
 import javax.swing.*;
 
-public class Level4 extends GameLevel{
-    public Level4(Game game) {
+public class Tutorial extends GameLevel {
+
+    public Tutorial(Game game) {
         super(game);
 
-        // Change background image
+        // Set background image
         game.getView().setBackground(new ImageIcon("data/graphics/forestbckg.png").getImage());
 
-
-        // Add hero and life-overlay
+        // Position Hero
         super.getHero().setPosition(new Vec2(-28, -7));
-        Heart life = super.getHeart();
 
         // Add event Listeners
         HeroCollisions heroListener = new HeroCollisions(this, super.getHero());
@@ -33,34 +29,33 @@ public class Level4 extends GameLevel{
 
         // ====== Level Design ======
 
-        // Create ground in a for-loop (12 tiles)
+        // Create ground in a for-loop (6 tiles)
         float offset = 0;
-        for (int i=0; i<12; i++) {
+        for (int i=0; i<6; i++) {
             new Ground(this).setPosition(new Vec2(-25+offset, -20f));
             offset += 10;
         }
 
-        // Barrier at the far right of the level
-        Barrier viewUpdater = new Barrier(this);
-        viewUpdater.setPosition(new Vec2(30, -7));
-
-        // Walking Enemy
-        Enemy guard = new Enemy(this, new BoxShape(2.5f, 2.5f));
-        guard.setPosition(new Vec2(20, -12.5f));
-
-        // Tracker for Enemy
-        WalkingEnemy walker = new WalkingEnemy(this, guard);
-
-        // Flying Bat
+        // Add Practice-Enemy
         Enemy bat = new Enemy(this, new CircleShape(1), true);
-        bat.setPosition(new Vec2(30, 0));
+        bat.setPosition(new Vec2(7, 10));
 
-        // Tracker for Bat
-        FlyingEnemy flyBat = new FlyingEnemy(this, bat);
-        bat.setLinearVelocity(new Vec2(-5, 15));
+        // Listener
+        ArrowHit batFly = new ArrowHit(this, super.getHero());
+        bat.addCollisionListener(batFly);
 
+        // Checkpoint Flag
+        new Platform(this).setPosition(new Vec2(0, 10));
+        Checkpoint practice = new Checkpoint(this);
+        practice.setPosition(new Vec2(0, 13.5f));
+
+        // Instructions
+        new Text(this, new BodyImage("data/graphics/shootEnemies.png"), true).setPosition(new Vec2(14, -2));
+        new Text(this, new BodyImage("data/graphics/touchFlag.png"), true).setPosition(new Vec2(14, 12));
+        new Text(this, new BodyImage("data/graphics/move.png"), true).setPosition(new Vec2(-22, -2));
     }
-    // Extra Methods
+
+    // Inherited Abstract Methods
     @Override
     public boolean isComplete() {
         return false;
@@ -93,6 +88,6 @@ public class Level4 extends GameLevel{
 
     @Override
     public String getLevelName() {
-        return "Level4";
+        return null;
     }
 }

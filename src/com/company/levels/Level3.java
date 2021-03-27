@@ -15,9 +15,14 @@ import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
 
+import javax.swing.*;
+
 public class Level3 extends GameLevel{
     public Level3(Game game) {
         super(game);
+
+        // Change background image
+        game.getView().setBackground(new ImageIcon("data/graphics/shroomsbckg.png").getImage());
 
         // Add hero and life-overlay
         super.getHero().setPosition(new Vec2(0, -12));
@@ -60,7 +65,7 @@ public class Level3 extends GameLevel{
     // GameLevel Methods
     @Override
     public boolean isComplete() {
-        return false;
+        return super.getHero().getScore() >= 25;
     }
 
     @Override

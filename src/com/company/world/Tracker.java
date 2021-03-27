@@ -58,6 +58,7 @@ public class Tracker implements StepListener {
                 // We stop this whole block from executing (i.e stop more Texts from spawning on top of each other etc)
                 run = false;
                 yeah.play();
+                game.goToNextLevel();
             }
             if (sequence) {
                 // This blob of code executes roughly every two seconds, which will help us in spawning spikeBalls in level 3
