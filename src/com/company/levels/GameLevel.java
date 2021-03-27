@@ -57,4 +57,6 @@ public abstract class GameLevel extends World {
     public abstract void destroyChoices();
 
     public abstract void nullSphinx();
+
+    public abstract String getLevelName();
 }

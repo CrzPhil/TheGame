@@ -137,10 +137,12 @@ public class Overlay extends JPanel{
             }
         });
 
+        // Switch back to Main Menu
         mainMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 layout.show(parent, "Main Menu");
+                game.getCurrentMusic().pause();
             }
         });
     }

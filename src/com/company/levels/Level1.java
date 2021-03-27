@@ -120,4 +120,9 @@ public class Level1 extends GameLevel {
             answerThree.destroy();
         }
     }
+
+    public String getLevelName() {
+        return "Level1";
+    }
+
 }

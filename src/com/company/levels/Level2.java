@@ -90,4 +90,9 @@ public class Level2 extends GameLevel {
     @Override
     public void nullSphinx() {
     }
+
+    @Override
+    public String getLevelName() {
+        return "Level2";
+    }
 }

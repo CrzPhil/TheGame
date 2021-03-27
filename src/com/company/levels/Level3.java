@@ -87,4 +87,9 @@ public class Level3 extends GameLevel{
     public void nullSphinx() {
 
     }
+
+    @Override
+    public String getLevelName() {
+        return "Level3";
+    }
 }

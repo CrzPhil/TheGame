@@ -40,12 +40,15 @@ public class Game {
     private final CardLayout layout = new CardLayout();
 
     // Menu Screen
-    private final MainMenu menuPanel = new MainMenu(parentPanel, layout);
+    private final MainMenu menuPanel = new MainMenu(parentPanel, layout, this);
+
+    // Control Variable (used in MainMenu class) for Music (to know when to loop(), pause(), or resume())
+    private boolean firstStart = true;
 
     public Game() {
 
         // initialise level to level1
-        world = new Level4(this);
+        world = new Level1(this);
 
         // View
         view = new MyView(world, 1200, 800, this);
@@ -94,14 +97,13 @@ public class Game {
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
         // Music Section, we only create 'Game' once, so it's fine to be in constructor
-        /*try {
+        try {
             level1Music = new SoundClip("data/music/lvl1track.wav");
             level3Music = new SoundClip("data/music/level3.wav");
             currentMusic = level1Music;
-            currentMusic.loop();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
-        }*/
+        }
 
         world.start();
     }
@@ -232,5 +234,13 @@ public class Game {
 
     public SoundClip getLevel3Music() {
         return level3Music;
+    }
+
+    public boolean isFirstStart() {
+        return firstStart;
+    }
+
+    public void setFirstStart(boolean firstStart) {
+        this.firstStart = firstStart;
     }
 }

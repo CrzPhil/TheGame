@@ -1,5 +1,7 @@
 package com.company.panels;
 
+import com.company.main.Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +10,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainMenu extends JPanel implements ActionListener {
+    // Inherited in Constructor, used for "Play" button
+    private Game game;
+
     // Two parent-fields which we need to inherit in the constructor
     private final JPanel parent;
     private final CardLayout layout;
@@ -24,13 +29,12 @@ public class MainMenu extends JPanel implements ActionListener {
     private static final int BUTTON_SIZE_X = 240;  // Width
     private static final int BUTTON_SIZE_Y = 100;  // Height
 
-    private Font customFont;
 
-
-    public MainMenu(JPanel parent, CardLayout layout) {
+    public MainMenu(JPanel parent, CardLayout layout, Game game) {
         // Inheritance
         this.parent = parent;
         this.layout = layout;
+        this.game = game;
 
         // Set the Layout of this panel to BoxLayout in order to Stack buttons
         // this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -67,6 +71,14 @@ public class MainMenu extends JPanel implements ActionListener {
         Object source = e.getSource();
         if (source == play) {
             layout.show(parent, "Spartan Game");
+            // Make sure the Music within the game continues where it left off after switching to Main Menu
+            if (game.isFirstStart()) {
+                // Hitting play starts music and switches to game screen
+                game.getCurrentMusic().loop();
+                game.setFirstStart(false);
+            } else {
+                game.getCurrentMusic().resume();
+            }
         }
     }
 
@@ -80,12 +92,12 @@ public class MainMenu extends JPanel implements ActionListener {
     public Font loadFont() {
         try {
             //Returned font is of pt size 1
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/font/arcadeclassic/arcadefont.TTF"));
-
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/font/arcadeclassic/arcadefont.TTF"));
+            // User deriveFont and set size to 40
             return customFont.deriveFont(40f);
 
         } catch (IOException | FontFormatException e) {
-            System.out.println(e);
+            // Handle exception
         }
         return null;
     }
