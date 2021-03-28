@@ -61,6 +61,9 @@ public class Level2 extends GameLevel {
         // Add Barrier at end of level to check for completion
         Barrier checker = new Barrier(this);
         checker.setPosition(new Vec2(29, 10));
+
+        // Instructions Text
+        new Text(this, new BodyImage("data/graphics/grapple.png"), true).setPosition(new Vec2(20, -5));
     }
 
     @Override

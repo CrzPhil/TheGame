@@ -7,6 +7,7 @@ import com.company.bodies.dynamics.Spikeball;
 import com.company.bodies.statics.Barrier;
 import com.company.bodies.statics.Checkpoint;
 import com.company.bodies.statics.SpecialObject;
+import com.company.bodies.statics.Text;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
@@ -77,6 +78,9 @@ public class HeroCollisions implements CollisionListener {
             world.getHero().takeDamage();
             // Updates Image
             world.getHeart().updateLife();
+            if (world.getHero().getHealth() == 0) {
+                new Text(world, new BodyImage("data/graphics/dead.png"), true).setPosition(new Vec2(0, 0));
+            }
         }
         // If Enemy hits Spartan, he takes damage
         if (collisionEvent.getOtherBody() instanceof Enemy && collisionEvent.getReportingBody() instanceof Hero) {

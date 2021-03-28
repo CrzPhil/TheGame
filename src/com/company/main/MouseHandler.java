@@ -4,6 +4,8 @@ import com.company.bodies.dynamics.Spear;
 import com.company.collisions.SpearHit;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
+
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -68,5 +70,10 @@ public class MouseHandler extends MouseAdapter {
         // Collision Listener for the generated Spears
         SpearHit spearHit = new SpearHit(world);
         spear.addCollisionListener(spearHit);
+    }
+
+    public void updateListener(WorldView view, GameLevel world) {
+        this.view = view;
+        this.world = world;
     }
 }

@@ -124,7 +124,7 @@ public class SpearHit implements CollisionListener {
             collisionEvent.getOtherBody().destroy();
             collisionEvent.getReportingBody().destroy();
         }
-        // What happens when Spear hits an enemy, it is destroyed and a sound plays
+        // When Spear hits an enemy, it is destroyed and a sound plays
         if (collisionEvent.getOtherBody() instanceof Enemy) {
             collisionEvent.getOtherBody().destroy();
             batSqueak.play();
@@ -168,7 +168,7 @@ public class SpearHit implements CollisionListener {
                 new Arrow(world).setPosition(new Vec2(randX, randY));
 
                 // Spawn 40 arrows total, then reset Count for next sequence
-                if (Arrow.getArrowCount() >= 40) {
+                if (Arrow.getArrowCount() >= 20) {
                     loop = false;
                     Arrow.resetArrows();
                 }

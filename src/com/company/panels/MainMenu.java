@@ -1,12 +1,16 @@
 package com.company.panels;
 
+import city.cs.engine.SoundClip;
 import com.company.levels.GameLevel;
+import com.company.levels.Level1;
 import com.company.levels.Tutorial;
 import com.company.main.Game;
 import com.company.main.GameSaverLoader;
 import com.company.main.MouseHandler;
 import com.company.world.GiveFocus;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +22,9 @@ public class MainMenu extends JPanel implements ActionListener {
     // Inherited in Constructor, used for "Play" button
     private final Game game;
     private GameLevel preTutorial;
+
+    // Jingle
+    private static SoundClip saved;
 
     // Two parent-fields which we need to inherit in the constructor
     private final JPanel parent;
@@ -71,6 +78,14 @@ public class MainMenu extends JPanel implements ActionListener {
         this.add(tutorial);
     }
 
+    static {
+        try {
+            saved = new SoundClip("data/music/save.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -91,15 +106,25 @@ public class MainMenu extends JPanel implements ActionListener {
                 }
             } else {
                 game.getWorld().stop();
-                game.setWorld(preTutorial);
+
+                game.setWorld(new Level1(game));
                 game.setTutorial(false);
 
                 game.getView().setWorld(game.getWorld());
+                game.getView().addMouseListener(new MouseHandler(game.getView(), game.getWorld()));
                 game.getView().addMouseListener(new GiveFocus(game.getView()));
+                game.getWorld().getHero().setHealth(3);
                 game.getHeroController().updateHero(game.getWorld().getHero());
 
+                // Background Reset
                 game.getView().setBackground(new ImageIcon("data/graphics/background.png").getImage());
 
+                // Stops current Track and resets to first Track.
+                game.getCurrentMusic().stop();
+                game.setCurrentMusic(game.getLevel1Music());
+                game.getCurrentMusic().loop();
+
+                // Start
                 game.getWorld().start();
             }
         }
@@ -107,6 +132,7 @@ public class MainMenu extends JPanel implements ActionListener {
         else if (source == save) {
             try {
                 GameSaverLoader.save(game.getWorld(), "save");
+                saved.play();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -115,6 +141,7 @@ public class MainMenu extends JPanel implements ActionListener {
         else if (source == load) {
             try {
                 GameSaverLoader.load("save", game);
+                layout.show(parent, "Spartan Game");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

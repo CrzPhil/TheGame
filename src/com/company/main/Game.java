@@ -25,6 +25,9 @@ public class Game {
     // Create View
     private final MyView view;
 
+    // Mouse Listener
+    private MouseHandler mouseHandler;
+
     // Music
     private SoundClip currentMusic;
     private SoundClip level1Music;
@@ -58,7 +61,8 @@ public class Game {
         // view.setGridResolution(1);
 
         // Mouse Listener
-        view.addMouseListener(new MouseHandler(view, world));
+        mouseHandler = new MouseHandler(view, world);
+        view.addMouseListener(mouseHandler);
 
         // Keyboard Listener
         heroController = new Controller(world.getHero());
@@ -131,7 +135,7 @@ public class Game {
             view.setWorld(world);
 
             // Reconfigure Listeners/Controllers for new Hero Object
-            view.addMouseListener(new MouseHandler(view, world));
+            mouseHandler.updateListener(view, world);
             view.addMouseListener(new GiveFocus(view));
 
             // Update HeroController to new Hero
@@ -169,7 +173,7 @@ public class Game {
             view.setWorld(world);
 
             // Reconfigure Listeners/Controllers for new Hero Object
-            view.addMouseListener(new MouseHandler(view, world));
+            mouseHandler.updateListener(view, world);
             view.addMouseListener(new GiveFocus(view));
 
             // Update HeroController to new Hero
@@ -213,7 +217,7 @@ public class Game {
             view.setWorld(world);
 
             // Reconfigure Listeners/Controllers for new Hero Object
-            view.addMouseListener(new MouseHandler(view, world));
+            mouseHandler.updateListener(view, world);
             view.addMouseListener(new GiveFocus(view));
 
             // Update HeroController to new Hero

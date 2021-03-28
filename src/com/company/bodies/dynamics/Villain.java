@@ -41,7 +41,7 @@ public class Villain extends DynamicBody {
         super(world, villainShape);
         addImage(sphinxImage);
         this.setPosition(new Vec2(-20.5f, 5f));
-        this.health = 3;
+        this.health = 2;
     }
 
     // Health gets decremented and damage sound gets played
