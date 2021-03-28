@@ -5,10 +5,7 @@ import com.company.bodies.dynamics.Enemy;
 import com.company.bodies.dynamics.finiteStateMachines.FlyingEnemy;
 import com.company.bodies.dynamics.finiteStateMachines.WalkingEnemy;
 import com.company.bodies.dynamics.Villain;
-import com.company.bodies.statics.Barrier;
-import com.company.bodies.statics.Ground;
-import com.company.bodies.statics.Heart;
-import com.company.bodies.statics.Text;
+import com.company.bodies.statics.*;
 import com.company.collisions.HeroCollisions;
 import com.company.main.Game;
 import org.jbox2d.common.Vec2;
@@ -42,7 +39,7 @@ public class Level4 extends GameLevel{
 
         // Barrier at the far right of the level
         Barrier viewUpdater = new Barrier(this);
-        viewUpdater.setPosition(new Vec2(30, -7));
+        viewUpdater.setPosition(new Vec2(30, -12));
 
         // Walking Enemy
         Enemy guard = new Enemy(this, new BoxShape(2.5f, 2.5f));
@@ -54,11 +51,18 @@ public class Level4 extends GameLevel{
         // Flying Bat
         Enemy bat = new Enemy(this, new CircleShape(1), true);
         bat.setPosition(new Vec2(30, 0));
+        Enemy bat2 = new Enemy(this, new CircleShape(1), true);
+        bat2.setPosition(new Vec2(50, -1));
 
         // Tracker for Bat
-        FlyingEnemy flyBat = new FlyingEnemy(this, bat);
+        new FlyingEnemy(this, bat);
+        new FlyingEnemy(this, bat2);
         bat.setLinearVelocity(new Vec2(-5, 15));
+        bat2.setLinearVelocity(new Vec2(-5, 15));
 
+        // Throne
+        Throne throne = new Throne(this);
+        throne.setPosition(new Vec2(50, -12));
     }
     // Extra Methods
     @Override

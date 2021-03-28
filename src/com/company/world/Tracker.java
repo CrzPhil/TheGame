@@ -51,8 +51,8 @@ public class Tracker implements StepListener {
     @Override
     public void preStep(StepEvent stepEvent) {
         if (run) {
-            // If the Spartan manages to destroy 20 Balls, level 3 will be considered beaten.
-            if (game.getWorld().getHero().getScore() >= 25) {
+            // If the Spartan manages to destroy 15 Balls, level 3 will be considered beaten.
+            if (game.getWorld().getHero().getScore() >= 15) {
                 sequence = false;
                 new Text(game.getWorld(), new BodyImage("data/graphics/level3done.png")).setPosition(new Vec2(0, 0));
                 // We stop this whole block from executing (i.e stop more Texts from spawning on top of each other etc)

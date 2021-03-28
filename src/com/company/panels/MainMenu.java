@@ -25,6 +25,7 @@ public class MainMenu extends JPanel implements ActionListener {
 
     // Jingle
     private static SoundClip saved;
+    private static SoundClip fail;
 
     // Two parent-fields which we need to inherit in the constructor
     private final JPanel parent;
@@ -81,6 +82,7 @@ public class MainMenu extends JPanel implements ActionListener {
     static {
         try {
             saved = new SoundClip("data/music/save.wav");
+            fail = new SoundClip("data/music/wrong.wav");
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e);
         }
@@ -134,6 +136,8 @@ public class MainMenu extends JPanel implements ActionListener {
                 GameSaverLoader.save(game.getWorld(), "save");
                 saved.play();
             } catch (IOException ioException) {
+                // play a jingle to indicate failure
+                fail.play();
                 ioException.printStackTrace();
             }
         }
@@ -143,6 +147,8 @@ public class MainMenu extends JPanel implements ActionListener {
                 GameSaverLoader.load("save", game);
                 layout.show(parent, "Spartan Game");
             } catch (IOException ioException) {
+                // play a jingle to indicate failure
+                fail.play();
                 ioException.printStackTrace();
             }
         } else if (source == tutorial) {

@@ -4,27 +4,27 @@ import city.cs.engine.*;
 import com.company.bodies.dynamics.Enemy;
 import com.company.bodies.dynamics.Hero;
 import com.company.bodies.dynamics.Spikeball;
-import com.company.bodies.statics.Barrier;
-import com.company.bodies.statics.Checkpoint;
-import com.company.bodies.statics.SpecialObject;
-import com.company.bodies.statics.Text;
+import com.company.bodies.statics.*;
 import com.company.levels.GameLevel;
 import org.jbox2d.common.Vec2;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
 import java.io.IOException;
 
 public class HeroCollisions implements CollisionListener {
     final private GameLevel world;
     private static SoundClip pickupSound;
     private static SoundClip checkPoint;
+    private static SoundClip gameOver;
 
     // Load sound for pickup and Checkpoint
     static {
         try {
             pickupSound = new SoundClip("data/music/pickup.wav");
             checkPoint = new SoundClip("data/music/check.wav");
+            gameOver = new SoundClip("data/music/gameOver.wav");
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException exc) {
             System.out.println(exc);
         }
@@ -71,6 +71,7 @@ public class HeroCollisions implements CollisionListener {
             collisionEvent.getOtherBody().destroy();
             // As the view moves, we have to also reposition the Heart-Overlay
             world.getHeart().setPosition(new Vec2(30, 18));
+            world.getGame().getView().setBackground(new ImageIcon("data/graphics/townbckg.png").getImage());
         }
         // If Hero collides with Spike-ball, he takes damage, spike-ball is destroyed
         if (collisionEvent.getOtherBody() instanceof Spikeball) {
@@ -88,6 +89,15 @@ public class HeroCollisions implements CollisionListener {
             world.getHero().incrementScore();
             world.getHeart().updateLife();
             collisionEvent.getOtherBody().destroy();
+        }
+        // For the last level, if Spartan hits the throne, game is over
+        if (collisionEvent.getOtherBody() instanceof Throne && collisionEvent.getReportingBody() instanceof Hero) {
+            gameOver.play();
+            world.stop();
+            new Text(world, new BodyImage("data/graphics/end.png"), true).setPosition(new Vec2(50, 0));
+            world.getGame().getCurrentMusic().stop();
+            world.getGame().setCurrentMusic(world.getGame().getLevel1Music());
+            world.getGame().getCurrentMusic().loop();
         }
     }
 }

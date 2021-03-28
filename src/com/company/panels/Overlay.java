@@ -96,7 +96,7 @@ public class Overlay extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // First Checkpoint is at level 2, so that's where we will move the Hero on button-press
-                if (game.getWorld().getHero().getCheckPoint() == 1) {
+                if (game.getWorld().getHero().getCheckPoint() >= 1) {
                     // Save old stats for the new Level (we know all stats and won't transfer old ones to prohibit cheating)
                     int oldHealth = 3; // Health is reset on hitting the flag
                     int oldScore = 5;  // Score after the first two levels cannot exceed 5
