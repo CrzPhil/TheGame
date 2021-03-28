@@ -14,6 +14,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * In-game GUI on the top of the screen.
+ * Gives User control over some in-game behaviour, as well as Music-Volume.
+ * Main Menu switches to the Menu, Restart resets the level and score to level 1 and Pause/Unpause is used to freeze the level and music whenever needed.
+ */
 public class Overlay extends JPanel{
     // Elements of the Panel
     private JButton restartButton;
@@ -32,6 +37,12 @@ public class Overlay extends JPanel{
     // Control-variable for Pause/Unpause
     private boolean stop = false;
 
+    /**
+     * Constructs the Overlay GUI
+     * @param game Current game being pointed to.
+     * @param parent Parent Panel used in Game.
+     * @param layout CardLayout used in Game.
+     */
     public Overlay(Game game, JPanel parent, CardLayout layout) {
         this.game = game;
         this.parent = parent;
@@ -46,8 +57,14 @@ public class Overlay extends JPanel{
         slider1.setMaximum(150);
         slider1.setMinimum(0);
 
+
         // Pause button stops and resumes the game on-click
         pauseButton.addActionListener(new ActionListener() {
+            /**
+             * Pauses and Resumes Game and Music when pressed.
+             * Text is also updated.
+             * @param e Buttonpress Event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!stop) {
@@ -69,6 +86,10 @@ public class Overlay extends JPanel{
 
         // Restart button resets lives, levels and enemies, and music;
         restartButton.addActionListener(new ActionListener() {
+            /**
+             * Resets Game/Score/Health from scratch.
+             * @param e Buttonpress Event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Everything we added in Game:goToNextLevel(); we do here but in reverse
@@ -93,6 +114,11 @@ public class Overlay extends JPanel{
 
         // When hitting the Checkpoint button, the player is teleported to the location of the last flag he touched
         checkpointButton.addActionListener(new ActionListener() {
+            /**
+             * Teleports Player (and resets stats) to last checkpoint.
+             * If it has not been reached at the point of being pressed, nothing happens.
+             * @param e Buttonpress Event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 // First Checkpoint is at level 2, so that's where we will move the Hero on button-press
@@ -123,6 +149,10 @@ public class Overlay extends JPanel{
 
         // Volume Adjusting Slider
         slider1.addChangeListener(new ChangeListener() {
+            /**
+             * Adjusts Music volume with a slider on update.
+             * @param e Change event.
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 double volume = slider1.getValue();
@@ -138,6 +168,10 @@ public class Overlay extends JPanel{
 
         // Switch back to Main Menu
         mainMenuButton.addActionListener(new ActionListener() {
+            /**
+             * Switches Back to Main Menu Panel.
+             * Pauses Game and Music.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 layout.show(parent, "Main Menu");
@@ -149,7 +183,19 @@ public class Overlay extends JPanel{
     }
 
     // Method to quickly update all the Listeners and Pointers to the current Level
+
+    /**
+     * Updates all the Listeners and Handlers to point to the new Level in case of resets.
+     */
     public void updateWorld() {
+        worldUpdater(game);
+    }
+
+    /**
+     * Static version so it can be accessed in the {@link MainMenu} Class too.
+     * @param game
+     */
+    static void worldUpdater(Game game) {
         game.getView().setWorld(game.getWorld());
         game.getView().addMouseListener(new MouseHandler(game.getView(), game.getWorld()));
         game.getView().addMouseListener(new GiveFocus(game.getView()));
@@ -157,11 +203,19 @@ public class Overlay extends JPanel{
         game.getHeroController().updateHero(game.getWorld().getHero());
     }
 
+    /**
+     * Getter for the Main Panel
+     * @return Main Panel
+     */
     public JPanel getmainPanel() {
         return mainPanel;
     }
 
     // Getter for Slider; used for Volume consistency across levels
+    /**
+     * Getter for the Slider, used for Volume consistency accross levels.
+     * @return Slider Object.
+     */
     public JSlider getSlider1() {
         return slider1;
     }

@@ -13,21 +13,35 @@ import java.awt.event.MouseAdapter;
 
 /*
     This class is responsible for shooting Spears when clicking the mouse.
-    To be added: Ammo (so that spam-clicking is avoided) when timers are introduced.
  */
 
-
+/**
+ * Used to Spawn spears as projectiles when clicking the Mousebutton.
+ * Spears spawn on the Hero and are launched towards whatever the Mouse is aiming at.
+ */
 public class MouseHandler extends MouseAdapter {
+    /**
+     * Variable for the flying Speed of the spears
+     */
     private static final float spearSpeed = 22.5f;
 
     private WorldView view;
     private GameLevel world;
 
+    /**
+     * Points local view and world to the Level and View used.
+     * @param view Updates local View
+     * @param world Updates local World -or level-
+     */
     public MouseHandler(WorldView view, GameLevel world){
         this.view = view;
         this.world = world;
     }
 
+    /**
+     * Called whenever the Mouse is clicked
+     * @param e Event, used to find location of Mouseclick
+     */
     public void mousePressed(MouseEvent e) {
         Spear spear = new Spear(world);
         Point mouse = e.getPoint();
@@ -72,6 +86,12 @@ public class MouseHandler extends MouseAdapter {
         spear.addCollisionListener(spearHit);
     }
 
+    /**
+     * Used when transitioning through levels, to update values being pointed add.
+     * Removes necessity of creating new Objects of this class.
+     * @param view New View being pointed to.
+     * @param world New world being pointed to.
+     */
     public void updateListener(WorldView view, GameLevel world) {
         this.view = view;
         this.world = world;

@@ -14,21 +14,27 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.Random;
 
-/*
-    Tracker mainly used in level 3 to spawn balls randomly until
-    the Spartan has a score of >25.
-    I use a Random variable here which is either 0,1,2,3, or 4.
-    Accordingly, a ball will spawn in one of those five positions, specified in the Spikeball class.
+/**
+ *     Tracker mainly used in level 3 to spawn balls randomly until the Spartan has a score of >25.
+ *     A Randomly generated value is used here which is either 0,1,2,3, or 4.
+ *     Accordingly, a ball will spawn in one of those five positions, as specified in the {@link Spikeball} class.
  */
 
 public class Tracker implements StepListener {
     private static SoundClip yeah;
-    private MyView view;
-    private Game game;
+
+    private final Game game;
+    /** Control variable to simulate a timer.& Balls will spawn roughly every second.
+     */
     // Control-variable for preStep method
     private int temp=0;
     // We want to randomly generate balls in one of five locations (left-up;left;middle-up;right-up;right)
+    /**
+     * Used to generate a number between one and five to then later spawn the balls in a random location.
+     */
     Random r = new Random();
+    /** Used to control the sequence manage when the balls will spawn or not.
+     */
     // While sequence is true, balls will spawn
     boolean sequence = true;
     // Run will prevent the preStep() method of running indefinitely even after level 3 is beaten
@@ -42,12 +48,21 @@ public class Tracker implements StepListener {
         }
     }
 
-    public Tracker(MyView view, Game game) {
-        this.view = view;
+    /**
+     * Points local game field to the one in the constructor
+     * @param game parent Game field
+     */
+    public Tracker( Game game) {
         this.game = game;
     }
 
-    // Full documentation above.
+    /**
+     * Used to randomly spawn Spikeballs in one of five locations.
+     * Creates a random value between 0 and 5, then, using the constructor of the {@link Spikeball} class,
+     * spawns the balls in one of those locations.
+     * When the Hero destroys 15 or more balls, the level is considered beaten and he moves on.
+     * @param stepEvent
+     */
     @Override
     public void preStep(StepEvent stepEvent) {
         if (run) {
@@ -73,6 +88,10 @@ public class Tracker implements StepListener {
         }
     }
 
+    /**
+     * Not used in this instance.
+     * @param stepEvent
+     */
     @Override
     public void postStep(StepEvent stepEvent) {
 

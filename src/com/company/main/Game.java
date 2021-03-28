@@ -1,3 +1,8 @@
+/**
+ * @author Philippos Maximos Giavridis
+ * @version Beta-3.0 (As in Milestone 3)
+ */
+
 package com.company.main;
 
 import city.cs.engine.BodyImage;
@@ -16,7 +21,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-
+/**
+ * Main Class that the game is run from.
+ *
+ */
 public class Game {
 
     // Create World
@@ -50,6 +58,11 @@ public class Game {
     // Control Variable for Tutorial
     private boolean tutorial = false;
 
+    /**
+     * Sets default level to a {@link Level1} object.
+     * Initialises Mouse-listeners and Key-Listeners, as well as the Frame in which the game takes place.
+     * Utilises the CardLayout in order to differentiate between Main Menu screen and Game screen.
+     */
     public Game() {
 
         // initialise level to level1
@@ -95,10 +108,6 @@ public class Game {
         frame.setVisible(true);
         frame.setResizable(false);
 
-        // (ONLY FOR TESTING LEVEL 3) Tracker to simulate timer for Ball-Spawns (REMOVE WHEN PLAYING WHOLE GAME)
-        /*Tracker tracker = new Tracker(view, this);
-        world.addStepListener(tracker);*/
-
         // Debugger
         // JFrame debugView = new DebugViewer(world, 800, 800);
 
@@ -114,10 +123,19 @@ public class Game {
         world.start();
     }
 
+    /** Main method of the class.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         new Game();
     }
 
+    /**
+     * Updates the level after it is completed.
+     * Responsible for the lateral movement through the levels.
+     * Transfers the old stats to the new level, updates Listeners and Music.
+     */
     // Method for level-Changing according to the current level.
     public void goToNextLevel() {
         if (world instanceof Level1) {
@@ -183,7 +201,7 @@ public class Game {
             transferStats(oldHealth, oldScore, oldCheck);
 
             // Tracker to simulate timer for Ball-Spawns
-            Tracker tracker = new Tracker(view, this);
+            Tracker tracker = new Tracker(this);
             world.addStepListener(tracker);
 
             world.start();
@@ -230,6 +248,12 @@ public class Game {
         }
     }
 
+    /**
+     * Transfers the stats from the previous level over to the next level.
+     * @param oldHealth Health from previous level
+     * @param oldScore Score from previous level
+     * @param oldCheck Checkpoint variable which is either 0 or 1, according to whether the checkpoint in level 2 has been passed or not.
+     */
     // Method to transfer stats from previous stage to new stage.
     public void transferStats(int oldHealth, int oldScore, int oldCheck) {
         // Transfer old stats to new Hero and add according images
@@ -244,50 +268,99 @@ public class Game {
     }
 
     // Getters & Setters
+
+    /** Getter for the Level the game is pointing to
+     *
+     * @return Current Level
+     */
     public GameLevel getWorld() {
         return world;
     }
 
+    /**
+     * Setter for the Level the game is pointing to
+     * @param world New level to be pointed to
+     */
     public void setWorld(GameLevel world) {
         this.world = world;
     }
 
+    /**
+     * Getter for the current View
+     * @return Current View
+     */
     public MyView getView() {
         return view;
     }
 
+    /**
+     * Getter for the Hero's Key-listener
+     * @return Current HeroController Object
+     */
     public Controller getHeroController() {
         return heroController;
     }
 
+    /**
+     * Getter for the music currently playing
+     * @return Current Music
+     */
     public SoundClip getCurrentMusic() {
         return currentMusic;
     }
 
+    /**
+     * Setter for Current Music
+     * @param newMusic New track to be played
+     */
     public void setCurrentMusic (SoundClip newMusic) {
         this.currentMusic = newMusic;
     }
 
+    /**
+     * Getter for the music from level 1
+     * @return Track for level 1
+     */
     public SoundClip getLevel1Music() {
         return level1Music;
     }
 
+    /**
+     * Getter for the music from level 3
+     * @return Track for level 3
+     */
     public SoundClip getLevel3Music() {
         return level3Music;
     }
 
+    /**
+     * Used for Main Menu to Game transition, in order to be able to stop the Music and resume it.
+     * @return Whether it is the first time the player hits Play in the Main Menu.
+     */
     public boolean isFirstStart() {
         return firstStart;
     }
 
+    /**
+     * Setter for the FirstStart boolean variable
+     * @param firstStart Whether it's the first time the Player hits Play in the Main Menu.
+     */
     public void setFirstStart(boolean firstStart) {
         this.firstStart = firstStart;
     }
 
+    /**
+     * Control variable for whether the player is in the Tutorial.
+     * @return Whether player is in the tutorial.
+     */
     public boolean isTutorial() {
         return tutorial;
     }
 
+    /**
+     * Setter for the tutorial variable
+     * @param tutorial Whether player is in the tutorial.
+     */
     public void setTutorial(boolean tutorial) {
         this.tutorial = tutorial;
     }

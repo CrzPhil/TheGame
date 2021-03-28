@@ -18,10 +18,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Displays Main Menu Screen with PLAY/SAVE/LOAD/TUTORIAL Options.
+ * Changes on button-press with the actual Game-Screen through useage of CardLayout.
+ * Belongs to Parent Panel created in {@link Game} class.
+ */
 public class MainMenu extends JPanel implements ActionListener {
     // Inherited in Constructor, used for "Play" button
     private final Game game;
-    private GameLevel preTutorial;
 
     // Jingle
     private static SoundClip saved;
@@ -43,7 +47,13 @@ public class MainMenu extends JPanel implements ActionListener {
     private static final int BUTTON_SIZE_X = 240;  // Width
     private static final int BUTTON_SIZE_Y = 100;  // Height
 
-
+    /**
+     * Adds and positions buttons on the Panel.
+     * Styles them with custom font and size.
+     * @param parent Parent Panel from the {@link Game} class.
+     * @param layout CardLayout used
+     * @param game Current Game that it is pointing to.
+     */
     public MainMenu(JPanel parent, CardLayout layout, Game game) {
         // Inheritance
         this.parent = parent;
@@ -88,6 +98,15 @@ public class MainMenu extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Listener for Button-Presses.
+     * Play Switches to the Game-View and starts the music.
+     * If the tutorial was played before hitting Play for the first time, Music is started, otherwise, it is continued.
+     * Save calls the GameSaverLoader.save() method and saves the current Game-State in a save file.
+     * Load Loads the Contents from that file and lets the player continue from there.
+     * Tutorial is a Guide-Level, which introduces the player to controls and movement.
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -112,11 +131,7 @@ public class MainMenu extends JPanel implements ActionListener {
                 game.setWorld(new Level1(game));
                 game.setTutorial(false);
 
-                game.getView().setWorld(game.getWorld());
-                game.getView().addMouseListener(new MouseHandler(game.getView(), game.getWorld()));
-                game.getView().addMouseListener(new GiveFocus(game.getView()));
-                game.getWorld().getHero().setHealth(3);
-                game.getHeroController().updateHero(game.getWorld().getHero());
+                Overlay.worldUpdater(game);
 
                 // Background Reset
                 game.getView().setBackground(new ImageIcon("data/graphics/background.png").getImage());
@@ -158,23 +173,24 @@ public class MainMenu extends JPanel implements ActionListener {
             game.setTutorial(true);
 
             // Save previous state
-            preTutorial = game.getWorld();
+            GameLevel preTutorial = game.getWorld();
 
             // Interrupt Current Default World
             game.getWorld().stop();
 
             game.setWorld(new Tutorial(game));
 
-            game.getView().setWorld(game.getWorld());
-            game.getView().addMouseListener(new MouseHandler(game.getView(), game.getWorld()));
-            game.getView().addMouseListener(new GiveFocus(game.getView()));
-            game.getWorld().getHero().setHealth(3);
-            game.getHeroController().updateHero(game.getWorld().getHero());
+            Overlay.worldUpdater(game);
+
 
             game.getWorld().start();
         }
     }
 
+    /**
+     * Used to Style the Main Menu with a Banner Picture.
+     * @param g Used for super()
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -182,6 +198,11 @@ public class MainMenu extends JPanel implements ActionListener {
     }
 
     // Create/Load Custom font (https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts)
+
+    /**
+     * Loads a custom Pixel-Art font to add more flair to the Main Menu.
+     * @return New custom Font.
+     */
     public Font loadFont() {
         try {
             //Returned font is of pt size 1
@@ -198,22 +219,42 @@ public class MainMenu extends JPanel implements ActionListener {
 
     // Getters
 
+    /**
+     * Getter for the Play Button
+     * @return Play Button Object
+     */
     public JButton getPlay() {
         return play;
     }
 
+    /**
+     * Getter for the Parent Panel
+     * @return Parent
+     */
     public JPanel getParentPanel() {
         return parent;
     }
 
+    /**
+     * Getter for the Save Button
+     * @return Save Object
+     */
     public JButton getSave() {
         return save;
     }
 
+    /**
+     * Getter for the Load Button
+     * @return Load Object
+     */
     public JButton getLoad() {
         return load;
     }
 
+    /**
+     * Getter for the Tutorial Button
+     * @return Tutorial Object
+     */
     public JButton getTutorial() {
         return tutorial;
     }

@@ -104,7 +104,7 @@ public class GameSaverLoader {
                     game.getCurrentMusic().loop();
 
                     // Tracker to simulate timer for Ball-Spawns
-                    Tracker tracker = new Tracker(game.getView(), game);
+                    Tracker tracker = new Tracker(game);
                     game.getWorld().addStepListener(tracker);
 
                     game.getWorld().start();
